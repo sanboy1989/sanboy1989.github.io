@@ -4,342 +4,467 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jason Lai | Portfolio</title>
+    <meta name="description" content="Jason Lai — Full-stack developer crafting intuitive, high-performance products.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
-            --color-midnight-void: #101010;
-            --color-deep-space: #080808;
-            --color-polar-white: #F3F3F3;
-            --color-absolute-zero: #FFFFFF;
-            --color-ash-gray: #949494;
-            --color-dark-carbon: #333333;
-            --color-amber-glow: #E7C59A;
-            --color-neon-green: #00AC5C;
-            --font-aeonik: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            --font-input: 'IBM Plex Mono', ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
-            --section-gap: 64px;
-            --card-padding: 24px;
-            --radius-tags: 20px;
-            --radius-buttons: 8px;
-            --radius-default: 8px;
+            --bg:       #0B0E14;
+            --bg-up:    #0F1320;
+            --text:     #F1F5F9;
+            --muted:    #64748B;
+            --accent:   #38BDF8;
+            --border:   rgba(56, 189, 248, 0.1);
+            --sans:     'Inter', ui-sans-serif, system-ui, sans-serif;
+            --mono:     'IBM Plex Mono', ui-monospace, monospace;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: var(--color-midnight-void);
-            color: var(--color-polar-white);
-            font-family: var(--font-aeonik);
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--sans);
             line-height: 1.6;
         }
 
-        /* Nav */
-        .nav {
-            position: sticky;
-            top: 0;
-            background: rgba(16, 16, 16, 0.9);
+        /* ── Canvas background ── */
+        #matrix-bg {
+            position: fixed;
+            inset: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        nav, main { position: relative; z-index: 1; }
+
+        /* ── Nav ── */
+        nav {
+            position: sticky; top: 0;
+            background: rgba(11, 14, 20, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--color-dark-carbon);
-            padding: 0 20px;
-            z-index: 100;
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
         }
         .nav-inner {
-            max-width: 700px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 52px;
+            max-width: 920px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 56px;
         }
         .nav-logo {
-            font-family: var(--font-aeonik);
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--color-polar-white);
-            text-decoration: none;
-            letter-spacing: -0.01em;
+            font-family: var(--mono); font-size: 14px;
+            color: var(--accent); text-decoration: none;
+            letter-spacing: -0.02em;
         }
-        .lang-switch {
-            background: var(--color-dark-carbon);
-            border: none;
-            color: var(--color-absolute-zero);
-            padding: 6px 14px;
-            border-radius: var(--radius-buttons);
-            cursor: pointer;
-            font-family: var(--font-aeonik);
-            font-size: 13px;
-            font-weight: 400;
-            transition: background 0.2s;
+        .lang-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            padding: 5px 14px; border-radius: 6px;
+            cursor: pointer; font-family: var(--mono);
+            font-size: 12px; letter-spacing: -0.01em;
+            transition: all 0.2s;
         }
-        .lang-switch:hover { background: #444; }
+        .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-        .container { max-width: 700px; margin: 0 auto; padding: 0 20px 80px; }
+        /* ── Main container ── */
+        main { max-width: 920px; margin: 0 auto; padding: 0 24px 100px; }
 
-        /* Profile */
-        .profile-section {
-            padding: 48px 0 40px;
-            border-bottom: 1px solid var(--color-dark-carbon);
+        /* ── Profile ── */
+        .profile {
+            padding: 80px 0 60px;
+            border-bottom: 1px solid var(--border);
         }
-        .profile-top {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
+        .profile-eyebrow {
+            font-family: var(--mono); font-size: 12px;
+            color: var(--accent); letter-spacing: 0.12em;
+            text-transform: uppercase; margin-bottom: 20px;
+            display: flex; align-items: center; gap: 10px;
         }
-        .profile-avatar {
-            width: 64px;
-            height: 64px;
-            background: var(--color-dark-carbon);
-            border-radius: 50%;
-            border: 1px solid #444;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-aeonik);
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--color-polar-white);
-            flex-shrink: 0;
+        .profile-eyebrow::before {
+            content: ''; display: inline-block;
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--accent);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
         .profile-name {
-            font-size: 34px;
-            font-weight: 700;
-            line-height: 1.07;
-            color: var(--color-polar-white);
-            letter-spacing: -0.01em;
-        }
-        .profile-handle {
-            font-family: var(--font-input);
-            font-size: 14px;
-            color: var(--color-ash-gray);
-            letter-spacing: -0.022em;
-            margin-top: 4px;
+            font-size: clamp(2.8rem, 7vw, 4.5rem);
+            font-weight: 700; color: var(--text);
+            line-height: 0.95; letter-spacing: -0.035em;
+            margin-bottom: 28px;
         }
         .profile-bio {
-            margin-top: 24px;
-            font-size: 16px;
-            color: var(--color-polar-white);
-            line-height: 1.6;
+            font-size: 17px; color: var(--muted);
+            max-width: 500px; line-height: 1.75;
+            margin-bottom: 6px;
         }
-        .profile-meta {
-            margin-top: 8px;
-            font-family: var(--font-input);
-            font-size: 13px;
-            color: var(--color-ash-gray);
-            letter-spacing: -0.022em;
+        .profile-sub {
+            font-family: var(--mono); font-size: 13px;
+            color: #2D3748; margin-bottom: 28px;
+            letter-spacing: -0.02em;
         }
-        .email-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 8px 20px;
-            background: var(--color-dark-carbon);
-            border-radius: var(--radius-buttons);
-            color: var(--color-absolute-zero);
-            text-decoration: none;
-            font-family: var(--font-aeonik);
-            font-size: 14px;
-            font-weight: 400;
-            transition: background 0.2s;
+        .email-link {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-family: var(--mono); font-size: 13px;
+            color: var(--text); text-decoration: none;
+            border: 1px solid var(--border);
+            padding: 8px 20px; border-radius: 6px;
+            transition: all 0.25s; letter-spacing: -0.02em;
         }
-        .email-btn:hover { background: #444; }
+        .email-link:hover { border-color: var(--accent); color: var(--accent); }
 
-        /* Filter Bar */
+        /* ── Filter Bar ── */
         .filter-bar {
             padding: 20px 0;
-            border-bottom: 1px solid var(--color-dark-carbon);
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+            border-bottom: 1px solid var(--border);
+            display: flex; gap: 8px; flex-wrap: wrap;
         }
         .filter-btn {
             background: transparent;
-            border: 1px solid var(--color-dark-carbon);
-            color: var(--color-ash-gray);
-            padding: 5px 14px;
-            border-radius: var(--radius-tags);
-            cursor: pointer;
-            font-family: var(--font-aeonik);
-            font-size: 13px;
-            font-weight: 400;
-            transition: all 0.2s;
-            white-space: nowrap;
+            border: 1px solid rgba(56, 189, 248, 0.14);
+            color: var(--muted);
+            padding: 5px 16px; border-radius: 99px;
+            cursor: pointer; font-family: var(--mono);
+            font-size: 12px; letter-spacing: -0.01em;
+            transition: all 0.2s; white-space: nowrap;
         }
-        .filter-btn:hover {
-            border-color: var(--color-amber-glow);
-            color: var(--color-amber-glow);
-        }
+        .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
         .filter-btn.active {
-            background: var(--color-amber-glow);
-            border-color: var(--color-amber-glow);
-            color: var(--color-midnight-void);
-            font-weight: 700;
+            background: var(--accent); border-color: var(--accent);
+            color: #0B0E14; font-weight: 700;
         }
 
-        /* Project Cards */
-        .project-card {
-            display: flex;
-            align-items: flex-start;
-            padding: 28px 0;
-            border-bottom: 1px solid var(--color-dark-carbon);
+        /* ── Project Items — Full Width ── */
+        .project-item {
+            position: relative;
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .project-item.hidden { display: none; }
+
+        .project-link {
+            display: block; padding: 44px 0;
             text-decoration: none;
-            gap: 20px;
-            transition: opacity 0.2s;
         }
-        .project-card:hover { opacity: 0.72; }
-        .project-card.hidden { display: none; }
 
-        .project-img {
-            width: 96px;
-            height: 128px;
-            object-fit: cover;
-            border-radius: var(--radius-default);
-            border: 1px solid var(--color-dark-carbon);
-            flex-shrink: 0;
-            background: var(--color-deep-space);
+        /* Hover background image reveal */
+        .project-bg {
+            position: absolute; inset: 0;
+            background-size: cover; background-position: center;
+            opacity: 0; transform: scale(1.1);
+            transition: opacity 0.55s ease, transform 0.65s ease;
+            z-index: 0;
         }
-        .project-info { flex: 1; min-width: 0; }
-        .project-name {
-            font-family: var(--font-aeonik);
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--color-polar-white);
-            margin-bottom: 6px;
-            line-height: 1.28;
+        .project-item:hover .project-bg {
+            opacity: 0.11; transform: scale(1);
+        }
+
+        .project-top {
+            display: flex; align-items: center; gap: 14px;
+            margin-bottom: 12px; position: relative; z-index: 1;
+        }
+        .project-num {
+            font-family: var(--mono); font-size: 13px;
+            color: var(--accent); letter-spacing: -0.02em;
+        }
+        .project-cat {
+            font-family: var(--mono); font-size: 11px;
+            color: var(--muted); letter-spacing: 0.07em;
+            text-transform: uppercase;
+            border: 1px solid rgba(56, 189, 248, 0.14);
+            padding: 2px 10px; border-radius: 99px;
+        }
+
+        .project-title {
+            font-size: clamp(2.6rem, 7.5vw, 5rem);
+            font-weight: 700; color: var(--text);
+            line-height: 0.92; letter-spacing: -0.04em;
+            position: relative; z-index: 1;
+            transition: color 0.25s ease;
+            margin-bottom: 20px;
+        }
+        .project-item:hover .project-title { color: var(--accent); }
+
+        .project-bottom {
+            display: flex; align-items: flex-start;
+            justify-content: space-between; gap: 20px;
+            position: relative; z-index: 1;
         }
         .project-desc {
-            font-size: 14px;
-            color: var(--color-ash-gray);
-            line-height: 1.55;
-            margin-bottom: 14px;
+            font-size: 14px; color: var(--muted);
+            max-width: 420px; line-height: 1.65;
         }
-        .tech-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
+        .project-tags {
+            display: flex; flex-wrap: wrap; gap: 6px;
+            justify-content: flex-end; flex-shrink: 0;
         }
-        .tech-tag {
-            font-family: var(--font-input);
-            font-size: 12px;
-            color: var(--color-amber-glow);
-            background: transparent;
-            border: 1px solid rgba(231, 197, 154, 0.25);
-            padding: 3px 10px;
-            border-radius: var(--radius-tags);
-            letter-spacing: -0.022em;
+        .tag {
+            font-family: var(--mono); font-size: 11px;
+            color: var(--accent);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            padding: 3px 10px; border-radius: 99px;
+            letter-spacing: -0.02em;
         }
 
-        /* Lang toggle */
+        /* ── Lang toggle ── */
         [lang="zh"] { display: none; }
         .lang-zh [lang="en"] { display: none; }
         .lang-zh [lang="zh"] { display: block; }
+        .lang-zh span[lang="zh"] { display: inline; }
 
-        @media (max-width: 540px) {
-            .project-card { flex-direction: column; }
-            .project-img { width: 100%; height: 180px; }
-            .filter-bar { gap: 6px; }
+        @media (max-width: 600px) {
+            .project-title { font-size: 2.4rem; }
+            .project-bottom { flex-direction: column; }
+            .project-tags { justify-content: flex-start; }
         }
     </style>
 </head>
 <body class="lang-en">
 
-    <nav class="nav">
-        <div class="nav-inner">
-            <a href="index.html" class="nav-logo">Jason Lai</a>
-            <button class="lang-switch" onclick="toggleLang()" id="langBtn">中文</button>
+<canvas id="matrix-bg"></canvas>
+
+<nav>
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">Jason Lai</a>
+        <button class="lang-btn" onclick="toggleLang()" id="langBtn">中文</button>
+    </div>
+</nav>
+
+<main>
+    <!-- Profile -->
+    <section class="profile">
+        <div class="profile-eyebrow">
+            <span lang="en">Available for work</span>
+            <span lang="zh">接受工作邀約</span>
         </div>
-    </nav>
-
-    <div class="container">
-        <div class="profile-section">
-            <div class="profile-top">
-                <div>
-                    <h1 class="profile-name">Jason Lai</h1>
-                    <div class="profile-handle">jasonlai.tech</div>
-                </div>
-                <div class="profile-avatar">JL</div>
-            </div>
-            <div class="profile-bio">
-                <p lang="en">Crafting intuitive and high-performance products. Believing code should be as pure as art — stripping away excess to let technology serve daily life seamlessly.</p>
-                <p lang="zh">我是一位專注於打造直覺且高效產品的開發者。深信程式碼應該如同藝術般純粹，去除多餘裝飾，讓技術無縫服務於每一天。</p>
-            </div>
-            <div class="profile-meta">
-                <span lang="en">Problem Solver · Minimalist</span>
-                <span lang="zh">解決問題 · 簡約主義</span>
-            </div>
-            <a href="mailto:jasonlai.tech@icloud.com" class="email-btn">jasonlai.tech@icloud.com</a>
+        <h1 class="profile-name">Jason Lai</h1>
+        <p class="profile-bio" lang="en">Crafting intuitive and high-performance products. Believing code should be as pure as art — stripping away excess to let technology serve daily life seamlessly.</p>
+        <p class="profile-bio" lang="zh">我是一位專注於打造直覺且高效產品的開發者。深信程式碼應該如同藝術般純粹，去除多餘裝飾，讓技術無縫服務於每一天。</p>
+        <div class="profile-sub">
+            <span lang="en">Problem Solver · Minimalist · Full-Stack</span>
+            <span lang="zh">解決問題 · 簡約主義 · 全端開發</span>
         </div>
+        <a href="mailto:jasonlai.tech@icloud.com" class="email-link">jasonlai.tech@icloud.com</a>
+    </section>
 
-        <!-- Filter Bar -->
-        <div class="filter-bar">
-            <button class="filter-btn active" onclick="filterProjects('all', this)">All</button>
-            <button class="filter-btn" onclick="filterProjects('app', this)">App (React Native)</button>
-            <button class="filter-btn" onclick="filterProjects('pwa', this)">PWA (Vue/React)</button>
-            <button class="filter-btn" onclick="filterProjects('business', this)">Business Demo (HTML/CSS)</button>
-        </div>
-
-        <!-- Project Feed -->
-        <div id="feed">
-            <a href="project-langimon.html" class="project-card" data-category="app">
-                <img src="https://www.image2url.com/r2/default/images/1776395975886-d1773200-dd4f-4c0f-8f65-e79d7ca8ef94.jpg" class="project-img" alt="Langimon">
-                <div class="project-info">
-                    <div class="project-name">Langimon</div>
-                    <p class="project-desc" lang="en">Gamified Japanese learning app that turns vocabulary study into a monster-raising adventure.</p>
-                    <p class="project-desc" lang="zh">遊戲化日文學習 App，將枯燥的單字背誦轉化為怪獸養成體驗。</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">#ReactNative</span>
-                        <span class="tech-tag">#Firebase</span>
-                        <span class="tech-tag">#Lottie</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="project-hero.html" class="project-card" data-category="pwa">
-                <img src="https://www.image2url.com/r2/default/images/1776395941301-00caeb1c-7e09-4085-8a8e-6574bbb5d9ca.jpg" class="project-img" alt="On the Way Hero">
-                <div class="project-info">
-                    <div class="project-name">On the Way Hero</div>
-                    <p class="project-desc" lang="en">Location-based peer-to-peer logistics platform for "on-the-way" delivery heroes.</p>
-                    <p class="project-desc" lang="zh">順路取貨 PWA，讓「順路的人」成為解決末端配送的英雄。</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">#VueJS</span>
-                        <span class="tech-tag">#MapsAPI</span>
-                        <span class="tech-tag">#PWA</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="project-travel.html" class="project-card" data-category="pwa">
-                <img src="https://www.image2url.com/r2/default/images/1776395886702-06f54e57-da21-405a-a9f7-9129c9b3741d.jpg" class="project-img" alt="WanderSync Travel">
-                <div class="project-info">
-                    <div class="project-name">WanderSync Travel</div>
-                    <p class="project-desc" lang="en">Smart travel management system bridging booking, calendar sync, and automated alerts.</p>
-                    <p class="project-desc" lang="zh">智能旅行社管理系統，串聯預訂、行事曆整合與主動通知。</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">#NextJS</span>
-                        <span class="tech-tag">#CalendarAPI</span>
-                        <span class="tech-tag">#NodeJS</span>
-                    </div>
-                </div>
-            </a>
-        </div>
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterProjects('all', this)">All</button>
+        <button class="filter-btn" onclick="filterProjects('app', this)">App (React Native)</button>
+        <button class="filter-btn" onclick="filterProjects('pwa', this)">PWA (Vue/React)</button>
+        <button class="filter-btn" onclick="filterProjects('business', this)">Business Demo</button>
     </div>
 
-    <script>
-        function filterProjects(category, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            document.querySelectorAll('.project-card').forEach(card => {
-                const match = category === 'all' || card.dataset.category === category;
-                card.classList.toggle('hidden', !match);
-            });
+    <!-- Projects -->
+    <div id="projects">
+
+        <article class="project-item" data-cat="app">
+            <div class="project-bg" style="background-image:url('https://www.image2url.com/r2/default/images/1776395975886-d1773200-dd4f-4c0f-8f65-e79d7ca8ef94.jpg')"></div>
+            <a href="project-langimon.html" class="project-link">
+                <div class="project-top">
+                    <span class="project-num">01</span>
+                    <span class="project-cat">App · React Native</span>
+                </div>
+                <h2 class="project-title">Langimon</h2>
+                <div class="project-bottom">
+                    <p class="project-desc" lang="en">Gamified Japanese learning app that turns vocabulary study into a monster-raising adventure.</p>
+                    <p class="project-desc" lang="zh">遊戲化日文學習 App，將枯燥的單字背誦轉化為怪獸養成體驗。</p>
+                    <div class="project-tags">
+                        <span class="tag">#ReactNative</span>
+                        <span class="tag">#Firebase</span>
+                        <span class="tag">#Lottie</span>
+                    </div>
+                </div>
+            </a>
+        </article>
+
+        <article class="project-item" data-cat="pwa">
+            <div class="project-bg" style="background-image:url('https://www.image2url.com/r2/default/images/1776395941301-00caeb1c-7e09-4085-8a8e-6574bbb5d9ca.jpg')"></div>
+            <a href="project-hero.html" class="project-link">
+                <div class="project-top">
+                    <span class="project-num">02</span>
+                    <span class="project-cat">PWA · Vue.js</span>
+                </div>
+                <h2 class="project-title">On the Way Hero</h2>
+                <div class="project-bottom">
+                    <p class="project-desc" lang="en">Location-based peer-to-peer logistics platform for "on-the-way" delivery heroes.</p>
+                    <p class="project-desc" lang="zh">順路取貨 PWA，讓「順路的人」成為解決末端配送的英雄。</p>
+                    <div class="project-tags">
+                        <span class="tag">#VueJS</span>
+                        <span class="tag">#MapsAPI</span>
+                        <span class="tag">#PWA</span>
+                    </div>
+                </div>
+            </a>
+        </article>
+
+        <article class="project-item" data-cat="pwa">
+            <div class="project-bg" style="background-image:url('https://www.image2url.com/r2/default/images/1776395886702-06f54e57-da21-405a-a9f7-9129c9b3741d.jpg')"></div>
+            <a href="project-travel.html" class="project-link">
+                <div class="project-top">
+                    <span class="project-num">03</span>
+                    <span class="project-cat">PWA · Next.js</span>
+                </div>
+                <h2 class="project-title">WanderSync Travel</h2>
+                <div class="project-bottom">
+                    <p class="project-desc" lang="en">Smart travel management system bridging booking, calendar sync, and automated alerts.</p>
+                    <p class="project-desc" lang="zh">智能旅行社管理系統，串聯預訂、行事曆整合與主動通知。</p>
+                    <div class="project-tags">
+                        <span class="tag">#NextJS</span>
+                        <span class="tag">#CalendarAPI</span>
+                        <span class="tag">#NodeJS</span>
+                    </div>
+                </div>
+            </a>
+        </article>
+
+        <article class="project-item" data-cat="business">
+            <div class="project-bg" style="background-image:url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1280&q=80')"></div>
+            <a href="project-business.html" class="project-link">
+                <div class="project-top">
+                    <span class="project-num">04</span>
+                    <span class="project-cat">Business Demo · HTML/CSS/JS</span>
+                    <span class="tag" style="border-color: rgba(251,191,36,0.4); color: #FBBF24;">&#9679; Demo on Request</span>
+                </div>
+                <h2 class="project-title">Aria Chen Real Estate</h2>
+                <div class="project-bottom">
+                    <p class="project-desc" lang="en">Conversion-focused luxury real estate landing page — multi-step valuation tool, property search, and community showcase.</p>
+                    <p class="project-desc" lang="zh">以轉化率為核心的豪宅地產落地頁——多步驟估價工具、物業搜索及社區展示。</p>
+                    <div class="project-tags">
+                        <span class="tag">#HTML5</span>
+                        <span class="tag">#VanillaJS</span>
+                        <span class="tag">#SchemaOrg</span>
+                    </div>
+                </div>
+            </a>
+        </article>
+
+    </div>
+</main>
+
+<script>
+/* ─────────────────────────────────────────────
+   Matrix Rain  ·  Particle system with mouse
+   convergence: attract toward ring, repel core
+───────────────────────────────────────────── */
+(function () {
+    const canvas = document.getElementById('matrix-bg');
+    const ctx    = canvas.getContext('2d');
+    const ACCENT = '#38BDF8';
+    const R      = 200;   // attraction radius
+
+    const mouse = { x: -999, y: -999, on: false };
+    let pts = [], W, H;
+
+    function mkPt(randY) {
+        const baseVy = 0.6 + Math.random() * 1.4;
+        return {
+            x: Math.random() * (W || innerWidth),
+            y: randY ? Math.random() * (H || innerHeight) : -16,
+            vx: 0, vy: baseVy, baseVy,
+            char: Math.random() > 0.5 ? '1' : '0',
+            alpha: 0.05 + Math.random() * 0.13,
+            size:  11 + Math.floor(Math.random() * 5),
+            t: 0, ti: 20 + Math.floor(Math.random() * 40)
+        };
+    }
+
+    function resize() {
+        W = canvas.width  = innerWidth;
+        H = canvas.height = innerHeight;
+        const n = W < 768 ? 140 : 280;
+        pts = Array.from({ length: n }, (_, i) => mkPt(i < n));
+    }
+
+    function tick() {
+        ctx.clearRect(0, 0, W, H);
+        ctx.fillStyle = ACCENT;
+        ctx.textAlign = 'left';
+
+        for (const p of pts) {
+            /* rotate char */
+            if (++p.t >= p.ti) {
+                p.char = Math.random() > 0.5 ? '1' : '0';
+                p.t = 0;
+            }
+
+            /* distance to mouse */
+            const dx = mouse.x - p.x;
+            const dy = mouse.y - p.y;
+            const d  = Math.sqrt(dx * dx + dy * dy) || 0.01;
+            const near = mouse.on && d < R;
+
+            /* physics */
+            if (near) {
+                const s = 1 - d / R;
+                if (d < 68) {                       /* repel core */
+                    p.vx -= (dx / d) * s * 2.4;
+                    p.vy -= (dy / d) * s * 2.4;
+                } else {                            /* attract ring */
+                    p.vx += (dx / d) * s * 1.1;
+                    p.vy += (dy / d) * s * 1.1;
+                }
+                p.vx += (-dy / d) * s * 0.45;      /* tangential swirl */
+                p.vy += ( dx / d) * s * 0.45;
+            }
+
+            p.vx *= 0.88;
+            const tVy = near ? p.baseVy * 0.08 : p.baseVy;
+            p.vy += (tVy - p.vy) * 0.04;
+            p.vy  = Math.min(Math.max(p.vy, -4), 6);
+
+            p.x += p.vx;
+            p.y += p.vy;
+
+            if (p.y > H + 20) Object.assign(p, mkPt(false));
+            if (p.x < -30)    p.x = W + 10;
+            if (p.x > W + 30) p.x = -10;
+
+            /* draw */
+            const glow = near ? (1 - d / R) : 0;
+            ctx.globalAlpha = near ? 0.35 + 0.65 * glow : p.alpha;
+            ctx.shadowBlur  = glow > 0.05 ? 10 * glow : 0;
+            ctx.shadowColor = ACCENT;
+            ctx.font = `${p.size}px "IBM Plex Mono", monospace`;
+            ctx.fillText(p.char, p.x, p.y);
         }
 
-        function toggleLang() {
-            const body = document.body;
-            const btn = document.getElementById('langBtn');
-            body.classList.toggle('lang-zh');
-            btn.textContent = body.classList.contains('lang-zh') ? 'English' : '中文';
-        }
-    </script>
+        ctx.globalAlpha = 1;
+        ctx.shadowBlur  = 0;
+        requestAnimationFrame(tick);
+    }
+
+    window.addEventListener('resize', resize);
+    document.addEventListener('mousemove', e => {
+        mouse.x = e.clientX; mouse.y = e.clientY; mouse.on = true;
+    });
+    document.addEventListener('mouseleave', () => mouse.on = false);
+
+    resize();
+    tick();
+})();
+
+/* ── Filter ── */
+function filterProjects(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.project-item').forEach(el => {
+        el.classList.toggle('hidden', cat !== 'all' && el.dataset.cat !== cat);
+    });
+}
+
+/* ── Lang toggle ── */
+function toggleLang() {
+    document.body.classList.toggle('lang-zh');
+    document.getElementById('langBtn').textContent =
+        document.body.classList.contains('lang-zh') ? 'English' : '中文';
+}
+</script>
 </body>
 </html>

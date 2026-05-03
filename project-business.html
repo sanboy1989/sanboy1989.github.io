@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aria Chen Real Estate — Jason Lai</title>
+    <meta name="description" content="A conversion-focused luxury real estate landing page built with HTML, CSS, and Vanilla JS.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg:     #0B0E14;
+            --bg-up:  #0F1320;
+            --text:   #F1F5F9;
+            --muted:  #64748B;
+            --accent: #38BDF8;
+            --gold:   #FBBF24;
+            --border: rgba(56, 189, 248, 0.1);
+            --sans:   'Inter', ui-sans-serif, system-ui, sans-serif;
+            --mono:   'IBM Plex Mono', ui-monospace, monospace;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.6; }
+
+        nav { position: sticky; top: 0; background: rgba(11, 14, 20, 0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 24px; z-index: 100; }
+        .nav-inner { max-width: 760px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+        .nav-back { font-family: var(--mono); font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: -0.02em; transition: color 0.2s; }
+        .nav-back:hover { color: var(--accent); }
+        .lang-btn { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 5px 14px; border-radius: 6px; cursor: pointer; font-family: var(--mono); font-size: 12px; transition: all 0.2s; }
+        .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+        .container { max-width: 760px; margin: 0 auto; padding: 0 24px 100px; }
+
+        /* ── Hero ── */
+        .hero { padding: 64px 0 48px; border-bottom: 1px solid var(--border); }
+        .hero-label { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
+        .hero-title { font-size: clamp(2.4rem, 7vw, 4.5rem); font-weight: 700; color: var(--text); line-height: 0.92; letter-spacing: -0.04em; margin-bottom: 20px; }
+        .hero-tagline { font-size: 18px; color: var(--muted); line-height: 1.65; max-width: 540px; margin-bottom: 24px; }
+
+        .protected-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-family: var(--mono); font-size: 12px; color: var(--gold);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            background: rgba(251, 191, 36, 0.06);
+            padding: 6px 14px; border-radius: 99px;
+            letter-spacing: -0.01em; margin-bottom: 32px;
+        }
+        .protected-badge::before { content: '●'; font-size: 8px; }
+
+        .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { font-family: var(--mono); font-size: 12px; color: var(--accent); border: 1px solid rgba(56, 189, 248, 0.2); padding: 4px 12px; border-radius: 99px; letter-spacing: -0.02em; }
+
+        /* ── Sections ── */
+        .section { padding: 48px 0; border-bottom: 1px solid var(--border); }
+        .sec-eyebrow { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 18px; }
+        .sec-title { font-size: 24px; font-weight: 700; color: var(--text); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px; }
+        .sec-body { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+        .sec-body:last-child { margin-bottom: 0; }
+
+        /* ── Screenshot Gallery ── */
+        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 24px; }
+        .gallery-grid .full-width { grid-column: 1 / -1; }
+
+        .shot {
+            position: relative; border-radius: 8px; overflow: hidden;
+            border: 1px solid var(--border); background: var(--bg-up);
+            cursor: zoom-in;
+        }
+        /* Fixed aspect ratio per slot */
+        .shot.wide  { aspect-ratio: 16 / 9; }
+        .shot.tall  { aspect-ratio: 4 / 5; }
+        .shot.sq    { aspect-ratio: 4 / 3; }
+
+        .shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease, opacity 0.3s ease; }
+        .shot:hover img { transform: scale(1.03); opacity: 0.85; }
+
+        .shot-label {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 10px 14px;
+            background: linear-gradient(transparent, rgba(11,14,20,0.88));
+            font-family: var(--mono); font-size: 11px; color: var(--muted);
+            opacity: 0; transition: opacity 0.25s;
+        }
+        .shot:hover .shot-label { opacity: 1; }
+
+        .shot-placeholder {
+            width: 100%; height: 100%; min-height: 160px;
+            display: flex; align-items: center; justify-content: center;
+            flex-direction: column; gap: 10px;
+        }
+        .shot-placeholder span {
+            font-family: var(--mono); font-size: 11px;
+            color: #1E293B; text-align: center; padding: 0 20px; line-height: 1.6;
+        }
+
+        /* ── Lightbox ── */
+        .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.92); display: none; align-items: center; justify-content: center; z-index: 9999; padding: 24px; cursor: zoom-out; }
+        .lightbox.open { display: flex; }
+        .lightbox img { max-width: 100%; max-height: 90vh; border-radius: 8px; border: 1px solid var(--border); object-fit: contain; box-shadow: 0 0 60px rgba(0,0,0,0.8); }
+        .lightbox-close { position: absolute; top: 20px; right: 24px; font-family: var(--mono); font-size: 13px; color: var(--muted); cursor: pointer; transition: color 0.2s; }
+        .lightbox-close:hover { color: var(--text); }
+
+        /* ── Callout ── */
+        .callout { background: var(--bg-up); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 20px 24px; margin: 24px 0; }
+        .callout-label { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+        .callout p { font-size: 14px; color: var(--muted); line-height: 1.75; }
+        .callout p strong { color: var(--text); }
+        .callout code { font-family: var(--mono); font-size: 12px; color: var(--accent); background: rgba(56,189,248,0.08); padding: 1px 5px; border-radius: 3px; }
+
+        /* ── Feature grid ── */
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 20px; }
+        .feature-card { background: var(--bg-up); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; }
+        .feature-card-title { font-family: var(--mono); font-size: 12px; color: var(--accent); margin-bottom: 6px; letter-spacing: -0.02em; }
+        .feature-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+        /* ── Stack ── */
+        .stack-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+        .chip { font-family: var(--mono); font-size: 13px; color: var(--text); background: var(--bg-up); border: 1px solid var(--border); padding: 5px 14px; border-radius: 6px; letter-spacing: -0.02em; }
+
+        /* ── CTA ── */
+        .demo-cta { background: var(--bg-up); border: 1px solid var(--border); border-radius: 8px; padding: 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+        .demo-cta-text h3 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+        .demo-cta-text p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+        .demo-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #0B0E14; font-family: var(--sans); font-size: 14px; font-weight: 700; text-decoration: none; padding: 10px 22px; border-radius: 6px; transition: opacity 0.2s; white-space: nowrap; flex-shrink: 0; }
+        .demo-btn:hover { opacity: 0.85; }
+
+        .footer { padding: 48px 0 0; }
+        .footer a { font-family: var(--mono); font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: -0.02em; transition: color 0.2s; }
+        .footer a:hover { color: var(--accent); }
+
+        [lang="zh"] { display: none; }
+        .lang-zh [lang="en"] { display: none; }
+        .lang-zh [lang="zh"] { display: block; }
+        .lang-zh span[lang="zh"] { display: inline; }
+
+        @media (max-width: 540px) {
+            .hero-title { font-size: 2.4rem; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .gallery-grid .full-width { grid-column: 1; }
+            .demo-cta { flex-direction: column; }
+        }
+    </style>
+</head>
+<body class="lang-en">
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">✕ close</span>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+<nav>
+    <div class="nav-inner">
+        <a href="index.html" class="nav-back">← Portfolio</a>
+        <button class="lang-btn" onclick="toggleLang()" id="langBtn">中文</button>
+    </div>
+</nav>
+
+<div class="container">
+
+    <!-- ── Hero ── -->
+    <div class="hero">
+        <div class="hero-label">Business Demo · HTML / CSS / Vanilla JS</div>
+        <h1 class="hero-title">Aria Chen Real Estate</h1>
+        <p class="hero-tagline" lang="en">A conversion-focused luxury real estate landing page for a Vancouver REALTOR® — multi-step home valuation tool, property search, and community showcase built with zero dependencies.</p>
+        <p class="hero-tagline" lang="zh">為溫哥華地產經紀人打造的轉化率導向豪宅落地頁——多步驟估價工具、物業搜索與社區展示，零依賴純 HTML/CSS/JS。</p>
+
+        <div class="protected-badge">
+            <span lang="en">Source code protected — demo available on request</span>
+            <span lang="zh">代碼受保護——如需演示請聯絡</span>
+        </div>
+
+        <div class="tag-row">
+            <span class="tag">#HTML5</span>
+            <span class="tag">#CSS3</span>
+            <span class="tag">#VanillaJS</span>
+            <span class="tag">#SchemaOrg</span>
+            <span class="tag">#OpenGraph</span>
+            <span class="tag">#CriticalCSS</span>
+        </div>
+    </div>
+
+    <!-- ── Gallery ── -->
+    <div class="section">
+        <div class="sec-eyebrow">Visual Walkthrough</div>
+        <h2 class="sec-title" lang="en">Screenshots — click to enlarge</h2>
+        <h2 class="sec-title" lang="zh">截圖展示——點擊放大</h2>
+        <p class="sec-body" lang="en" style="margin-bottom: 0;">Six sections, one seamless scroll. Screenshots show the site across desktop and mobile breakpoints.</p>
+        <p class="sec-body" lang="zh" style="margin-bottom: 0;">六個區塊，一次流暢滾動。截圖展示桌面及移動端斷點下的表現。</p>
+
+        <!--
+            INSTRUCTIONS: Take screenshots and replace src="" below.
+            Recommended tool: GoFullPage (Chrome extension) for full-page screenshots.
+            Upload to image host, paste URL into src="".
+        -->
+        <div class="gallery-grid">
+
+            <!-- 1. Hero — full width -->
+            <div class="shot wide full-width" onclick="openLightbox(this.querySelector('img'))">
+                <img src="https://i.imgur.com/dq7wIhG.png"
+                     alt="Aria Chen Real Estate — hero section with luxury home background"
+                     onerror="this.parentElement.innerHTML='<div class=\'shot-placeholder\'><span>📸 Hero Section<br>Full-screen luxury hero with Ken Burns zoom + CTA buttons</span></div>'">
+                <div class="shot-label">Hero Section — Full Viewport</div>
+            </div>
+
+            <!-- 2. Property Search -->
+            <div class="shot sq" onclick="openLightbox(this.querySelector('img'))">
+                <img src="https://i.imgur.com/5qrE74x.png"
+                     alt="Property search bar and filter pills"
+                     onerror="this.parentElement.innerHTML='<div class=\'shot-placeholder\'><span>📸 Property Search<br>Search bar + filter pills + 3-column property grid</span></div>'">
+                <div class="shot-label">Smart Property Search</div>
+            </div>
+
+            <!-- 3. Community Carousel -->
+            <div class="shot sq" onclick="openLightbox(this.querySelector('img'))">
+                <img src="https://i.imgur.com/AEzvDjz.png"
+                     alt="Community cards horizontal scroll carousel"
+                     onerror="this.parentElement.innerHTML='<div class=\'shot-placeholder\'><span>📸 Community Showcase<br>Drag-to-scroll card carousel — West Van, Yaletown, Kits</span></div>'">
+                <div class="shot-label">Community Carousel</div>
+            </div>
+
+            <!-- 4. Valuation Tool — full width -->
+            <div class="shot wide full-width" onclick="openLightbox(this.querySelector('img'))">
+                <img src="https://i.imgur.com/1Agnb8x.png"
+                     alt="Multi-step home valuation tool with progress steps"
+                     onerror="this.parentElement.innerHTML='<div class=\'shot-placeholder\'><span>📸 Home Valuation Tool<br>3-step form → loading animation → estimated value result</span></div>'">
+                <div class="shot-label">Multi-Step Valuation Tool</div>
+            </div>
+
+            <!-- 5. Social Proof -->
+            <div class="shot sq" onclick="openLightbox(this.querySelector('img'))">
+                <img src="https://i.imgur.com/I7GweZU.png"
+                     alt="Testimonials carousel and Just Sold list"
+                     onerror="this.parentElement.innerHTML='<div class=\'shot-placeholder\'><span>📸 Social Proof<br>Testimonial carousel + live \"Just Sold\" ticker</span></div>'">
+                <div class="shot-label">Testimonials & Just Sold</div>
+            </div>
+
+            <!-- 6. Mobile view -->
+            <div class="shot sq" onclick="openLightbox(this.querySelector('img'))">
+                <img src="https://i.imgur.com/WAyMwcW.png"
+                     alt="Mobile responsive layout with sticky bottom bar"
+                     onerror="this.parentElement.innerHTML='<div class=\'shot-placeholder\'><span>📸 Mobile View<br>iPhone layout with sticky Call / WhatsApp bottom bar</span></div>'">
+                <div class="shot-label">Mobile Responsive</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ── Context & Problem ── -->
+    <div class="section">
+        <div class="sec-eyebrow">01 · Context &amp; Problem</div>
+        <h2 class="sec-title" lang="en">Real estate sites are slow, generic, and lose leads at the first scroll.</h2>
+        <h2 class="sec-title" lang="zh">地產網站速度慢、模版化，第一屏就流失潛在客戶。</h2>
+
+        <p class="sec-body" lang="en">Most real estate agents use templated platforms (Squarespace, Wix, board-provided portals) that load heavy JavaScript frameworks, prioritize MLS feed over conversion, and have zero personality. The result: sites that feel like property databases rather than a trusted advisor's presence.</p>
+        <p class="sec-body" lang="zh">大多數地產經紀人使用模板平台（Squarespace、Wix 或協會提供的入口），載入重型 JavaScript 框架，以 MLS 信息為重心而非轉化，且毫無個人風格。結果：網站感覺像物業數據庫，而非可信賴顧問的存在。</p>
+
+        <div class="callout">
+            <div class="callout-label" lang="en">The Brief</div>
+            <div class="callout-label" lang="zh">設計要求</div>
+            <p lang="en">Build a <strong>conversion-first</strong> landing page that: (1) loads hero content instantly without waiting for external JS, (2) captures seller leads via a multi-step valuation tool, (3) showcases neighbourhoods to establish local authority, and (4) communicates trust through social proof — all without any framework or library.</p>
+            <p lang="zh">建立一個<strong>以轉化為首要目標</strong>的落地頁：(1) 無需等待外部 JS 即可即時載入 Hero 內容；(2) 透過多步驟估價工具捕捉賣家潛在客戶；(3) 展示社區以建立本地專業形象；(4) 透過社會認證傳達信任——全部無需任何框架或庫。</p>
+        </div>
+    </div>
+
+    <!-- ── Tech Deep Dive ── -->
+    <div class="section">
+        <div class="sec-eyebrow">02 · Tech Deep Dive</div>
+        <h2 class="sec-title" lang="en">Zero dependencies. Maximum performance.</h2>
+        <h2 class="sec-title" lang="zh">零依賴。最大效能。</h2>
+
+        <p class="sec-body" lang="en">The site ships <strong>no npm packages, no framework, no runtime</strong>. Every interaction — the scroll animations, the carousel, the multi-step form, the counter animations — is vanilla JS. This keeps Time-to-Interactive under 1 second and eliminates an entire class of dependency vulnerabilities.</p>
+        <p class="sec-body" lang="zh">網站<strong>不包含 npm 包、框架或運行時</strong>。所有互動——滾動動畫、輪播、多步驟表單、計數器動畫——均為原生 JS。這使互動時間保持在 1 秒以內，並消除了整類依賴漏洞。</p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// Critical CSS Inline</div>
+                <div class="feature-card-title" lang="zh">// 內聯關鍵 CSS</div>
+                <p lang="en">Nav + hero styles are inlined in <code>&lt;head&gt;</code>. The full stylesheet loads async via <code>preload</code>. First Contentful Paint happens before any network round-trip.</p>
+                <p lang="zh">Nav + Hero 樣式內聯於 <code>&lt;head&gt;</code>。完整樣式表通過 <code>preload</code> 異步加載。首次內容繪製在任何網路往返之前完成。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// requestIdleCallback</div>
+                <div class="feature-card-title" lang="zh">// 空閒時初始化</div>
+                <p lang="en">Non-critical modules (valuation form, communities, testimonials) initialize inside <code>requestIdleCallback</code> — the browser handles them when the main thread is free, not during page load.</p>
+                <p lang="zh">非關鍵模塊（估價表單、社區、推薦信）在 <code>requestIdleCallback</code> 內初始化——瀏覽器在主線程空閒時處理，而非頁面加載期間。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// IntersectionObserver</div>
+                <div class="feature-card-title" lang="zh">// 滾動觸發動畫</div>
+                <p lang="en">All scroll-triggered reveal animations use <code>IntersectionObserver</code> — no scroll event listeners, no layout thrashing. Each element observes itself and unobserves after animating.</p>
+                <p lang="zh">所有滾動觸發的揭示動畫使用 <code>IntersectionObserver</code>——無滾動事件監聽器，無佈局抖動。每個元素自我觀察，動畫後取消觀察。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// JSON-LD Schema</div>
+                <div class="feature-card-title" lang="zh">// 結構化資料 SEO</div>
+                <p lang="en"><code>RealEstateAgent</code> schema with <code>aggregateRating</code> and <code>review</code> array. Enables Google rich results (star ratings in SERPs) without any plugin.</p>
+                <p lang="zh"><code>RealEstateAgent</code> schema 含 <code>aggregateRating</code> 和 <code>review</code> 陣列。無需任何插件即可在 Google 搜索結果中顯示星級評分。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// WebP + &lt;picture&gt;</div>
+                <div class="feature-card-title" lang="zh">// 響應式圖片</div>
+                <p lang="en">Every image uses <code>&lt;picture&gt;</code> with WebP <code>&lt;source&gt;</code> and JPEG fallback. <code>srcset</code> and <code>sizes</code> ensure the browser downloads exactly the right resolution for each viewport.</p>
+                <p lang="zh">每張圖片使用帶 WebP <code>&lt;source&gt;</code> 和 JPEG 備用的 <code>&lt;picture&gt;</code>。<code>srcset</code> 和 <code>sizes</code> 確保瀏覽器為每個視口下載恰好合適的分辨率。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// Multi-Step Valuation Form</div>
+                <div class="feature-card-title" lang="zh">// 多步驟估價表單</div>
+                <p lang="en">Address → Contact → Loading sequence → Result. Inline field validation on blur/input. A fake progress bar with rotating AI-copy messages sells the "analysis" UX during the 4-second wait.</p>
+                <p lang="zh">地址 → 聯絡資料 → 加載序列 → 結果。失焦/輸入時的內聯字段驗證。假進度條配合輪換 AI 文案訊息，在 4 秒等待中銷售「分析」使用體驗。</p>
+            </div>
+        </div>
+
+        <div class="stack-row" style="margin-top: 28px;">
+            <span class="chip">HTML5</span>
+            <span class="chip">CSS Custom Properties</span>
+            <span class="chip">Vanilla JS</span>
+            <span class="chip">IntersectionObserver</span>
+            <span class="chip">requestIdleCallback</span>
+            <span class="chip">JSON-LD Schema</span>
+            <span class="chip">Open Graph</span>
+            <span class="chip">WebP + &lt;picture&gt;</span>
+            <span class="chip">Google Fonts</span>
+        </div>
+
+        <div class="callout" style="margin-top: 32px;">
+            <div class="callout-label" lang="en">Hardest Part — Hero image loading without layout shift</div>
+            <div class="callout-label" lang="zh">最難的部分——Hero 圖片加載而不引起佈局偏移</div>
+            <p lang="en">
+                The Ken Burns zoom animation (<code>transform: scale(1.04)</code> → <code>scale(1)</code> over 12 seconds) had to start <strong>before</strong> the hero image fully loaded, or the first frame would show a jerky jump. The fix: set explicit <code>width</code> and <code>height</code> attributes on the <code>&lt;img&gt;</code> to reserve the layout space, use <code>fetchpriority="high"</code> and a <code>&lt;link rel="preload"&gt;</code> in <code>&lt;head&gt;</code> so the image is fetched as the highest priority resource, and start the CSS animation unconditionally — by the time it matters visually, the image is already loaded.
+            </p>
+            <p lang="zh">
+                Ken Burns 縮放動畫（12 秒內 <code>transform: scale(1.04)</code> → <code>scale(1)</code>）必須在 Hero 圖片完全加載<strong>之前</strong>開始，否則第一幀會出現跳躍。解決方案：在 <code>&lt;img&gt;</code> 上設置明確的 <code>width</code> 和 <code>height</code> 屬性以預留佈局空間，在 <code>&lt;head&gt;</code> 中使用 <code>fetchpriority="high"</code> 和 <code>&lt;link rel="preload"&gt;</code> 使圖片以最高優先級獲取，並無條件啟動 CSS 動畫——在視覺上重要之前，圖片已經加載完成。
+            </p>
+        </div>
+    </div>
+
+    <!-- ── Demo Request CTA ── -->
+    <div class="section" style="border-bottom: none; padding-bottom: 0;">
+        <div class="demo-cta">
+            <div class="demo-cta-text">
+                <h3 lang="en">Want to see it live?</h3>
+                <h3 lang="zh">想看現場演示？</h3>
+                <p lang="en">Source code stays private. Happy to walk through the site on a call or share a password-protected staging link on request.</p>
+                <p lang="zh">原始碼保密。樂意在通話中帶你瀏覽，或應要求分享密碼保護的預覽連結。</p>
+            </div>
+            <a href="mailto:jasonlai.tech@icloud.com?subject=Demo%20Request%20%E2%80%94%20Aria%20Chen%20Real%20Estate" class="demo-btn">
+                Request Demo →
+            </a>
+        </div>
+    </div>
+
+    <div class="footer" style="padding-top: 40px;">
+        <a href="index.html">← Back to portfolio</a>
+    </div>
+
+</div>
+
+<script>
+function openLightbox(img) {
+    if (!img || !img.src || img.naturalWidth === 0) return;
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+function toggleLang() {
+    document.body.classList.toggle('lang-zh');
+    document.getElementById('langBtn').textContent =
+        document.body.classList.contains('lang-zh') ? 'English' : '中文';
+}
+</script>
+</body>
+</html>

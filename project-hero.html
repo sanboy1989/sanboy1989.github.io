@@ -4,334 +4,161 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>On the Way Hero — Jason Lai</title>
-    <meta name="description" content="Location-based peer-to-peer logistics platform for on-the-way delivery heroes.">
+    <meta name="description" content="On the Way Hero: location-based peer-to-peer logistics PWA connecting commuters with last-mile delivery.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
-            --color-midnight-void: #101010;
-            --color-deep-space: #080808;
-            --color-polar-white: #F3F3F3;
-            --color-absolute-zero: #FFFFFF;
-            --color-ash-gray: #949494;
-            --color-dark-carbon: #333333;
-            --color-amber-glow: #E7C59A;
-            --color-neon-green: #00AC5C;
-            --font-aeonik: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            --font-input: 'IBM Plex Mono', ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
-            --radius-tags: 20px;
-            --radius-buttons: 8px;
-            --radius-default: 8px;
+            --bg:     #0B0E14;
+            --bg-up:  #0F1320;
+            --text:   #F1F5F9;
+            --muted:  #64748B;
+            --accent: #38BDF8;
+            --border: rgba(56, 189, 248, 0.1);
+            --sans:   'Inter', ui-sans-serif, system-ui, sans-serif;
+            --mono:   'IBM Plex Mono', ui-monospace, monospace;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.6; }
 
-        body {
-            background-color: var(--color-midnight-void);
-            color: var(--color-polar-white);
-            font-family: var(--font-aeonik);
-            line-height: 1.6;
-        }
-
-        .nav {
-            position: sticky;
-            top: 0;
-            background: rgba(16, 16, 16, 0.9);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--color-dark-carbon);
-            padding: 0 20px;
-            z-index: 100;
+        nav {
+            position: sticky; top: 0;
+            background: rgba(11, 14, 20, 0.88);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border); padding: 0 24px; z-index: 100;
         }
         .nav-inner {
-            max-width: 700px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 52px;
+            max-width: 760px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between; height: 56px;
         }
-        .nav-back {
-            font-family: var(--font-input);
-            font-size: 13px;
-            color: var(--color-ash-gray);
-            text-decoration: none;
-            letter-spacing: -0.022em;
-            transition: color 0.2s;
-        }
-        .nav-back:hover { color: var(--color-polar-white); }
-        .lang-switch {
-            background: var(--color-dark-carbon);
-            border: none;
-            color: var(--color-absolute-zero);
-            padding: 6px 14px;
-            border-radius: var(--radius-buttons);
-            cursor: pointer;
-            font-family: var(--font-aeonik);
-            font-size: 13px;
-            font-weight: 400;
-            transition: background 0.2s;
-        }
-        .lang-switch:hover { background: #444; }
+        .nav-back { font-family: var(--mono); font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: -0.02em; transition: color 0.2s; }
+        .nav-back:hover { color: var(--accent); }
+        .lang-btn { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 5px 14px; border-radius: 6px; cursor: pointer; font-family: var(--mono); font-size: 12px; transition: all 0.2s; }
+        .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-        .container { max-width: 700px; margin: 0 auto; padding: 0 20px 80px; }
+        .container { max-width: 760px; margin: 0 auto; padding: 0 24px 100px; }
 
-        .hero {
-            padding: 56px 0 48px;
-            border-bottom: 1px solid var(--color-dark-carbon);
-        }
-        .category-label {
-            font-family: var(--font-input);
-            font-size: 13px;
-            color: var(--color-amber-glow);
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            margin-bottom: 16px;
-        }
-        .hero-title {
-            font-size: 44px;
-            font-weight: 700;
-            line-height: 1.03;
-            color: var(--color-polar-white);
-            letter-spacing: -0.011em;
-            margin-bottom: 16px;
-        }
-        .hero-tagline {
-            font-size: 18px;
-            color: var(--color-ash-gray);
-            line-height: 1.5;
-            max-width: 520px;
-            margin-bottom: 32px;
-        }
-        .hero-img {
-            width: 100%;
-            max-height: 420px;
-            object-fit: cover;
-            border-radius: var(--radius-default);
-            border: 1px solid var(--color-dark-carbon);
-            display: block;
-            margin-bottom: 24px;
-            background: var(--color-deep-space);
-        }
-        .tech-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .tech-tag {
-            font-family: var(--font-input);
-            font-size: 12px;
-            color: var(--color-amber-glow);
-            background: transparent;
-            border: 1px solid rgba(231, 197, 154, 0.25);
-            padding: 4px 12px;
-            border-radius: var(--radius-tags);
-            letter-spacing: -0.022em;
-        }
+        .hero { padding: 64px 0 56px; border-bottom: 1px solid var(--border); }
+        .hero-label { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
+        .hero-title { font-size: clamp(2.6rem, 8vw, 5rem); font-weight: 700; color: var(--text); line-height: 0.92; letter-spacing: -0.04em; margin-bottom: 20px; }
+        .hero-tagline { font-size: 18px; color: var(--muted); line-height: 1.65; max-width: 540px; margin-bottom: 36px; }
+        .hero-img { width: 100%; border-radius: 8px; border: 1px solid var(--border); display: block; margin-bottom: 28px; background: var(--bg-up); max-height: 440px; object-fit: cover; }
+        .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { font-family: var(--mono); font-size: 12px; color: var(--accent); border: 1px solid rgba(56, 189, 248, 0.2); padding: 4px 12px; border-radius: 99px; letter-spacing: -0.02em; }
 
-        .content-section {
-            padding: 48px 0;
-            border-bottom: 1px solid var(--color-dark-carbon);
-        }
-        .section-label {
-            font-family: var(--font-input);
-            font-size: 12px;
-            color: var(--color-amber-glow);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-        .section-title {
-            font-size: 23px;
-            font-weight: 700;
-            color: var(--color-polar-white);
-            line-height: 1.22;
-            margin-bottom: 16px;
-        }
-        .section-body {
-            font-size: 15px;
-            color: var(--color-ash-gray);
-            line-height: 1.7;
-            margin-bottom: 16px;
-        }
-        .section-body:last-child { margin-bottom: 0; }
+        .section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+        .sec-eyebrow { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 18px; }
+        .sec-title { font-size: 26px; font-weight: 700; color: var(--text); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 20px; }
+        .sec-body { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 18px; }
+        .sec-body:last-child { margin-bottom: 0; }
 
-        .sub-block { margin-top: 32px; }
-        .sub-label {
-            font-family: var(--font-input);
-            font-size: 12px;
-            color: var(--color-dark-carbon);
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            border-left: 2px solid var(--color-dark-carbon);
-            padding-left: 12px;
-        }
-        .sub-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--color-polar-white);
-            margin-bottom: 8px;
-        }
-        .sub-body {
-            font-size: 14px;
-            color: var(--color-ash-gray);
-            line-height: 1.65;
-        }
+        .callout { background: var(--bg-up); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 20px 24px; margin: 28px 0; }
+        .callout-label { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+        .callout p { font-size: 14px; color: var(--muted); line-height: 1.75; }
+        .callout p strong { color: var(--text); font-weight: 700; }
 
-        .stack-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 16px;
-        }
-        .stack-chip {
-            font-family: var(--font-input);
-            font-size: 13px;
-            color: var(--color-polar-white);
-            background: var(--color-deep-space);
-            border: 1px solid var(--color-dark-carbon);
-            padding: 5px 14px;
-            border-radius: var(--radius-buttons);
-            letter-spacing: -0.022em;
-        }
+        .stack-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+        .chip { font-family: var(--mono); font-size: 13px; color: var(--text); background: var(--bg-up); border: 1px solid var(--border); padding: 5px 14px; border-radius: 6px; letter-spacing: -0.02em; }
 
-        .bug-box {
-            margin-top: 24px;
-            background: var(--color-deep-space);
-            border: 1px solid var(--color-dark-carbon);
-            border-left: 3px solid var(--color-amber-glow);
-            border-radius: var(--radius-default);
-            padding: 20px 24px;
-        }
-        .bug-box-label {
-            font-family: var(--font-input);
-            font-size: 11px;
-            color: var(--color-amber-glow);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-        .bug-box p {
-            font-size: 14px;
-            color: var(--color-ash-gray);
-            line-height: 1.65;
-        }
-
-        .footer-back {
-            padding: 48px 0 0;
-        }
-        .footer-back a {
-            font-family: var(--font-input);
-            font-size: 13px;
-            color: var(--color-ash-gray);
-            text-decoration: none;
-            letter-spacing: -0.022em;
-            transition: color 0.2s;
-        }
-        .footer-back a:hover { color: var(--color-polar-white); }
+        .footer { padding: 48px 0 0; }
+        .footer a { font-family: var(--mono); font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: -0.02em; transition: color 0.2s; }
+        .footer a:hover { color: var(--accent); }
 
         [lang="zh"] { display: none; }
         .lang-zh [lang="en"] { display: none; }
         .lang-zh [lang="zh"] { display: block; }
+        .lang-zh span[lang="zh"] { display: inline; }
 
-        @media (max-width: 540px) {
-            .hero-title { font-size: 34px; }
-        }
+        @media (max-width: 540px) { .hero-title { font-size: 2.6rem; } }
     </style>
 </head>
 <body class="lang-en">
 
-    <nav class="nav">
-        <div class="nav-inner">
-            <a href="index.html" class="nav-back">← Portfolio</a>
-            <button class="lang-switch" onclick="toggleLang()" id="langBtn">中文</button>
+<nav>
+    <div class="nav-inner">
+        <a href="index.html" class="nav-back">← Portfolio</a>
+        <button class="lang-btn" onclick="toggleLang()" id="langBtn">中文</button>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="hero">
+        <div class="hero-label">PWA · Vue.js · Google Maps · 2024</div>
+        <h1 class="hero-title">On the Way Hero</h1>
+        <p class="hero-tagline" lang="en">A location-based platform that turns everyday commuters into last-mile delivery heroes — solving C2C logistics without a fleet or warehouse.</p>
+        <p class="hero-tagline" lang="zh">一個將日常通勤者轉化為末端配送英雄的地理位置平台——無需車隊或倉庫解決 C2C 物流問題。</p>
+        <img src="https://www.image2url.com/r2/default/images/1776395941301-00caeb1c-7e09-4085-8a8e-6574bbb5d9ca.jpg" class="hero-img" alt="On the Way Hero app screenshot">
+        <div class="tag-row">
+            <span class="tag">#VueJS</span>
+            <span class="tag">#MapsAPI</span>
+            <span class="tag">#PWA</span>
+            <span class="tag">#ServiceWorker</span>
+            <span class="tag">#Geolocation</span>
         </div>
-    </nav>
-
-    <div class="container">
-
-        <!-- Hero -->
-        <div class="hero">
-            <div class="category-label">PWA · Vue.js · Google Maps</div>
-            <h1 class="hero-title">On the Way Hero</h1>
-            <p class="hero-tagline" lang="en">Location-based peer-to-peer logistics platform that turns everyday commuters into last-mile delivery heroes.</p>
-            <p class="hero-tagline" lang="zh">基於地理位置的共享物流平台，讓每個通勤者成為解決末端配送的英雄。</p>
-            <img src="https://www.image2url.com/r2/default/images/1776395941301-00caeb1c-7e09-4085-8a8e-6574bbb5d9ca.jpg" class="hero-img" alt="On the Way Hero app screenshot">
-            <div class="tech-tags">
-                <span class="tech-tag">#VueJS</span>
-                <span class="tech-tag">#MapsAPI</span>
-                <span class="tech-tag">#PWA</span>
-                <span class="tech-tag">#ServiceWorker</span>
-            </div>
-        </div>
-
-        <!-- Context & Problem -->
-        <div class="content-section">
-            <div class="section-label">Context &amp; Problem</div>
-            <h2 class="section-title" lang="en">The last-mile problem nobody solved for C2C</h2>
-            <h2 class="section-title" lang="zh">C2C 市場無人解決的末端配送問題</h2>
-            <p class="section-body" lang="en">
-                In Hong Kong's C2C secondhand market, "meet in-person" is the dominant exchange method. But most sellers are across town. Buyers don't want to pay courier fees for a $50 item. Sellers don't want to make a special trip. The transaction dies before it starts.
-            </p>
-            <p class="section-body" lang="zh">
-                在香港二手交易市場，「親身交收」是主流方式。但大多數賣家在城市另一端。買家不願為 50 元物品支付快遞費。賣家不想專程跑一趟。交易在開始前就已死亡。
-            </p>
-            <p class="section-body" lang="en">
-                On the Way Hero reframes this. Someone is already commuting from Kowloon to Hong Kong Island every morning. That empty bag space is idle logistics capacity. This platform matches idle commuters ("Heroes") with buyers and sellers whose pickup points fall along the Hero's existing route — turning dead time into micro-earnings.
-            </p>
-            <p class="section-body" lang="zh">
-                On the Way Hero 重新框架了這個問題。每天早上已有人從九龍通勤到港島。那個空背包就是閒置的物流容量。本平台將空閒的通勤者（「英雄」）與取貨地點恰好在其路線上的買賣家配對——把死時間轉化為微收入。
-            </p>
-        </div>
-
-        <!-- Tech Deep Dive -->
-        <div class="content-section">
-            <div class="section-label">Tech Deep Dive</div>
-            <h2 class="section-title" lang="en">The Stack &amp; the Hard Parts</h2>
-            <h2 class="section-title" lang="zh">技術棧與解決難題</h2>
-
-            <p class="section-body" lang="en">Vue.js as a PWA means users can install it to their home screen with no App Store friction. Google Maps API powers the route polyline rendering and proximity filtering. Service Workers cache the map tiles and active delivery state so the app stays usable on an MTR dead zone.</p>
-            <p class="section-body" lang="zh">Vue.js 作為 PWA 意味著用戶無需通過應用商店即可安裝到主螢幕。Google Maps API 驅動路線多邊形渲染和鄰近過濾。Service Workers 緩存地圖磁貼和活躍配送狀態，讓 App 在港鐵無信號區依然可用。</p>
-
-            <div class="stack-row">
-                <span class="stack-chip">Vue.js</span>
-                <span class="stack-chip">Google Maps API</span>
-                <span class="stack-chip">Service Workers</span>
-                <span class="stack-chip">Push Notifications</span>
-                <span class="stack-chip">Geolocation API</span>
-            </div>
-
-            <div class="sub-block">
-                <div class="sub-label" lang="en">Key Design Decision</div>
-                <div class="sub-label" lang="zh">關鍵設計決策</div>
-                <div class="sub-title" lang="en">Fuzzy geolocation to protect privacy</div>
-                <div class="sub-title" lang="zh">模糊定位保護隱私</div>
-                <p class="sub-body" lang="en">Showing a Hero's exact real-time location to strangers is a non-starter from a safety perspective. Before a delivery is confirmed, the platform only exposes an approximate area (500m radius) — enough for route matching, not enough to track someone. Exact coordinates unlock only after both parties confirm.</p>
-                <p class="sub-body" lang="zh">向陌生人展示英雄的精確實時位置，從安全角度來看是不可行的。在配送確認之前，平台只暴露大致區域（500 米半徑）——足以匹配路線，卻不足以追蹤某人。精確坐標僅在雙方確認後才解鎖。</p>
-            </div>
-
-            <div class="bug-box">
-                <div class="bug-box-label" lang="en">Hardest Bug</div>
-                <div class="bug-box-label" lang="zh">最難解決的 Bug</div>
-                <p lang="en">Route matching was returning false negatives — Heroes who were clearly on the right route were being filtered out. The root cause was coordinate precision drift in the Maps API: the snapped-to-road route coordinates differed by up to 80m from the raw GPS points users submitted. Fixed by increasing the corridor tolerance and switching from point-in-radius checks to polyline buffer intersections, which is far more robust to GPS noise.</p>
-                <p lang="zh">路線匹配出現假陰性——明顯在正確路線上的英雄被過濾掉了。根本原因是 Maps API 中的坐標精度漂移：道路捕捉後的路線坐標與用戶提交的原始 GPS 點相差最多 80 米。解決方案是增加走廊容忍度，並從半徑點查詢切換為多段線緩衝區交集，這對 GPS 噪聲的容錯性要高得多。</p>
-            </div>
-        </div>
-
-        <div class="footer-back">
-            <a href="index.html">← Back to portfolio</a>
-        </div>
-
     </div>
 
-    <script>
-        function toggleLang() {
-            const body = document.body;
-            const btn = document.getElementById('langBtn');
-            body.classList.toggle('lang-zh');
-            btn.textContent = body.classList.contains('lang-zh') ? 'English' : '中文';
-        }
-    </script>
+    <!-- Context & Problem -->
+    <div class="section">
+        <div class="sec-eyebrow">01 · Context &amp; Problem</div>
+        <h2 class="sec-title" lang="en">The last-mile problem nobody solved for C2C</h2>
+        <h2 class="sec-title" lang="zh">C2C 市場無人解決的末端配送問題</h2>
+
+        <p class="sec-body" lang="en">In Hong Kong's secondhand market, "meet in-person" is the dominant exchange method. But most sellers live across town. Buyers won't pay courier fees on a $50 item. Sellers won't make a special trip. The transaction dies before it starts.</p>
+        <p class="sec-body" lang="zh">在香港二手市場，「親身交收」是主流方式。但大多數賣家住在城市另一端。買家不願為 50 元物品支付快遞費。賣家不願專程跑一趟。交易在開始前就已死亡。</p>
+
+        <div class="callout">
+            <div class="callout-label" lang="en">The Insight</div>
+            <div class="callout-label" lang="zh">核心洞察</div>
+            <p lang="en">Every morning, thousands of people commute from Kowloon to Hong Kong Island. That empty bag space is <strong>idle logistics capacity</strong>. On the Way Hero connects commuters ("Heroes") with buyers whose pickup points fall along the Hero's existing route — turning dead commute time into micro-earnings.</p>
+            <p lang="zh">每天早上，數千人從九龍通勤到港島。那個空背包就是<strong>閒置的物流容量</strong>。On the Way Hero 將通勤者（「英雄」）與取貨地點恰好在其路線上的買家配對——把死時間轉化為微收入。</p>
+        </div>
+    </div>
+
+    <!-- Tech Deep Dive -->
+    <div class="section">
+        <div class="sec-eyebrow">02 · Tech Deep Dive</div>
+        <h2 class="sec-title" lang="en">The Stack &amp; the Hard Parts</h2>
+        <h2 class="sec-title" lang="zh">技術棧與解決難題</h2>
+
+        <p class="sec-body" lang="en">Vue.js as a PWA eliminates App Store friction — users install to their home screen in one tap. Google Maps API powers the route polyline rendering and proximity filtering. Service Workers cache map tiles and active delivery state so the app stays usable in MTR dead zones.</p>
+        <p class="sec-body" lang="zh">Vue.js 作為 PWA 消除了應用商店門檻——用戶一鍵安裝到主螢幕。Google Maps API 驅動路線多邊形渲染和鄰近過濾。Service Workers 緩存地圖磁貼和活躍配送狀態，讓 App 在港鐵無信號區依然可用。</p>
+
+        <div class="callout">
+            <div class="callout-label" lang="en">Key Decision — Fuzzy geolocation for privacy</div>
+            <div class="callout-label" lang="zh">關鍵決策——模糊定位保護隱私</div>
+            <p lang="en">Showing a Hero's exact real-time location to strangers is a safety non-starter. Before a delivery is confirmed, the platform only exposes an <strong>approximate area (500m radius)</strong> — enough for route matching, not enough to track someone. Exact coordinates unlock only after both parties confirm the delivery.</p>
+            <p lang="zh">向陌生人展示英雄的精確實時位置，從安全角度來看是不可行的。在配送確認之前，平台只暴露<strong>大致區域（500 米半徑）</strong>——足以匹配路線，卻不足以追蹤某人。精確坐標僅在雙方確認配送後才解鎖。</p>
+        </div>
+
+        <div class="stack-row">
+            <span class="chip">Vue.js</span>
+            <span class="chip">Google Maps API</span>
+            <span class="chip">Service Workers</span>
+            <span class="chip">Push Notifications</span>
+            <span class="chip">Geolocation API</span>
+        </div>
+
+        <div class="callout" style="margin-top: 32px;">
+            <div class="callout-label" lang="en">Hardest Bug — Route matching false negatives</div>
+            <div class="callout-label" lang="zh">最難解決的 Bug — 路線匹配假陰性</div>
+            <p lang="en">Heroes who were clearly on the right route were being filtered out. Root cause: <strong>coordinate precision drift</strong> in the Maps API — snapped-to-road coordinates differed by up to 80m from raw GPS points. Fixed by increasing corridor tolerance and switching from point-in-radius checks to polyline buffer intersections, which is far more robust to GPS noise.</p>
+            <p lang="zh">明顯在正確路線上的英雄被過濾掉了。根本原因：Maps API 中的<strong>坐標精度漂移</strong>——道路捕捉後的坐標與原始 GPS 點相差最多 80 米。解決方案是增加走廊容忍度，並從半徑點查詢切換為多段線緩衝區交集，這對 GPS 噪聲的容錯性要高得多。</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <a href="index.html">← Back to portfolio</a>
+    </div>
+
+</div>
+
+<script>
+function toggleLang() {
+    document.body.classList.toggle('lang-zh');
+    document.getElementById('langBtn').textContent =
+        document.body.classList.contains('lang-zh') ? 'English' : '中文';
+}
+</script>
 </body>
 </html>
