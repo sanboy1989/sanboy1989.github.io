@@ -4,271 +4,341 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jason Lai | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #000000;
-            --text-main: #FFFFFF;
-            --text-sub: #999999;
-            --border: #262626;
-            --accent: #1e90ff;
-            --modal-bg: #121212;
+            --color-midnight-void: #101010;
+            --color-deep-space: #080808;
+            --color-polar-white: #F3F3F3;
+            --color-absolute-zero: #FFFFFF;
+            --color-ash-gray: #949494;
+            --color-dark-carbon: #333333;
+            --color-amber-glow: #E7C59A;
+            --color-neon-green: #00AC5C;
+            --font-aeonik: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-input: 'IBM Plex Mono', ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
+            --section-gap: 64px;
+            --card-padding: 24px;
+            --radius-tags: 20px;
+            --radius-buttons: 8px;
+            --radius-default: 8px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body { 
-            background-color: var(--bg); 
-            color: var(--text-main); 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+        body {
+            background-color: var(--color-midnight-void);
+            color: var(--color-polar-white);
+            font-family: var(--font-aeonik);
             line-height: 1.6;
         }
 
-        /* Top Bar */
-        .top-bar {
-            position: sticky; top: 0;
-            background: rgba(0,0,0,0.8);
+        /* Nav */
+        .nav {
+            position: sticky;
+            top: 0;
+            background: rgba(16, 16, 16, 0.9);
             backdrop-filter: blur(20px);
-            padding: 15px; text-align: center;
-            border-bottom: 1px solid var(--border);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--color-dark-carbon);
+            padding: 0 20px;
             z-index: 100;
         }
+        .nav-inner {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 52px;
+        }
+        .nav-logo {
+            font-family: var(--font-aeonik);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-polar-white);
+            text-decoration: none;
+            letter-spacing: -0.01em;
+        }
         .lang-switch {
-            background: none; border: 1px solid var(--border);
-            color: var(--text-main); padding: 6px 16px;
-            border-radius: 20px; cursor: pointer; font-size: 13px;
-            transition: 0.2s;
+            background: var(--color-dark-carbon);
+            border: none;
+            color: var(--color-absolute-zero);
+            padding: 6px 14px;
+            border-radius: var(--radius-buttons);
+            cursor: pointer;
+            font-family: var(--font-aeonik);
+            font-size: 13px;
+            font-weight: 400;
+            transition: background 0.2s;
         }
-        .lang-switch:hover { background: #222; }
+        .lang-switch:hover { background: #444; }
 
-        .container { max-width: 700px; margin: 0 auto; padding: 0 20px 50px; }
+        .container { max-width: 700px; margin: 0 auto; padding: 0 20px 80px; }
 
-        /* Profile Section */
-        .profile-header { padding: 40px 0; position: relative; border-bottom: 1px solid var(--border); }
-        .profile-header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
-        .username { color: var(--text-sub); font-size: 15px; margin-top: 4px; }
-        .profile-pic { 
-            position: absolute; right: 0; top: 40px;
-            width: 70px; height: 70px; background: #222; 
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            border: 1px solid var(--border); font-size: 20px; font-weight: bold;
+        /* Profile */
+        .profile-section {
+            padding: 48px 0 40px;
+            border-bottom: 1px solid var(--color-dark-carbon);
         }
-
-        .bio { padding: 24px 0; font-size: 15px; }
-        .stats { color: var(--text-sub); font-size: 14px; margin-top: 8px; }
+        .profile-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+        .profile-avatar {
+            width: 64px;
+            height: 64px;
+            background: var(--color-dark-carbon);
+            border-radius: 50%;
+            border: 1px solid #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-aeonik);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-polar-white);
+            flex-shrink: 0;
+        }
+        .profile-name {
+            font-size: 34px;
+            font-weight: 700;
+            line-height: 1.07;
+            color: var(--color-polar-white);
+            letter-spacing: -0.01em;
+        }
+        .profile-handle {
+            font-family: var(--font-input);
+            font-size: 14px;
+            color: var(--color-ash-gray);
+            letter-spacing: -0.022em;
+            margin-top: 4px;
+        }
+        .profile-bio {
+            margin-top: 24px;
+            font-size: 16px;
+            color: var(--color-polar-white);
+            line-height: 1.6;
+        }
+        .profile-meta {
+            margin-top: 8px;
+            font-family: var(--font-input);
+            font-size: 13px;
+            color: var(--color-ash-gray);
+            letter-spacing: -0.022em;
+        }
         .email-btn {
-            display: inline-block; margin-top: 18px; padding: 8px 24px;
-            border: 1px solid var(--border); border-radius: 12px;
-            color: var(--text-main); text-decoration: none; font-size: 14px;
-            font-weight: 600; transition: 0.2s;
+            display: inline-block;
+            margin-top: 20px;
+            padding: 8px 20px;
+            background: var(--color-dark-carbon);
+            border-radius: var(--radius-buttons);
+            color: var(--color-absolute-zero);
+            text-decoration: none;
+            font-family: var(--font-aeonik);
+            font-size: 14px;
+            font-weight: 400;
+            transition: background 0.2s;
         }
-        .email-btn:hover { border-color: #555; background: #111; }
+        .email-btn:hover { background: #444; }
 
-        /* Project List: 左圖右文 */
-        .thread-item {
-            display: flex; align-items: flex-start;
-            padding: 30px 0; border-bottom: 1px solid var(--border);
-            cursor: pointer; transition: 0.2s; gap: 20px;
+        /* Filter Bar */
+        .filter-bar {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--color-dark-carbon);
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
         }
-        .thread-item:hover { opacity: 0.8; }
-
-        .project-preview-img {
-            width: 100px; height: 130px; object-fit: cover;
-            border-radius: 8px; border: 1px solid var(--border); flex-shrink: 0;
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--color-dark-carbon);
+            color: var(--color-ash-gray);
+            padding: 5px 14px;
+            border-radius: var(--radius-tags);
+            cursor: pointer;
+            font-family: var(--font-aeonik);
+            font-size: 13px;
+            font-weight: 400;
+            transition: all 0.2s;
+            white-space: nowrap;
         }
-
-        .right-content { flex: 1; }
-        .right-content h4 { font-size: 18px; margin-bottom: 8px; }
-        .right-content p { font-size: 14px; color: #aaa; }
-
-        /* Modal: 純文字詳情 */
-        .modal {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.9);
-            display: none; justify-content: center; align-items: center; z-index: 1000;
-            padding: 20px;
+        .filter-btn:hover {
+            border-color: var(--color-amber-glow);
+            color: var(--color-amber-glow);
         }
-        .modal.active { display: flex; }
-        .modal-content {
-            width: 100%; max-width: 600px; background: var(--modal-bg);
-            border: 1px solid var(--border); border-radius: 24px; 
-            padding: 40px; max-height: 85vh; overflow-y: auto;
-        }
-        
-        .modal-body h2 { font-size: 24px; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
-        .modal-body h3 { font-size: 16px; margin: 20px 0 8px; color: var(--accent); }
-        .modal-body p { font-size: 14px; color: #ddd; margin-bottom: 12px; }
-        .modal-body ul { padding-left: 20px; margin-bottom: 15px; }
-        .modal-body li { font-size: 14px; color: #ddd; margin-bottom: 6px; }
-
-        .close-modal { 
-            margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border);
-            color: var(--text-sub); cursor: pointer; text-align: center; font-size: 14px;
+        .filter-btn.active {
+            background: var(--color-amber-glow);
+            border-color: var(--color-amber-glow);
+            color: var(--color-midnight-void);
+            font-weight: 700;
         }
 
-        /* Language Toggle Logic */
+        /* Project Cards */
+        .project-card {
+            display: flex;
+            align-items: flex-start;
+            padding: 28px 0;
+            border-bottom: 1px solid var(--color-dark-carbon);
+            text-decoration: none;
+            gap: 20px;
+            transition: opacity 0.2s;
+        }
+        .project-card:hover { opacity: 0.72; }
+        .project-card.hidden { display: none; }
+
+        .project-img {
+            width: 96px;
+            height: 128px;
+            object-fit: cover;
+            border-radius: var(--radius-default);
+            border: 1px solid var(--color-dark-carbon);
+            flex-shrink: 0;
+            background: var(--color-deep-space);
+        }
+        .project-info { flex: 1; min-width: 0; }
+        .project-name {
+            font-family: var(--font-aeonik);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-polar-white);
+            margin-bottom: 6px;
+            line-height: 1.28;
+        }
+        .project-desc {
+            font-size: 14px;
+            color: var(--color-ash-gray);
+            line-height: 1.55;
+            margin-bottom: 14px;
+        }
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .tech-tag {
+            font-family: var(--font-input);
+            font-size: 12px;
+            color: var(--color-amber-glow);
+            background: transparent;
+            border: 1px solid rgba(231, 197, 154, 0.25);
+            padding: 3px 10px;
+            border-radius: var(--radius-tags);
+            letter-spacing: -0.022em;
+        }
+
+        /* Lang toggle */
         [lang="zh"] { display: none; }
         .lang-zh [lang="en"] { display: none; }
         .lang-zh [lang="zh"] { display: block; }
 
-        @media (max-width: 550px) {
-            .thread-item { flex-direction: column; }
-            .project-preview-img { width: 100%; height: 180px; margin-bottom: 15px; }
+        @media (max-width: 540px) {
+            .project-card { flex-direction: column; }
+            .project-img { width: 100%; height: 180px; }
+            .filter-bar { gap: 6px; }
         }
     </style>
 </head>
 <body class="lang-en">
 
-    <div class="top-bar">
-        <button class="lang-switch" onclick="toggleLang()" id="langBtn">中文 / 中文</button>
-    </div>
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">Jason Lai</a>
+            <button class="lang-switch" onclick="toggleLang()" id="langBtn">中文</button>
+        </div>
+    </nav>
 
     <div class="container">
-        <div class="profile-header">
-            <h1>Jason Lai</h1>
-            <div class="username">jasonlai.tech</div>
-            <div class="profile-pic">JL</div>
-            
-            <div class="bio">
-                <p lang="en">Crafting intuitive and high-performance products. Believing code should be as pure as art—stripping away excess to let technology serve daily life seamlessly. ✨</p>
-                <p lang="zh">我是一位專注於打造直覺且高效產品的開發者。深信程式碼應該如同藝術般純粹，去除多餘裝飾，讓技術無縫服務於每一天。✨</p>
-                
-                <div class="stats">
-                    <span lang="en">Problem Solver • Minimalist</span>
-                    <span lang="zh">解決問題 • 簡約主義</span>
+        <div class="profile-section">
+            <div class="profile-top">
+                <div>
+                    <h1 class="profile-name">Jason Lai</h1>
+                    <div class="profile-handle">jasonlai.tech</div>
                 </div>
-                <a href="mailto:jasonlai.tech@icloud.com" class="email-btn">jasonlai.tech@icloud.com</a>
+                <div class="profile-avatar">JL</div>
             </div>
+            <div class="profile-bio">
+                <p lang="en">Crafting intuitive and high-performance products. Believing code should be as pure as art — stripping away excess to let technology serve daily life seamlessly.</p>
+                <p lang="zh">我是一位專注於打造直覺且高效產品的開發者。深信程式碼應該如同藝術般純粹，去除多餘裝飾，讓技術無縫服務於每一天。</p>
+            </div>
+            <div class="profile-meta">
+                <span lang="en">Problem Solver · Minimalist</span>
+                <span lang="zh">解決問題 · 簡約主義</span>
+            </div>
+            <a href="mailto:jasonlai.tech@icloud.com" class="email-btn">jasonlai.tech@icloud.com</a>
         </div>
 
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterProjects('all', this)">All</button>
+            <button class="filter-btn" onclick="filterProjects('app', this)">App (React Native)</button>
+            <button class="filter-btn" onclick="filterProjects('pwa', this)">PWA (Vue/React)</button>
+            <button class="filter-btn" onclick="filterProjects('business', this)">Business Demo (HTML/CSS)</button>
+        </div>
+
+        <!-- Project Feed -->
         <div id="feed">
-            <div class="thread-item" onclick="openModal('langimon')">
-                <img src="https://www.image2url.com/r2/default/images/1776395975886-d1773200-dd4f-4c0f-8f65-e79d7ca8ef94.jpg" class="project-preview-img">
-                <div class="right-content">
-                    <h4>Langimon</h4>
-                    <p lang="en">Gamified Japanese learning app that turns vocabulary study into a monster-raising adventure.</p>
-                    <p lang="zh">遊戲化日文學習 App，將枯燥的單字背誦轉化為怪獸養成體驗。</p>
+            <a href="project-langimon.html" class="project-card" data-category="app">
+                <img src="https://www.image2url.com/r2/default/images/1776395975886-d1773200-dd4f-4c0f-8f65-e79d7ca8ef94.jpg" class="project-img" alt="Langimon">
+                <div class="project-info">
+                    <div class="project-name">Langimon</div>
+                    <p class="project-desc" lang="en">Gamified Japanese learning app that turns vocabulary study into a monster-raising adventure.</p>
+                    <p class="project-desc" lang="zh">遊戲化日文學習 App，將枯燥的單字背誦轉化為怪獸養成體驗。</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">#ReactNative</span>
+                        <span class="tech-tag">#Firebase</span>
+                        <span class="tech-tag">#Lottie</span>
+                    </div>
                 </div>
-            </div>
+            </a>
 
-            <div class="thread-item" onclick="openModal('hero')">
-                <img src="https://www.image2url.com/r2/default/images/1776395941301-00caeb1c-7e09-4085-8a8e-6574bbb5d9ca.jpg" class="project-preview-img">
-                <div class="right-content">
-                    <h4>On the Way Hero</h4>
-                    <p lang="en">Location-based peer-to-peer logistics platform for "on-the-way" delivery heroes.</p>
-                    <p lang="zh">順路取貨 PWA，讓「順路的人」成為解決末端配送的英雄。</p>
+            <a href="project-hero.html" class="project-card" data-category="pwa">
+                <img src="https://www.image2url.com/r2/default/images/1776395941301-00caeb1c-7e09-4085-8a8e-6574bbb5d9ca.jpg" class="project-img" alt="On the Way Hero">
+                <div class="project-info">
+                    <div class="project-name">On the Way Hero</div>
+                    <p class="project-desc" lang="en">Location-based peer-to-peer logistics platform for "on-the-way" delivery heroes.</p>
+                    <p class="project-desc" lang="zh">順路取貨 PWA，讓「順路的人」成為解決末端配送的英雄。</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">#VueJS</span>
+                        <span class="tech-tag">#MapsAPI</span>
+                        <span class="tech-tag">#PWA</span>
+                    </div>
                 </div>
-            </div>
+            </a>
 
-            <div class="thread-item" onclick="openModal('travel')">
-                <img src="https://www.image2url.com/r2/default/images/1776395886702-06f54e57-da21-405a-a9f7-9129c9b3741d.jpg" class="project-preview-img">
-                <div class="right-content">
-                    <h4>WanderSync Travel</h4>
-                    <p lang="en">Smart travel management system bridging booking, calendar sync, and automated alerts.</p>
-                    <p lang="zh">智能旅行社管理系統，串聯預訂、行事曆整合與主動通知。</p>
+            <a href="project-travel.html" class="project-card" data-category="pwa">
+                <img src="https://www.image2url.com/r2/default/images/1776395886702-06f54e57-da21-405a-a9f7-9129c9b3741d.jpg" class="project-img" alt="WanderSync Travel">
+                <div class="project-info">
+                    <div class="project-name">WanderSync Travel</div>
+                    <p class="project-desc" lang="en">Smart travel management system bridging booking, calendar sync, and automated alerts.</p>
+                    <p class="project-desc" lang="zh">智能旅行社管理系統，串聯預訂、行事曆整合與主動通知。</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">#NextJS</span>
+                        <span class="tech-tag">#CalendarAPI</span>
+                        <span class="tech-tag">#NodeJS</span>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="modal" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <div id="modal-body" class="modal-body"></div>
-            <div class="close-modal" onclick="closeModal()">Close / 關閉</div>
+            </a>
         </div>
     </div>
 
     <script>
-        const projectData = {
-            langimon: {
-                en: `<h2>Langimon</h2>
-                    <p><strong>Tagline:</strong> Turning vocabulary memorization into an engaging monster-raising adventure to solve the lack of learning motivation.</p>
-                    <h3>Problem & Motivation</h3><p>Many learners struggle with the "forgetting curve" and lose interest during rote memorization. I integrated "Tamagotchi" mechanics to make linguistic progress tangible and addictive.</p>
-                    <h3>Tech Stack</h3><p>React Native / Flutter, Firebase (Realtime DB & Auth), Lottie Animations.</p>
-                    <h3>Key Features</h3>
-                    <ul>
-                        <li><strong>Feeding Mechanism:</strong> Completing a set of 10 vocabulary quizzes earns "Exp Candy" to restore monster stamina.</li>
-                        <li><strong>Evolution System:</strong> Mastering JLPT levels (e.g., N5) triggers evolution animations, rewarding long-term progress.</li>
-                        <li><strong>Retention Algorithm:</strong> SRS-based system where monsters show "Hungry" status to prompt re-engagement.</li>
-                    </ul>
-                    <h3>Challenges & Solutions</h3><p>Implemented a daily stamina cap to prevent burnout and ensure users focus on quality review rather than mindless grinding.</p>`,
-                zh: `<h2>Langimon — 遊戲化日文學習 App</h2>
-                    <p><strong>核心概念：</strong> 將枯燥的單字背誦轉化為怪獸養成體驗，解決「學習難以堅持」的痛點。</p>
-                    <h3>專案動機</h3><p>許多人學外語死在「背單字」階段。我結合了「電子雞」的成癮機制，讓進步變得肉眼可見。</p>
-                    <h3>技術棧</h3><p>React Native / Flutter (App)、Firebase (Realtime DB & Auth)、Lottie (動畫處理)。</p>
-                    <h3>核心功能</h3>
-                    <ul>
-                        <li><strong>餵食機制：</strong> 完成 10 個單字測驗後發放「經驗糖果」，餵食後提升怪獸體力。</li>
-                        <li><strong>進化系統：</strong> 掌握 N5 等級單字後觸發進化特效，轉化為視覺成長感。</li>
-                        <li><strong>遺忘曲線提醒：</strong> 結合 SRS 演算法，若太久沒複習，怪獸會表現出「飢餓」狀態。</li>
-                    </ul>
-                    <h3>解決的難題</h3><p>設計「體力上限」防止用戶刷題過度，確保深度記憶並平衡遊戲與學習。</p>`
-            },
-            hero: {
-                en: `<h2>On the Way Hero</h2>
-                    <p><strong>Tagline:</strong> A location-based "on-the-way" delivery platform that connects buyers with commuters.</p>
-                    <h3>Problem & Motivation</h3><p>In C2C marketplaces, item pickup is inconvenient due to distance. This PWA allows commuters to earn small fees by delivering items already on their route.</p>
-                    <h3>Tech Stack</h3><p>Vue.js / React (PWA), Google Maps API, Service Workers.</p>
-                    <h3>Key Features</h3>
-                    <ul>
-                        <li><strong>Route Matching Algorithm:</strong> Filters pickup requests within a radius of the user's start and end points.</li>
-                        <li><strong>Real-time Communication:</strong> Built-in chat functionality for secure coordination between buyers and Heroes.</li>
-                        <li><strong>PWA Integration:</strong> Supports "Add to Home Screen" and Push Notifications for real-time status updates.</li>
-                    </ul>
-                    <h3>Challenges & Solutions</h3><p>Implemented "Fuzzy Geolocation" to protect privacy by showing approximate areas until a delivery is confirmed.</p>`,
-                zh: `<h2>On the Way Hero — 順路取貨 PWA</h2>
-                    <p><strong>核心概念：</strong> 基於地理位置的共享物流平台，讓「順路的人」成為你的「快遞英雄」。</p>
-                    <h3>專案動機</h3><p>二手交易面交最痛苦的就是距離。如果有人正好要跨區通勤，就能順手賺取微薄運費，也節省買家時間。</p>
-                    <h3>技術棧</h3><p>Vue.js / React (PWA)、Google Maps API、Service Workers (離線緩存)。</p>
-                    <h3>核心功能</h3>
-                    <ul>
-                        <li><strong>路線匹配：</strong> 用戶輸入起訖點，系統自動過濾出路徑附近的待取貨物件。</li>
-                        <li><strong>即時通訊：</strong> 內建 Chat Room 方便買家與「英雄」溝通面交時間。</li>
-                        <li><strong>PWA 特性：</strong> 支援「加入到主螢幕」與「推送通知」，無需下載 App 即可收到更新。</li>
-                    </ul>
-                    <h3>解決的難題</h3><p>隱私保護。採用「模糊定位」技術，在雙方確認接單前僅顯示大致區域。</p>`
-            },
-            travel: {
-                en: `<h2>WanderSync Travel</h2>
-                    <p><strong>Tagline:</strong> An all-in-one travel solution bridging the gap between booking and itinerary management.</p>
-                    <h3>Problem & Motivation</h3><p>Traditional travel agencies suffer from fragmented communication. This project automates workflows to enhance customer trust.</p>
-                    <h3>Tech Stack</h3><p>Next.js (SSR), Node.js, Google Calendar API, Nodemailer / Twilio API.</p>
-                    <h3>Key Features</h3>
-                    <ul>
-                        <li><strong>Automated Calendar Sync:</strong> Populates customer calendars with flight and hotel details upon booking.</li>
-                        <li><strong>Admin CRM Dashboard:</strong> A centralized panel for broadcasting itinerary changes or promotional alerts.</li>
-                        <li><strong>Responsive Portal:</strong> Mobile-optimized interface for Travelers to access schedules offline.</li>
-                    </ul>
-                    <h3>Challenges & Solutions</h3><p>Optimized backend for high-concurrency calendar syncs while ensuring data consistency across multiple time zones.</p>`,
-                zh: `<h2>WanderSync Travel — 智能旅行社管理系統</h2>
-                    <p><strong>核心概念：</strong> 串聯預訂、行事曆整合與主動通知的一站式旅遊解決方案。</p>
-                    <h3>專案動機</h3><p>傳統旅行社溝通碎片化（Email/WhatsApp）。本專案旨在將行程管理自動化，提升客戶信任感。</p>
-                    <h3>技術棧</h3><p>Next.js (SSR)、Node.js (Backend)、Google Calendar API、通知系統。</p>
-                    <h3>核心功能</h3>
-                    <ul>
-                        <li><strong>自動化行程同步：</strong> 預訂後自動將詳細行程（班機、酒店）同步至客戶日曆。</li>
-                        <li><strong>Admin 營運面板：</strong> 管理員可一鍵群發行程異動通知或優惠資訊。</li>
-                        <li><strong>響應式預訂流：</strong> 支援行動裝置優化的 PWA 介面，支援離線查閱。</li>
-                    </ul>
-                    <h3>解決的難題</h3><p>處理高併發的日曆同步衝突，確保行程更改時客戶日曆能在數秒內完成熱更新。</p>`
-            }
-        };
-
-        function openModal(id) {
-            const lang = document.body.classList.contains('lang-zh') ? 'zh' : 'en';
-            document.getElementById('modal-body').innerHTML = projectData[id][lang];
-            document.getElementById('modal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            document.getElementById('modal').classList.remove('active');
-            document.body.style.overflow = 'auto';
+        function filterProjects(category, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.project-card').forEach(card => {
+                const match = category === 'all' || card.dataset.category === category;
+                card.classList.toggle('hidden', !match);
+            });
         }
 
         function toggleLang() {
             const body = document.body;
             const btn = document.getElementById('langBtn');
             body.classList.toggle('lang-zh');
-            btn.innerText = body.classList.contains('lang-zh') ? "English / 英文" : "中文 / 中文";
+            btn.textContent = body.classList.contains('lang-zh') ? 'English' : '中文';
         }
     </script>
 </body>

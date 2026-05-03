@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Langimon — Jason Lai</title>
+    <meta name="description" content="Gamified Japanese learning app that turns vocabulary study into a monster-raising adventure.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-midnight-void: #101010;
+            --color-deep-space: #080808;
+            --color-polar-white: #F3F3F3;
+            --color-absolute-zero: #FFFFFF;
+            --color-ash-gray: #949494;
+            --color-dark-carbon: #333333;
+            --color-amber-glow: #E7C59A;
+            --color-neon-green: #00AC5C;
+            --font-aeonik: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-input: 'IBM Plex Mono', ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
+            --section-gap: 64px;
+            --radius-tags: 20px;
+            --radius-buttons: 8px;
+            --radius-default: 8px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--color-midnight-void);
+            color: var(--color-polar-white);
+            font-family: var(--font-aeonik);
+            line-height: 1.6;
+        }
+
+        /* Nav */
+        .nav {
+            position: sticky;
+            top: 0;
+            background: rgba(16, 16, 16, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--color-dark-carbon);
+            padding: 0 20px;
+            z-index: 100;
+        }
+        .nav-inner {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 52px;
+        }
+        .nav-back {
+            font-family: var(--font-input);
+            font-size: 13px;
+            color: var(--color-ash-gray);
+            text-decoration: none;
+            letter-spacing: -0.022em;
+            transition: color 0.2s;
+        }
+        .nav-back:hover { color: var(--color-polar-white); }
+        .lang-switch {
+            background: var(--color-dark-carbon);
+            border: none;
+            color: var(--color-absolute-zero);
+            padding: 6px 14px;
+            border-radius: var(--radius-buttons);
+            cursor: pointer;
+            font-family: var(--font-aeonik);
+            font-size: 13px;
+            font-weight: 400;
+            transition: background 0.2s;
+        }
+        .lang-switch:hover { background: #444; }
+
+        .container { max-width: 700px; margin: 0 auto; padding: 0 20px 80px; }
+
+        /* Hero */
+        .hero {
+            padding: 56px 0 48px;
+            border-bottom: 1px solid var(--color-dark-carbon);
+        }
+        .category-label {
+            font-family: var(--font-input);
+            font-size: 13px;
+            color: var(--color-amber-glow);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .hero-title {
+            font-size: 44px;
+            font-weight: 700;
+            line-height: 1.03;
+            color: var(--color-polar-white);
+            letter-spacing: -0.011em;
+            margin-bottom: 16px;
+        }
+        .hero-tagline {
+            font-size: 18px;
+            color: var(--color-ash-gray);
+            line-height: 1.5;
+            max-width: 520px;
+            margin-bottom: 32px;
+        }
+        .hero-img {
+            width: 100%;
+            max-height: 420px;
+            object-fit: cover;
+            border-radius: var(--radius-default);
+            border: 1px solid var(--color-dark-carbon);
+            display: block;
+            margin-bottom: 24px;
+            background: var(--color-deep-space);
+        }
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .tech-tag {
+            font-family: var(--font-input);
+            font-size: 12px;
+            color: var(--color-amber-glow);
+            background: transparent;
+            border: 1px solid rgba(231, 197, 154, 0.25);
+            padding: 4px 12px;
+            border-radius: var(--radius-tags);
+            letter-spacing: -0.022em;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 48px 0;
+            border-bottom: 1px solid var(--color-dark-carbon);
+        }
+        .section-label {
+            font-family: var(--font-input);
+            font-size: 12px;
+            color: var(--color-amber-glow);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 23px;
+            font-weight: 700;
+            color: var(--color-polar-white);
+            line-height: 1.22;
+            margin-bottom: 16px;
+        }
+        .section-body {
+            font-size: 15px;
+            color: var(--color-ash-gray);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+        .section-body:last-child { margin-bottom: 0; }
+
+        /* Sub-sections inside content */
+        .sub-block {
+            margin-top: 32px;
+        }
+        .sub-label {
+            font-family: var(--font-input);
+            font-size: 12px;
+            color: var(--color-dark-carbon);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            border-left: 2px solid var(--color-dark-carbon);
+            padding-left: 12px;
+        }
+        .sub-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-polar-white);
+            margin-bottom: 8px;
+        }
+        .sub-body {
+            font-size: 14px;
+            color: var(--color-ash-gray);
+            line-height: 1.65;
+        }
+
+        /* Stack chips */
+        .stack-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        .stack-chip {
+            font-family: var(--font-input);
+            font-size: 13px;
+            color: var(--color-polar-white);
+            background: var(--color-deep-space);
+            border: 1px solid var(--color-dark-carbon);
+            padding: 5px 14px;
+            border-radius: var(--radius-buttons);
+            letter-spacing: -0.022em;
+        }
+
+        /* Bug highlight box */
+        .bug-box {
+            margin-top: 24px;
+            background: var(--color-deep-space);
+            border: 1px solid var(--color-dark-carbon);
+            border-left: 3px solid var(--color-amber-glow);
+            border-radius: var(--radius-default);
+            padding: 20px 24px;
+        }
+        .bug-box-label {
+            font-family: var(--font-input);
+            font-size: 11px;
+            color: var(--color-amber-glow);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .bug-box p {
+            font-size: 14px;
+            color: var(--color-ash-gray);
+            line-height: 1.65;
+        }
+
+        /* Back link footer */
+        .footer-back {
+            padding: 48px 0 0;
+        }
+        .footer-back a {
+            font-family: var(--font-input);
+            font-size: 13px;
+            color: var(--color-ash-gray);
+            text-decoration: none;
+            letter-spacing: -0.022em;
+            transition: color 0.2s;
+        }
+        .footer-back a:hover { color: var(--color-polar-white); }
+
+        /* Lang toggle */
+        [lang="zh"] { display: none; }
+        .lang-zh [lang="en"] { display: none; }
+        .lang-zh [lang="zh"] { display: block; }
+
+        @media (max-width: 540px) {
+            .hero-title { font-size: 34px; }
+        }
+    </style>
+</head>
+<body class="lang-en">
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-back">← Portfolio</a>
+            <button class="lang-switch" onclick="toggleLang()" id="langBtn">中文</button>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <!-- Hero -->
+        <div class="hero">
+            <div class="category-label">App · React Native</div>
+            <h1 class="hero-title">Langimon</h1>
+            <p class="hero-tagline" lang="en">Gamified Japanese learning app that turns vocabulary study into a monster-raising adventure.</p>
+            <p class="hero-tagline" lang="zh">遊戲化日文學習 App，將枯燥的單字背誦轉化為怪獸養成體驗。</p>
+            <img src="https://www.image2url.com/r2/default/images/1776395975886-d1773200-dd4f-4c0f-8f65-e79d7ca8ef94.jpg" class="hero-img" alt="Langimon app screenshot">
+            <div class="tech-tags">
+                <span class="tech-tag">#ReactNative</span>
+                <span class="tech-tag">#Firebase</span>
+                <span class="tech-tag">#Lottie</span>
+                <span class="tech-tag">#SRS</span>
+            </div>
+        </div>
+
+        <!-- Context & Problem -->
+        <div class="content-section">
+            <div class="section-label">Context &amp; Problem</div>
+            <h2 class="section-title" lang="en">Why does this exist?</h2>
+            <h2 class="section-title" lang="zh">為什麼做這個？</h2>
+            <p class="section-body" lang="en">
+                Most Japanese learners quit within the first three months. The culprit isn't a lack of resources — it's motivation. Flashcard apps are clinical and forgettable. After hitting N5 vocabulary on a traditional app, nothing changes. There's no reward, no visual proof of progress.
+            </p>
+            <p class="section-body" lang="zh">
+                大多數日文學習者在頭三個月內就放棄了。原因不是缺乏資源，而是缺乏動力。傳統單字卡 App 枯燥乏味，就算學完 N5 單字，畫面毫無變化，沒有獎勵，沒有可見的進步感。
+            </p>
+            <p class="section-body" lang="en">
+                Langimon borrows the "Tamagotchi" mechanic — your learning monster lives or dies based on your study consistency. Completing 10 vocabulary quizzes earns "Exp Candy" to restore its stamina. Master a JLPT level and watch it evolve. Neglect your reviews and it gets visibly "hungry." This transforms abstract progress into something tangible and emotionally engaging.
+            </p>
+            <p class="section-body" lang="zh">
+                Langimon 借用了「電子雞」機制——你的學習怪獸依你的堅持而生存或衰退。完成 10 個單字測驗可獲得「經驗糖果」恢復體力，掌握 JLPT 等級就觸發進化特效。疏於複習，怪獸就會明顯「飢餓」。這將抽象的進步轉化為具體、有情感連結的體驗。
+            </p>
+        </div>
+
+        <!-- Tech Deep Dive -->
+        <div class="content-section">
+            <div class="section-label">Tech Deep Dive</div>
+            <h2 class="section-title" lang="en">The Stack &amp; the Hard Parts</h2>
+            <h2 class="section-title" lang="zh">技術棧與解決難題</h2>
+
+            <p class="section-body" lang="en">Why React Native? Cross-platform reach without maintaining two codebases. Firebase Realtime Database handles instant sync of stamina and XP across sessions. Lottie renders the evolution and feeding animations without bloating the bundle with video assets.</p>
+            <p class="section-body" lang="zh">為什麼選 React Native？單一程式碼庫覆蓋 iOS 和 Android。Firebase Realtime Database 處理跨 Session 的即時體力與 XP 同步。Lottie 渲染進化與餵食動畫，避免用影片素材撐大包體積。</p>
+
+            <div class="stack-row">
+                <span class="stack-chip">React Native</span>
+                <span class="stack-chip">Firebase Realtime DB</span>
+                <span class="stack-chip">Firebase Auth</span>
+                <span class="stack-chip">Lottie</span>
+                <span class="stack-chip">SRS Algorithm</span>
+            </div>
+
+            <div class="sub-block">
+                <div class="sub-label" lang="en">Key Design Decision</div>
+                <div class="sub-label" lang="zh">關鍵設計決策</div>
+                <div class="sub-title" lang="en">Daily stamina cap to prevent burnout</div>
+                <div class="sub-title" lang="zh">每日體力上限防止刷題過度</div>
+                <p class="sub-body" lang="en">Users naturally want to grind. Without a cap, they'd burn through 200 words in one sitting and retain none of them. The daily stamina limit forces spaced sessions — which is exactly what the SRS algorithm needs to work effectively.</p>
+                <p class="sub-body" lang="zh">使用者天然傾向於刷題。沒有上限的話，他們會一口氣背完 200 個單字，卻什麼都記不住。每日體力上限強制分散練習，這正是 SRS 演算法發揮效果的前提。</p>
+            </div>
+
+            <div class="bug-box">
+                <div class="bug-box-label" lang="en">Hardest Bug</div>
+                <div class="bug-box-label" lang="zh">最難解決的 Bug</div>
+                <p lang="en">Race condition in Firebase writes when a user had multiple devices logged in simultaneously. If two sessions both tried to deduct stamina from the monster at the same time, one write would silently overwrite the other — leaving the monster with more stamina than it should have. Fixed it by switching from direct writes to Firebase Transactions, which enforce atomic read-modify-write cycles.</p>
+                <p lang="zh">當使用者同時在多台設備登入時，Firebase 寫入出現競態條件。兩個 Session 同時嘗試扣除怪獸體力，其中一次寫入會被靜默覆蓋——導致怪獸體力比應有的更多。解決方案是從直接寫入改為 Firebase Transactions，強制執行原子性的讀取-修改-寫入週期。</p>
+            </div>
+        </div>
+
+        <div class="footer-back">
+            <a href="index.html">← Back to portfolio</a>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleLang() {
+            const body = document.body;
+            const btn = document.getElementById('langBtn');
+            body.classList.toggle('lang-zh');
+            btn.textContent = body.classList.contains('lang-zh') ? 'English' : '中文';
+        }
+    </script>
+</body>
+</html>
