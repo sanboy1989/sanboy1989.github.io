@@ -24,16 +24,16 @@
         body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.6; }
 
         nav { position: sticky; top: 0; background: rgba(11, 14, 20, 0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 24px; z-index: 100; }
-        .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+        .nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 56px; }
         .nav-back { font-family: var(--mono); font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: -0.02em; transition: color 0.2s; }
         .nav-back:hover { color: var(--accent); }
         .lang-btn { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 5px 14px; border-radius: 6px; cursor: pointer; font-family: var(--mono); font-size: 12px; transition: all 0.2s; }
         .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-        .container { max-width: 1200px; margin: 0 auto; padding-bottom: 100px; }
+        .container { max-width: 900px; margin: 0 auto; padding-bottom: 100px; }
 
         /* ── Hero ── */
-        .hero { padding: 80px 200px 64px; border-bottom: 1px solid var(--border); }
+        .hero { padding: 80px 40px 64px; border-bottom: 1px solid var(--border); }
         .hero-label { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
         .hero-title { font-size: clamp(4rem, 9vw, 7.5rem); font-weight: 700; color: var(--text); line-height: 0.88; letter-spacing: -0.05em; margin-bottom: 24px; }
         .hero-tagline { font-size: 18px; color: var(--muted); line-height: 1.65; max-width: 540px; margin-bottom: 24px; }
@@ -53,15 +53,24 @@
         .tag:hover { color: var(--accent); border-color: rgba(56,189,248,0.5); }
 
         /* ── Sections ── */
-        .section { padding: 120px 200px; border-bottom: 1px solid var(--border); margin-bottom: 0; }
+        .section { padding: 80px 40px; border-bottom: 1px solid var(--border); margin-bottom: 0; }
         .sec-eyebrow { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 18px; }
         .sec-title { font-size: 24px; font-weight: 700; color: var(--text); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px; max-width: 660px; }
         .sec-body { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 16px; max-width: 660px; }
         .sec-body:last-child { margin-bottom: 0; }
 
-        /* ── Screenshot Gallery ── */
-        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 24px; }
-        .gallery-grid .full-width { grid-column: 1 / -1; }
+        /* ── Screenshot Slider ── */
+        .gallery-slider { position: relative; margin-top: 24px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: #0F172A; box-shadow: 0 20px 50px rgba(0,0,0,0.5); aspect-ratio: 16 / 9; }
+        .slider-track { display: flex; height: 100%; transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .slide { min-width: 100%; flex-shrink: 0; height: 100%; cursor: zoom-in; position: relative; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .slide.contain img { object-fit: contain; }
+        .slide-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 14px; background: linear-gradient(transparent, rgba(11,14,20,0.88)); font-family: var(--mono); font-size: 11px; color: var(--muted); }
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(11,14,20,0.72); border: 1px solid var(--border); color: var(--text); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; font-family: var(--mono); transition: background 0.2s, border-color 0.2s, color 0.2s; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 10; }
+        .slider-btn:hover { background: rgba(56,189,248,0.15); border-color: var(--accent); color: var(--accent); }
+        .slider-prev { left: 14px; }
+        .slider-next { right: 14px; }
+        .slider-counter { position: absolute; bottom: 12px; right: 14px; font-family: var(--mono); font-size: 11px; color: var(--muted); background: rgba(11,14,20,0.72); padding: 4px 10px; border-radius: 99px; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 10; letter-spacing: -0.01em; }
 
         .shot {
             position: relative; border-radius: 8px; overflow: hidden;
@@ -129,7 +138,7 @@
         .demo-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #0B0E14; font-family: var(--sans); font-size: 14px; font-weight: 700; text-decoration: none; padding: 10px 22px; border-radius: 6px; transition: opacity 0.2s; white-space: nowrap; flex-shrink: 0; }
         .demo-btn:hover { opacity: 0.85; }
 
-        .footer { padding: 48px 200px 0; }
+        .footer { padding: 48px 40px 0; }
         .footer a { font-family: var(--mono); font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: -0.02em; transition: color 0.2s; }
         .footer a:hover { color: var(--accent); }
 
@@ -138,17 +147,15 @@
         .lang-zh [lang="zh"] { display: block; }
         .lang-zh span[lang="zh"] { display: inline; }
 
-        @media (max-width: 1024px) {
-            .gallery-grid { grid-template-columns: 1fr; }
-            .gallery-grid .full-width { grid-column: 1; }
-            .shot.wide, .shot.sq, .shot.tall, .shot.portrait { aspect-ratio: auto; height: auto; }
-            .shot img { height: auto; max-height: 600px; }
+        @media (max-width: 600px) {
+            .gallery-slider { aspect-ratio: 4 / 3; }
         }
 
         @media (max-width: 768px) {
             .container { padding-bottom: 80px; }
             .hero { padding: 60px 24px 48px; }
             .section { padding: 64px 24px; }
+            .footer { padding: 40px 24px 0; }
             .hero-title { font-size: 3.5rem; }
             .shot img { max-height: 500px; }
             .demo-cta { flex-direction: column; padding: 32px 24px; text-align: left; }
@@ -159,6 +166,7 @@
             .container { padding-bottom: 64px; }
             .hero { padding-left: 20px; padding-right: 20px; }
             .section { padding-left: 20px; padding-right: 20px; }
+            .footer { padding-left: 20px; padding-right: 20px; }
             .feature-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -209,61 +217,50 @@
         <p class="sec-body" lang="en" style="margin-bottom: 0;">Six sections, one seamless scroll. Screenshots show the site across desktop and mobile breakpoints.</p>
         <p class="sec-body" lang="zh" style="margin-bottom: 0;">六個區塊，一次流暢滾動。截圖展示桌面及移動端斷點下的表現。</p>
 
-        <!--
-            INSTRUCTIONS: Take screenshots and replace src="" below.
-            Recommended tool: GoFullPage (Chrome extension) for full-page screenshots.
-            Upload to image host, paste URL into src="".
-        -->
-        <div class="gallery-grid">
+        <div class="gallery-slider" id="gallerySlider">
+            <div class="slider-track" id="sliderTrack">
 
-            <!-- 1. Hero — full width -->
-            <div class="shot wide full-width" onclick="openLightbox(this.querySelector('img'))">
-                <img src="https://i.imgur.com/dq7wIhG.png"
-                     alt="Aria Chen Real Estate — hero section with luxury home background"
-                     onerror="this.parentElement.innerHTML='<div class=\'shot-placeholder\'><span>📸 Hero Section<br>Full-screen luxury hero with Ken Burns zoom + CTA buttons</span></div>'">
-                <div class="shot-label">Hero Section — Full Viewport</div>
+                <!-- 1. Hero -->
+                <div class="slide" onclick="openLightbox(this.querySelector('img'))">
+                    <img src="https://i.imgur.com/dq7wIhG.png" alt="Aria Chen Real Estate — hero section with luxury home background">
+                    <div class="slide-label">Hero Section — Full Viewport</div>
+                </div>
+
+                <!-- 2. Property Search -->
+                <div class="slide" onclick="openLightbox(this.querySelector('img'))">
+                    <img src="https://i.imgur.com/5qrE74x.png" alt="Property search bar and filter pills">
+                    <div class="slide-label">Smart Property Search</div>
+                </div>
+
+                <!-- 3. Community Carousel -->
+                <div class="slide" onclick="openLightbox(this.querySelector('img'))">
+                    <img src="https://i.imgur.com/AEzvDjz.png" alt="Community cards horizontal scroll carousel">
+                    <div class="slide-label">Community Carousel</div>
+                </div>
+
+                <!-- 4. Valuation Tool -->
+                <div class="slide" onclick="openLightbox(this.querySelector('img'))">
+                    <img src="https://i.imgur.com/1Agnb8x.png" alt="Multi-step home valuation tool with progress steps">
+                    <div class="slide-label">Multi-Step Valuation Tool</div>
+                </div>
+
+                <!-- 5. Social Proof -->
+                <div class="slide" onclick="openLightbox(this.querySelector('img'))">
+                    <img src="https://i.imgur.com/I7GweZU.png" alt="Testimonials carousel and Just Sold list">
+                    <div class="slide-label">Testimonials &amp; Just Sold</div>
+                </div>
+
+                <!-- 6. Mobile view — contain so portrait is fully visible -->
+                <div class="slide contain" onclick="openLightbox(this.querySelector('img'))">
+                    <img src="https://i.imgur.com/WAyMwcW.png" alt="Mobile responsive layout with sticky bottom bar">
+                    <div class="slide-label">Mobile Responsive</div>
+                </div>
+
             </div>
 
-            <!-- 2. Property Search -->
-            <div class="shot sq" onclick="openLightbox(this.querySelector('img'))">
-                <img src="https://i.imgur.com/5qrE74x.png"
-                     alt="Property search bar and filter pills"
-                     onerror="this.parentElement.innerHTML='<div class=\'shot-placeholder\'><span>📸 Property Search<br>Search bar + filter pills + 3-column property grid</span></div>'">
-                <div class="shot-label">Smart Property Search</div>
-            </div>
-
-            <!-- 3. Community Carousel -->
-            <div class="shot sq" onclick="openLightbox(this.querySelector('img'))">
-                <img src="https://i.imgur.com/AEzvDjz.png"
-                     alt="Community cards horizontal scroll carousel"
-                     onerror="this.parentElement.innerHTML='<div class=\'shot-placeholder\'><span>📸 Community Showcase<br>Drag-to-scroll card carousel — West Van, Yaletown, Kits</span></div>'">
-                <div class="shot-label">Community Carousel</div>
-            </div>
-
-            <!-- 4. Valuation Tool — full width -->
-            <div class="shot wide full-width" onclick="openLightbox(this.querySelector('img'))">
-                <img src="https://i.imgur.com/1Agnb8x.png"
-                     alt="Multi-step home valuation tool with progress steps"
-                     onerror="this.parentElement.innerHTML='<div class=\'shot-placeholder\'><span>📸 Home Valuation Tool<br>3-step form → loading animation → estimated value result</span></div>'">
-                <div class="shot-label">Multi-Step Valuation Tool</div>
-            </div>
-
-            <!-- 5. Social Proof -->
-            <div class="shot sq" onclick="openLightbox(this.querySelector('img'))">
-                <img src="https://i.imgur.com/I7GweZU.png"
-                     alt="Testimonials carousel and Just Sold list"
-                     onerror="this.parentElement.innerHTML='<div class=\'shot-placeholder\'><span>📸 Social Proof<br>Testimonial carousel + live \"Just Sold\" ticker</span></div>'">
-                <div class="shot-label">Testimonials & Just Sold</div>
-            </div>
-
-            <!-- 6. Mobile view -->
-            <div class="shot portrait" onclick="openLightbox(this.querySelector('img'))">
-                <img src="https://i.imgur.com/WAyMwcW.png"
-                     alt="Mobile responsive layout with sticky bottom bar"
-                     onerror="this.parentElement.innerHTML='<div class=\'shot-placeholder\'><span>📸 Mobile View<br>iPhone layout with sticky Call / WhatsApp bottom bar</span></div>'">
-                <div class="shot-label">Mobile Responsive</div>
-            </div>
-
+            <button class="slider-btn slider-prev" onclick="slideMove(-1)">&#8592;</button>
+            <button class="slider-btn slider-next" onclick="slideMove(1)">&#8594;</button>
+            <div class="slider-counter" id="sliderCounter">1 / 6</div>
         </div>
     </div>
 
@@ -388,7 +385,21 @@ function closeLightbox() {
     document.getElementById('lightbox').classList.remove('open');
     document.body.style.overflow = '';
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+    if (document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'ArrowLeft')  slideMove(-1);
+    if (e.key === 'ArrowRight') slideMove(1);
+});
+
+let slideIndex = 0;
+function slideMove(dir) {
+    const track = document.getElementById('sliderTrack');
+    const total = track.children.length;
+    slideIndex = (slideIndex + dir + total) % total;
+    track.style.transform = 'translateX(-' + (slideIndex * 100) + '%)';
+    document.getElementById('sliderCounter').textContent = (slideIndex + 1) + ' / ' + total;
+}
 
 function toggleLang() {
     document.body.classList.toggle('lang-zh');
