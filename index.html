@@ -3,236 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jason Lai | Portfolio</title>
-    <meta name="description" content="Jason Lai — Full-stack developer crafting intuitive, high-performance products.">
+
+    <!-- SEO -->
+    <title>Jason Lai | Full-Stack Developer | React Native • PWA • Next.js</title>
+    <meta name="description" content="Jason Lai — Full-stack developer based in Hong Kong & Calgary. Specialising in React Native, PWA, and Next.js — crafting fast, clean, intuitive products.">
+    <link rel="canonical" href="https://sanboy1989.github.io/portfolio/">
+    <link rel="alternate" hreflang="en"        href="https://sanboy1989.github.io/portfolio/">
+    <link rel="alternate" hreflang="zh-HK"     href="https://sanboy1989.github.io/portfolio/">
+    <link rel="alternate" hreflang="x-default" href="https://sanboy1989.github.io/portfolio/">
+
+    <!-- Open Graph (LinkedIn, Facebook, Slack) -->
+    <meta property="og:type"        content="website">
+    <meta property="og:url"         content="https://sanboy1989.github.io/portfolio/">
+    <meta property="og:title"       content="Jason Lai | Full-Stack Developer | React Native • PWA • Next.js">
+    <meta property="og:description" content="Jason Lai — Full-stack developer based in Hong Kong & Calgary. Specialising in React Native, PWA, and Next.js — crafting fast, clean, intuitive products.">
+    <meta property="og:image"       content="https://sanboy1989.github.io/portfolio/og-image.jpg">
+    <meta property="og:locale"      content="en_US">
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:url"         content="https://sanboy1989.github.io/portfolio/">
+    <meta name="twitter:title"       content="Jason Lai | Full-Stack Developer | React Native • PWA • Next.js">
+    <meta name="twitter:description" content="Jason Lai — Full-stack developer based in Hong Kong & Calgary. Specialising in React Native, PWA, and Next.js — crafting fast, clean, intuitive products.">
+    <meta name="twitter:image"       content="https://sanboy1989.github.io/portfolio/og-image.jpg">
+
+    <!-- Fonts: preconnect first, then load -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=IBM+Plex+Mono&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg:       #0B0E14;
-            --bg-up:    #0F1320;
-            --text:     #F1F5F9;
-            --muted:    #64748B;
-            --accent:   #38BDF8;
-            --border:   rgba(56, 189, 248, 0.1);
-            --sans:     'Inter', ui-sans-serif, system-ui, sans-serif;
-            --mono:     'IBM Plex Mono', ui-monospace, monospace;
-        }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+    <link rel="stylesheet" href="css/style.css">
 
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: var(--sans);
-            line-height: 1.6;
-        }
+    <!-- Prevent language flash: apply saved preference before paint -->
+    <script>if(localStorage.getItem('lang')==='zh')document.documentElement.classList.add('lang-zh');</script>
 
-        /* ── Canvas background ── */
-        #matrix-bg {
-            position: fixed;
-            inset: 0;
-            width: 100%; height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        nav, main { position: relative; z-index: 1; }
-
-        /* ── Nav ── */
-        nav {
-            position: sticky; top: 0;
-            background: rgba(11, 14, 20, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            padding: 0 24px;
-        }
-        .nav-inner {
-            max-width: 920px; margin: 0 auto;
-            display: flex; align-items: center; justify-content: space-between;
-            height: 56px;
-        }
-        .nav-logo {
-            font-family: var(--mono); font-size: 14px;
-            color: var(--accent); text-decoration: none;
-            letter-spacing: -0.02em;
-        }
-        .lang-btn {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--muted);
-            padding: 5px 14px; border-radius: 6px;
-            cursor: pointer; font-family: var(--mono);
-            font-size: 12px; letter-spacing: -0.01em;
-            transition: all 0.2s;
-        }
-        .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-        /* ── Main container ── */
-        main { max-width: 920px; margin: 0 auto; padding: 0 24px 100px; }
-
-        /* ── Profile ── */
-        .profile {
-            padding: 80px 0 60px;
-            border-bottom: 1px solid var(--border);
-        }
-        .profile-eyebrow {
-            font-family: var(--mono); font-size: 12px;
-            color: var(--accent); letter-spacing: 0.12em;
-            text-transform: uppercase; margin-bottom: 20px;
-            display: flex; align-items: center; gap: 10px;
-        }
-        .profile-eyebrow::before {
-            content: ''; display: inline-block;
-            width: 6px; height: 6px; border-radius: 50%;
-            background: var(--accent);
-            animation: pulse 2s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-        .profile-name {
-            font-size: clamp(2.8rem, 7vw, 4.5rem);
-            font-weight: 700; color: var(--text);
-            line-height: 0.95; letter-spacing: -0.035em;
-            margin-bottom: 28px;
-        }
-        .profile-bio {
-            font-size: 17px; color: var(--muted);
-            max-width: 500px; line-height: 1.75;
-            margin-bottom: 6px;
-        }
-        .profile-sub {
-            font-family: var(--mono); font-size: 13px;
-            color: #2D3748; margin-bottom: 28px;
-            letter-spacing: -0.02em;
-        }
-        .email-link {
-            display: inline-flex; align-items: center; gap: 8px;
-            font-family: var(--mono); font-size: 13px;
-            color: var(--text); text-decoration: none;
-            border: 1px solid var(--border);
-            padding: 8px 20px; border-radius: 6px;
-            transition: all 0.25s; letter-spacing: -0.02em;
-        }
-        .email-link:hover { border-color: var(--accent); color: var(--accent); }
-
-        /* ── Filter Bar ── */
-        .filter-bar {
-            padding: 20px 0;
-            border-bottom: 1px solid var(--border);
-            display: flex; gap: 8px; flex-wrap: wrap;
-        }
-        .filter-btn {
-            background: transparent;
-            border: 1px solid rgba(56, 189, 248, 0.14);
-            color: var(--muted);
-            padding: 5px 16px; border-radius: 99px;
-            cursor: pointer; font-family: var(--mono);
-            font-size: 12px; letter-spacing: -0.01em;
-            transition: all 0.2s; white-space: nowrap;
-        }
-        .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
-        .filter-btn.active {
-            background: var(--accent); border-color: var(--accent);
-            color: #0B0E14; font-weight: 700;
-        }
-
-        /* ── Project Items — Full Width ── */
-        .project-item {
-            position: relative;
-            border-bottom: 1px solid var(--border);
-            overflow: hidden;
-        }
-        .project-item.hidden { display: none; }
-
-        .project-link {
-            display: block; padding: 44px 0;
-            text-decoration: none;
-        }
-
-        /* Hover background image reveal */
-        .project-bg {
-            position: absolute; inset: 0;
-            background-size: cover; background-position: center;
-            opacity: 0; transform: scale(1.1);
-            transition: opacity 0.55s ease, transform 0.65s ease;
-            z-index: 0;
-        }
-        .project-item:hover .project-bg {
-            opacity: 0.11; transform: scale(1);
-        }
-
-        .project-top {
-            display: flex; align-items: center; gap: 14px;
-            margin-bottom: 12px; position: relative; z-index: 1;
-        }
-        .project-num {
-            font-family: var(--mono); font-size: 13px;
-            color: var(--accent); letter-spacing: -0.02em;
-        }
-        .project-cat {
-            font-family: var(--mono); font-size: 11px;
-            color: var(--muted); letter-spacing: 0.07em;
-            text-transform: uppercase;
-            border: 1px solid rgba(56, 189, 248, 0.14);
-            padding: 2px 10px; border-radius: 99px;
-        }
-
-        .project-title {
-            font-size: clamp(2.6rem, 7.5vw, 5rem);
-            font-weight: 700; color: var(--text);
-            line-height: 0.92; letter-spacing: -0.04em;
-            position: relative; z-index: 1;
-            transition: color 0.25s ease;
-            margin-bottom: 20px;
-        }
-        .project-item:hover .project-title { color: var(--accent); }
-
-        .project-bottom {
-            display: flex; align-items: flex-start;
-            justify-content: space-between; gap: 20px;
-            position: relative; z-index: 1;
-        }
-        .project-desc {
-            font-size: 14px; color: var(--muted);
-            max-width: 420px; line-height: 1.65;
-        }
-        .project-tags {
-            display: flex; flex-wrap: wrap; gap: 6px;
-            justify-content: flex-end; flex-shrink: 0;
-        }
-        .tag {
-            font-family: var(--mono); font-size: 11px;
-            color: var(--accent);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            padding: 3px 10px; border-radius: 99px;
-            letter-spacing: -0.02em;
-        }
-
-        /* ── Lang toggle ── */
-        [lang="zh"] { display: none; }
-        .lang-zh [lang="en"] { display: none; }
-        .lang-zh [lang="zh"] { display: block; }
-        .lang-zh span[lang="zh"] { display: inline; }
-
-        @media (max-width: 600px) {
-            .project-title { font-size: 2.4rem; }
-            .project-bottom { flex-direction: column; }
-            .project-tags { justify-content: flex-start; }
-        }
-    </style>
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Person",
+                "@id": "https://sanboy1989.github.io/portfolio/#jason",
+                "name": "Jason Lai",
+                "email": "jasonlai.tech@icloud.com",
+                "url": "https://sanboy1989.github.io/portfolio/",
+                "jobTitle": "Full-Stack Developer",
+                "description": "Full-stack developer based in Hong Kong & Calgary, specialising in React Native, PWA, and Next.js.",
+                "knowsAbout": ["React Native", "Next.js", "Vue.js", "PWA", "Firebase", "Node.js", "Full-Stack Development"],
+                "sameAs": [
+                    "https://github.com/sanboy1989"
+                ]
+            },
+            {
+                "@type": "ProfilePage",
+                "@id": "https://sanboy1989.github.io/portfolio/",
+                "name": "Jason Lai — Portfolio",
+                "url": "https://sanboy1989.github.io/portfolio/",
+                "about": { "@id": "https://sanboy1989.github.io/portfolio/#jason" }
+            }
+        ]
+    }
+    </script>
 </head>
 <body class="lang-en">
 
-<canvas id="matrix-bg"></canvas>
+<canvas id="matrix-bg" aria-hidden="true"></canvas>
 
 <nav>
     <div class="nav-inner">
         <a href="index.html" class="nav-logo">Jason Lai</a>
-        <button class="lang-btn" onclick="toggleLang()" id="langBtn">中文</button>
+        <button
+            class="lang-btn"
+            id="langBtn"
+            onclick="toggleLang()"
+            aria-pressed="false"
+            aria-label="Switch language to Chinese">中文</button>
     </div>
 </nav>
 
@@ -250,23 +97,23 @@
             <span lang="en">Problem Solver · Minimalist · Full-Stack</span>
             <span lang="zh">解決問題 · 簡約主義 · 全端開發</span>
         </div>
-        <a href="mailto:jasonlai.tech@icloud.com" class="email-link">jasonlai.tech@icloud.com</a>
+        <a href="mailto:jasonlai.tech@icloud.com" class="email-link" aria-label="Send email to Jason Lai">jasonlai.tech@icloud.com</a>
     </section>
 
     <!-- Filter Bar -->
-    <div class="filter-bar">
-        <button class="filter-btn active" onclick="filterProjects('all', this)">All</button>
-        <button class="filter-btn" onclick="filterProjects('app', this)">App (React Native)</button>
-        <button class="filter-btn" onclick="filterProjects('pwa', this)">PWA (Vue/React)</button>
-        <button class="filter-btn" onclick="filterProjects('business', this)">Business Demo</button>
+    <div class="filter-bar" role="group" aria-label="Filter projects by category">
+        <button class="filter-btn active" data-filter="all"      onclick="filterProjects('all', this)">All</button>
+        <button class="filter-btn"        data-filter="app"      onclick="filterProjects('app', this)">App (React Native)</button>
+        <button class="filter-btn"        data-filter="pwa"      onclick="filterProjects('pwa', this)">PWA (Vue/React)</button>
+        <button class="filter-btn"        data-filter="business" onclick="filterProjects('business', this)">Business Demo</button>
     </div>
 
     <!-- Projects -->
     <div id="projects">
 
         <article class="project-item" data-cat="app">
-            <div class="project-bg" style="background-image:url('https://www.image2url.com/r2/default/images/1776395975886-d1773200-dd4f-4c0f-8f65-e79d7ca8ef94.jpg')"></div>
-            <a href="project-langimon.html" class="project-link">
+            <div class="project-bg" style="background-image:url('https://www.image2url.com/r2/default/images/1776395975886-d1773200-dd4f-4c0f-8f65-e79d7ca8ef94.jpg')" aria-hidden="true"></div>
+            <a href="project-langimon.html" class="project-link" aria-label="View Langimon — Gamified Japanese learning app built with React Native">
                 <div class="project-top">
                     <span class="project-num">01</span>
                     <span class="project-cat">App · React Native</span>
@@ -281,12 +128,15 @@
                         <span class="tag">#Lottie</span>
                     </div>
                 </div>
+                <div class="project-cta-row">
+                    <span class="project-cta">View Project →</span>
+                </div>
             </a>
         </article>
 
         <article class="project-item" data-cat="pwa">
-            <div class="project-bg" style="background-image:url('https://www.image2url.com/r2/default/images/1776395941301-00caeb1c-7e09-4085-8a8e-6574bbb5d9ca.jpg')"></div>
-            <a href="project-hero.html" class="project-link">
+            <div class="project-bg" style="background-image:url('https://www.image2url.com/r2/default/images/1776395941301-00caeb1c-7e09-4085-8a8e-6574bbb5d9ca.jpg')" aria-hidden="true"></div>
+            <a href="project-hero.html" class="project-link" aria-label="View On the Way Hero — Location-based peer-to-peer logistics PWA">
                 <div class="project-top">
                     <span class="project-num">02</span>
                     <span class="project-cat">PWA · Vue.js</span>
@@ -301,12 +151,15 @@
                         <span class="tag">#PWA</span>
                     </div>
                 </div>
+                <div class="project-cta-row">
+                    <span class="project-cta">View Project →</span>
+                </div>
             </a>
         </article>
 
         <article class="project-item" data-cat="pwa">
-            <div class="project-bg" style="background-image:url('https://www.image2url.com/r2/default/images/1776395886702-06f54e57-da21-405a-a9f7-9129c9b3741d.jpg')"></div>
-            <a href="project-travel.html" class="project-link">
+            <div class="project-bg" style="background-image:url('https://www.image2url.com/r2/default/images/1776395886702-06f54e57-da21-405a-a9f7-9129c9b3741d.jpg')" aria-hidden="true"></div>
+            <a href="project-travel.html" class="project-link" aria-label="View WanderSync Travel — Smart travel management system built with Next.js">
                 <div class="project-top">
                     <span class="project-num">03</span>
                     <span class="project-cat">PWA · Next.js</span>
@@ -321,16 +174,18 @@
                         <span class="tag">#NodeJS</span>
                     </div>
                 </div>
+                <div class="project-cta-row">
+                    <span class="project-cta">View Project →</span>
+                </div>
             </a>
         </article>
 
         <article class="project-item" data-cat="business">
-            <div class="project-bg" style="background-image:url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1280&q=80')"></div>
-            <a href="project-business.html" class="project-link">
+            <div class="project-bg" style="background-image:url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1280&q=80')" aria-hidden="true"></div>
+            <a href="project-business.html" class="project-link" aria-label="View Aria Chen Real Estate — Luxury real estate landing page demo">
                 <div class="project-top">
                     <span class="project-num">04</span>
                     <span class="project-cat">Business Demo · HTML/CSS/JS</span>
-                    <span class="tag" style="border-color: rgba(251,191,36,0.4); color: #FBBF24;">&#9679; Demo on Request</span>
                 </div>
                 <h2 class="project-title">Aria Chen Real Estate</h2>
                 <div class="project-bottom">
@@ -342,133 +197,35 @@
                         <span class="tag">#SchemaOrg</span>
                     </div>
                 </div>
+                <div class="project-cta-row">
+                    <span class="project-cta project-cta-demo">&#9679; Demo on Request</span>
+                </div>
             </a>
         </article>
 
     </div>
 </main>
 
-<script>
-/* ─────────────────────────────────────────────
-   Matrix Rain  ·  Particle system with mouse
-   convergence: attract toward ring, repel core
-───────────────────────────────────────────── */
-(function () {
-    const canvas = document.getElementById('matrix-bg');
-    const ctx    = canvas.getContext('2d');
-    const ACCENT = '#38BDF8';
-    const R      = 200;   // attraction radius
+<footer>
+    <div class="footer-inner">
+        <p class="footer-copy">© 2025 Jason Lai. Built with care.</p>
+        <nav class="footer-links" aria-label="Social and contact links">
+            <a href="https://github.com/sanboy1989" class="footer-link" target="_blank" rel="noopener noreferrer" aria-label="Jason Lai on GitHub">GitHub</a>
+            <a href="#" class="footer-link" target="_blank" rel="noopener noreferrer" aria-label="Jason Lai on LinkedIn">LinkedIn</a>
+            <a href="mailto:jasonlai.tech@icloud.com" class="footer-link" aria-label="Email Jason Lai">Email</a>
+            <a href="#" class="footer-link footer-link-resume" aria-label="Download Jason Lai's resume">Resume ↓</a>
+        </nav>
+    </div>
+</footer>
 
-    const mouse = { x: -999, y: -999, on: false };
-    let pts = [], W, H;
+<button
+    id="canvas-toggle"
+    class="canvas-toggle"
+    onclick="toggleCanvas()"
+    aria-pressed="true"
+    aria-label="Toggle matrix background animation">▶ Matrix</button>
 
-    function mkPt(randY) {
-        const baseVy = 0.6 + Math.random() * 1.4;
-        return {
-            x: Math.random() * (W || innerWidth),
-            y: randY ? Math.random() * (H || innerHeight) : -16,
-            vx: 0, vy: baseVy, baseVy,
-            char: Math.random() > 0.5 ? '1' : '0',
-            alpha: 0.05 + Math.random() * 0.13,
-            size:  11 + Math.floor(Math.random() * 5),
-            t: 0, ti: 20 + Math.floor(Math.random() * 40)
-        };
-    }
-
-    function resize() {
-        W = canvas.width  = innerWidth;
-        H = canvas.height = innerHeight;
-        ctx.clearRect(0, 0, W, H);
-        const n = W < 768 ? 120 : 280;
-        pts = Array.from({ length: n }, (_, i) => mkPt(i < n));
-    }
-
-    function tick() {
-        ctx.clearRect(0, 0, W, H);
-
-        ctx.fillStyle = ACCENT;
-        ctx.textAlign = 'left';
-
-        for (const p of pts) {
-            /* rotate char */
-            if (++p.t >= p.ti) {
-                p.char = Math.random() > 0.5 ? '1' : '0';
-                p.t = 0;
-            }
-
-            /* distance to mouse */
-            const dx = mouse.x - p.x;
-            const dy = mouse.y - p.y;
-            const d  = Math.sqrt(dx * dx + dy * dy) || 0.01;
-            const near = mouse.on && d < R;
-
-            /* physics */
-            if (near) {
-                const s = 1 - d / R;
-                if (d < 68) {                       /* repel core */
-                    p.vx -= (dx / d) * s * 2.4;
-                    p.vy -= (dy / d) * s * 2.4;
-                } else {                            /* attract ring */
-                    p.vx += (dx / d) * s * 1.1;
-                    p.vy += (dy / d) * s * 1.1;
-                }
-                p.vx += (-dy / d) * s * 0.45;      /* tangential swirl */
-                p.vy += ( dx / d) * s * 0.45;
-            }
-
-            p.vx *= 0.88;
-            const tVy = near ? p.baseVy * 0.08 : p.baseVy;
-            p.vy += (tVy - p.vy) * 0.04;
-            p.vy  = Math.min(Math.max(p.vy, -4), 6);
-
-            p.x += p.vx;
-            p.y += p.vy;
-
-            if (p.y > H + 20) Object.assign(p, mkPt(false));
-            if (p.x < -30)    p.x = W + 10;
-            if (p.x > W + 30) p.x = -10;
-
-            /* draw */
-            const glow = near ? (1 - d / R) : 0;
-            ctx.globalAlpha = near ? 0.35 + 0.65 * glow : p.alpha;
-            ctx.shadowBlur  = glow > 0.05 ? 10 * glow : 0;
-            ctx.shadowColor = ACCENT;
-            ctx.font = `${p.size}px "IBM Plex Mono", monospace`;
-            ctx.fillText(p.char, p.x, p.y);
-        }
-
-        ctx.globalAlpha = 1;
-        ctx.shadowBlur  = 0;
-        requestAnimationFrame(tick);
-    }
-
-    window.addEventListener('resize', resize);
-    if (window.matchMedia('(pointer: fine)').matches) {
-        document.addEventListener('mousemove', e => {
-            mouse.x = e.clientX; mouse.y = e.clientY; mouse.on = true;
-        });
-        document.addEventListener('mouseleave', () => mouse.on = false);
-    }
-
-    resize();
-    tick();
-})();
-
-/* ── Filter ── */
-function filterProjects(cat, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.project-item').forEach(el => {
-        el.classList.toggle('hidden', cat !== 'all' && el.dataset.cat !== cat);
-    });
-}
-
-/* ── Lang toggle ── */
-function toggleLang() {
-    document.body.classList.toggle('lang-zh');
-    document.getElementById('langBtn').textContent =
-        document.body.classList.contains('lang-zh') ? 'English' : '中文';
-}
-</script>
+<script src="js/lang.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>

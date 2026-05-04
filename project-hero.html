@@ -3,81 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>On the Way Hero — Jason Lai</title>
-    <meta name="description" content="On the Way Hero: location-based peer-to-peer logistics PWA connecting commuters with last-mile delivery.">
+    <title>On the Way Hero | Vue.js PWA | Jason Lai</title>
+    <meta name="description" content="On the Way Hero — a location-based Vue.js PWA connecting Hong Kong commuters with last-mile C2C delivery. Built with Google Maps API and Service Workers.">
+    <link rel="canonical" href="https://sanboy1989.github.io/portfolio/project-hero.html">
+    <link rel="alternate" hreflang="en"      href="https://sanboy1989.github.io/portfolio/project-hero.html">
+    <link rel="alternate" hreflang="zh-HK"   href="https://sanboy1989.github.io/portfolio/project-hero.html">
+    <link rel="alternate" hreflang="x-default" href="https://sanboy1989.github.io/portfolio/project-hero.html">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg:     #0B0E14;
-            --bg-up:  #0F1320;
-            --text:   #F1F5F9;
-            --muted:  #64748B;
-            --accent: #38BDF8;
-            --border: rgba(56, 189, 248, 0.1);
-            --sans:   'Inter', ui-sans-serif, system-ui, sans-serif;
-            --mono:   'IBM Plex Mono', ui-monospace, monospace;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.6; }
-
-        nav {
-            position: sticky; top: 0;
-            background: rgba(11, 14, 20, 0.88);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border); padding: 0 24px; z-index: 100;
-        }
-        .nav-inner {
-            max-width: 760px; margin: 0 auto;
-            display: flex; align-items: center; justify-content: space-between; height: 56px;
-        }
-        .nav-back { font-family: var(--mono); font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: -0.02em; transition: color 0.2s; }
-        .nav-back:hover { color: var(--accent); }
-        .lang-btn { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 5px 14px; border-radius: 6px; cursor: pointer; font-family: var(--mono); font-size: 12px; transition: all 0.2s; }
-        .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-        .container { max-width: 760px; margin: 0 auto; padding: 0 24px 100px; }
-
-        .hero { padding: 64px 0 56px; border-bottom: 1px solid var(--border); }
-        .hero-label { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
-        .hero-title { font-size: clamp(2.6rem, 8vw, 5rem); font-weight: 700; color: var(--text); line-height: 0.92; letter-spacing: -0.04em; margin-bottom: 20px; }
-        .hero-tagline { font-size: 18px; color: var(--muted); line-height: 1.65; max-width: 540px; margin-bottom: 36px; }
-        .hero-img { width: 100%; border-radius: 8px; border: 1px solid var(--border); display: block; margin-bottom: 28px; background: var(--bg-up); max-height: 440px; object-fit: cover; }
-        .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
-        .tag { font-family: var(--mono); font-size: 12px; color: var(--accent); border: 1px solid rgba(56, 189, 248, 0.2); padding: 4px 12px; border-radius: 99px; letter-spacing: -0.02em; }
-
-        .section { padding: 56px 0; border-bottom: 1px solid var(--border); }
-        .sec-eyebrow { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 18px; }
-        .sec-title { font-size: 26px; font-weight: 700; color: var(--text); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 20px; }
-        .sec-body { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 18px; }
-        .sec-body:last-child { margin-bottom: 0; }
-
-        .callout { background: var(--bg-up); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 20px 24px; margin: 28px 0; }
-        .callout-label { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
-        .callout p { font-size: 14px; color: var(--muted); line-height: 1.75; }
-        .callout p strong { color: var(--text); font-weight: 700; }
-
-        .stack-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-        .chip { font-family: var(--mono); font-size: 13px; color: var(--text); background: var(--bg-up); border: 1px solid var(--border); padding: 5px 14px; border-radius: 6px; letter-spacing: -0.02em; }
-
-        .footer { padding: 48px 0 0; }
-        .footer a { font-family: var(--mono); font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: -0.02em; transition: color 0.2s; }
-        .footer a:hover { color: var(--accent); }
-
-        [lang="zh"] { display: none; }
-        .lang-zh [lang="en"] { display: none; }
-        .lang-zh [lang="zh"] { display: block; }
-        .lang-zh span[lang="zh"] { display: inline; }
-
-        @media (max-width: 540px) { .hero-title { font-size: 2.6rem; } }
-    </style>
+    <script>if(localStorage.getItem('lang')==='zh')document.documentElement.classList.add('lang-zh');</script>
+    <link rel="stylesheet" href="css/project.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        "name": "On the Way Hero",
+        "description": "Location-based peer-to-peer logistics PWA connecting commuters with last-mile delivery in Hong Kong.",
+        "author": { "@id": "https://sanboy1989.github.io/portfolio/#jason" },
+        "url": "https://sanboy1989.github.io/portfolio/project-hero.html",
+        "keywords": "Vue.js, PWA, Google Maps API, Geolocation, Service Workers, Last-mile delivery"
+    }
+    </script>
 </head>
 <body class="lang-en">
+
+<canvas id="matrix-bg" aria-hidden="true"></canvas>
 
 <nav>
     <div class="nav-inner">
         <a href="index.html" class="nav-back">← Portfolio</a>
-        <button class="lang-btn" onclick="toggleLang()" id="langBtn">中文</button>
+        <button class="lang-btn" onclick="toggleLang()" id="langBtn" aria-pressed="false" aria-label="Switch language to Chinese">中文</button>
     </div>
 </nav>
 
@@ -88,7 +44,9 @@
         <h1 class="hero-title">On the Way Hero</h1>
         <p class="hero-tagline" lang="en">A location-based platform that turns everyday commuters into last-mile delivery heroes — solving C2C logistics without a fleet or warehouse.</p>
         <p class="hero-tagline" lang="zh">一個將日常通勤者轉化為末端配送英雄的地理位置平台——無需車隊或倉庫解決 C2C 物流問題。</p>
-        <img src="https://www.image2url.com/r2/default/images/1776395941301-00caeb1c-7e09-4085-8a8e-6574bbb5d9ca.jpg" class="hero-img" alt="On the Way Hero app screenshot">
+        <img src="https://www.image2url.com/r2/default/images/1776395941301-00caeb1c-7e09-4085-8a8e-6574bbb5d9ca.jpg"
+             class="hero-img" alt="On the Way Hero app screenshot — map view with route matching"
+             loading="lazy" decoding="async">
         <div class="tag-row">
             <span class="tag">#VueJS</span>
             <span class="tag">#MapsAPI</span>
@@ -153,12 +111,8 @@
 
 </div>
 
-<script>
-function toggleLang() {
-    document.body.classList.toggle('lang-zh');
-    document.getElementById('langBtn').textContent =
-        document.body.classList.contains('lang-zh') ? 'English' : '中文';
-}
-</script>
+<button id="canvas-toggle" class="canvas-toggle" onclick="toggleCanvas()" aria-pressed="true" aria-label="Toggle matrix background animation">▶ Matrix</button>
+<script src="js/lang.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>

@@ -3,63 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aria Chen Real Estate — Jason Lai</title>
-    <meta name="description" content="A conversion-focused luxury real estate landing page built with HTML, CSS, and Vanilla JS.">
+    <title>Aria Chen Real Estate | Business Demo | Jason Lai</title>
+    <meta name="description" content="Conversion-focused luxury real estate landing page — multi-step home valuation tool, property search, and community showcase. Built with HTML5, CSS3, and Vanilla JS.">
+    <link rel="canonical" href="https://sanboy1989.github.io/portfolio/project-business.html">
+    <link rel="alternate" hreflang="en"        href="https://sanboy1989.github.io/portfolio/project-business.html">
+    <link rel="alternate" hreflang="zh-HK"     href="https://sanboy1989.github.io/portfolio/project-business.html">
+    <link rel="alternate" hreflang="x-default" href="https://sanboy1989.github.io/portfolio/project-business.html">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+    <script>if(localStorage.getItem('lang')==='zh')document.documentElement.classList.add('lang-zh');</script>
+    <link rel="stylesheet" href="css/project.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        "name": "Aria Chen Real Estate",
+        "description": "Conversion-focused luxury real estate landing page featuring a multi-step home valuation tool, property search, and community showcase.",
+        "author": { "@id": "https://sanboy1989.github.io/portfolio/#jason" },
+        "url": "https://sanboy1989.github.io/portfolio/project-business.html",
+        "keywords": "HTML5, CSS3, Vanilla JS, Real Estate, Schema.org, Open Graph, Landing Page, Conversion"
+    }
+    </script>
     <style>
-        :root {
-            --bg:     #0B0E14;
-            --bg-up:  #0F1320;
-            --text:   #F1F5F9;
-            --muted:  #94A3B8;
-            --accent: #38BDF8;
-            --gold:   #FBBF24;
-            --border: rgba(56, 189, 248, 0.1);
-            --sans:   'Inter', ui-sans-serif, system-ui, sans-serif;
-            --mono:   'IBM Plex Mono', ui-monospace, monospace;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* ── Business page overrides (shared styles in css/project.css) ── */
         html, body { overflow-x: hidden; }
-        body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.6; }
-
-        nav { position: sticky; top: 0; background: rgba(11, 14, 20, 0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 24px; z-index: 100; }
-        .nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 56px; }
-        .nav-back { font-family: var(--mono); font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: -0.02em; transition: color 0.2s; }
-        .nav-back:hover { color: var(--accent); }
-        .lang-btn { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 5px 14px; border-radius: 6px; cursor: pointer; font-family: var(--mono); font-size: 12px; transition: all 0.2s; }
-        .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-        .container { max-width: 900px; margin: 0 auto; padding-bottom: 100px; }
-
-        /* ── Hero ── */
-        .hero { padding: 80px 40px 64px; border-bottom: 1px solid var(--border); }
-        .hero-label { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
-        .hero-title { font-size: clamp(4rem, 9vw, 7.5rem); font-weight: 700; color: var(--text); line-height: 0.88; letter-spacing: -0.05em; margin-bottom: 24px; }
-        .hero-tagline { font-size: 18px; color: var(--muted); line-height: 1.65; max-width: 540px; margin-bottom: 24px; }
-
-        .protected-badge {
-            display: inline-flex; align-items: center; gap: 8px;
-            font-family: var(--mono); font-size: 12px; color: var(--gold);
-            border: 1px solid rgba(251, 191, 36, 0.3);
-            background: rgba(251, 191, 36, 0.06);
-            padding: 6px 14px; border-radius: 99px;
-            letter-spacing: -0.01em; margin-bottom: 32px;
-        }
-        .protected-badge::before { content: '●'; font-size: 8px; }
-
-        .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
-        .tag { font-family: var(--mono); font-size: 12px; color: var(--muted); border: 1px solid rgba(255,255,255,0.1); padding: 4px 12px; border-radius: 99px; letter-spacing: -0.02em; transition: color 0.2s, border-color 0.2s; cursor: default; }
+        .nav-inner { max-width: 900px; }
+        .container { max-width: 900px; padding: 0 0 100px; }
+        .hero { padding: 80px 40px 64px; }
+        .hero-title { font-size: clamp(2.8rem, 8vw, 7.5rem); line-height: 0.88; letter-spacing: -0.05em; }
+        .section { padding: 80px 40px; }
+        .sec-title { max-width: 660px; }
+        .sec-body { max-width: 660px; }
+        .footer { padding: 48px 40px 0; }
+        .tag { color: var(--muted); border-color: rgba(255,255,255,0.1); cursor: default; }
         .tag:hover { color: var(--accent); border-color: rgba(56,189,248,0.5); }
 
-        /* ── Sections ── */
-        .section { padding: 80px 40px; border-bottom: 1px solid var(--border); margin-bottom: 0; }
-        .sec-eyebrow { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 18px; }
-        .sec-title { font-size: 24px; font-weight: 700; color: var(--text); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px; max-width: 660px; }
-        .sec-body { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 16px; max-width: 660px; }
-        .sec-body:last-child { margin-bottom: 0; }
+        /* Protected badge */
+        .protected-badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--gold); border: 1px solid rgba(251,191,36,0.3); background: rgba(251,191,36,0.06); padding: 6px 14px; border-radius: 99px; letter-spacing: -0.01em; margin-bottom: 32px; }
+        .protected-badge::before { content: '●'; font-size: 8px; }
 
-        /* ── Screenshot Slider ── */
+        /* Gallery Slider */
         .gallery-slider { position: relative; margin-top: 24px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: #0F172A; box-shadow: 0 20px 50px rgba(0,0,0,0.5); aspect-ratio: 16 / 9; }
         .slider-track { position: relative; width: 100%; height: 100%; }
         .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
@@ -71,108 +55,51 @@
         .slider-btn:hover { background: rgba(56,189,248,0.15); border-color: var(--accent); color: var(--accent); }
         .slider-prev { left: 14px; }
         .slider-next { right: 14px; }
-        .slider-counter { position: absolute; bottom: 12px; right: 14px; font-family: var(--mono); font-size: 11px; color: var(--muted); background: rgba(11,14,20,0.72); padding: 4px 10px; border-radius: 99px; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 10; letter-spacing: -0.01em; }
+        .slider-counter { position: absolute; bottom: 12px; right: 14px; font-family: var(--mono); font-size: 11px; color: var(--muted); background: rgba(11,14,20,0.72); padding: 4px 10px; border-radius: 99px; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 10; letter-spacing: -0.01em; transition: opacity 0.25s ease; }
 
-        .shot {
-            position: relative; border-radius: 8px; overflow: hidden;
-            border: 1px solid var(--border); background: #0F172A;
-            cursor: zoom-in; min-width: 0;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease;
-        }
-        /* Fixed aspect ratio per slot */
-        .shot.wide     { aspect-ratio: 16 / 9; }
-        .shot.tall     { aspect-ratio: 4 / 5; }
-        .shot.sq       { aspect-ratio: 4 / 3; }
-        .shot.portrait { aspect-ratio: 9 / 16; }
-
+        /* Shot grid */
+        .shot { position: relative; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: #0F172A; cursor: zoom-in; min-width: 0; box-shadow: 0 20px 50px rgba(0,0,0,0.5); transition: transform 0.3s ease; }
+        .shot.wide { aspect-ratio: 16/9; } .shot.tall { aspect-ratio: 4/5; } .shot.sq { aspect-ratio: 4/3; } .shot.portrait { aspect-ratio: 9/16; }
         .shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease, opacity 0.3s ease; }
         .shot:hover img { transform: scale(1.03); opacity: 0.85; }
-
-        .shot-label {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            padding: 10px 14px;
-            background: linear-gradient(transparent, rgba(11,14,20,0.88));
-            font-family: var(--mono); font-size: 11px; color: var(--muted);
-            opacity: 0; transition: opacity 0.25s;
-        }
+        .shot-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 14px; background: linear-gradient(transparent, rgba(11,14,20,0.88)); font-family: var(--mono); font-size: 11px; color: var(--muted); opacity: 0; transition: opacity 0.25s; }
         .shot:hover .shot-label { opacity: 1; }
+        .shot-placeholder { width: 100%; height: 100%; min-height: 160px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 10px; }
+        .shot-placeholder span { font-family: var(--mono); font-size: 11px; color: #1E293B; text-align: center; padding: 0 20px; line-height: 1.6; }
 
-        .shot-placeholder {
-            width: 100%; height: 100%; min-height: 160px;
-            display: flex; align-items: center; justify-content: center;
-            flex-direction: column; gap: 10px;
-        }
-        .shot-placeholder span {
-            font-family: var(--mono); font-size: 11px;
-            color: #1E293B; text-align: center; padding: 0 20px; line-height: 1.6;
-        }
-
-        /* ── Lightbox ── */
+        /* Lightbox */
         .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.92); display: none; align-items: center; justify-content: center; z-index: 9999; padding: 24px; cursor: zoom-out; }
         .lightbox.open { display: flex; }
         .lightbox img { max-width: 100%; max-height: 90vh; border-radius: 8px; border: 1px solid var(--border); object-fit: contain; box-shadow: 0 0 60px rgba(0,0,0,0.8); }
         .lightbox-close { position: absolute; top: 20px; right: 24px; font-family: var(--mono); font-size: 13px; color: var(--muted); cursor: pointer; transition: color 0.2s; }
         .lightbox-close:hover { color: var(--text); }
 
-        /* ── Callout ── */
-        .callout { background: var(--bg-up); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 20px 24px; margin: 24px 0; }
-        .callout-label { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
-        .callout p { font-size: 14px; color: var(--muted); line-height: 1.75; }
-        .callout p strong { color: var(--text); }
-        .callout code { font-family: var(--mono); font-size: 12px; color: var(--accent); background: rgba(56,189,248,0.08); padding: 1px 5px; border-radius: 3px; }
-
-        /* ── Feature grid ── */
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 24px; width: 100%; }
-        .feature-card { background: var(--bg-up); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: 8px; padding: 16px 18px; }
-        .feature-card-title { font-family: var(--mono); font-size: 12px; color: var(--accent); margin-bottom: 6px; letter-spacing: -0.02em; }
-        .feature-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
-
-        /* ── Stack ── */
-        .stack-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-        .chip { font-family: var(--mono); font-size: 13px; color: var(--text); background: var(--bg-up); border: 1px solid var(--border); padding: 5px 14px; border-radius: 6px; letter-spacing: -0.02em; }
-
-        /* ── CTA ── */
+        /* Demo CTA */
         .demo-cta { background: var(--bg-up); border: 1px solid var(--border); border-radius: 8px; padding: 40px; display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
         .demo-cta-text h3 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
         .demo-cta-text p { font-size: 14px; color: var(--muted); line-height: 1.6; }
         .demo-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #0B0E14; font-family: var(--sans); font-size: 14px; font-weight: 700; text-decoration: none; padding: 10px 22px; border-radius: 6px; transition: opacity 0.2s; white-space: nowrap; flex-shrink: 0; }
         .demo-btn:hover { opacity: 0.85; }
 
-        .footer { padding: 48px 40px 0; }
-        .footer a { font-family: var(--mono); font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: -0.02em; transition: color 0.2s; }
-        .footer a:hover { color: var(--accent); }
-
-        [lang="zh"] { display: none; }
-        .lang-zh [lang="en"] { display: none; }
-        .lang-zh [lang="zh"] { display: block; }
-        .lang-zh span[lang="zh"] { display: inline; }
-
-        @media (max-width: 600px) {
-            .gallery-slider { aspect-ratio: 4 / 3; }
-        }
-
+        @media (max-width: 600px) { .gallery-slider { aspect-ratio: 4/3; } }
         @media (max-width: 768px) {
-            .container { padding-bottom: 80px; }
             .hero { padding: 60px 24px 48px; }
             .section { padding: 64px 24px; }
             .footer { padding: 40px 24px 0; }
-            .hero-title { font-size: 3.5rem; }
-            .shot img { max-height: 500px; }
-            .demo-cta { flex-direction: column; padding: 32px 24px; text-align: left; }
+            .hero-title { font-size: 2.8rem; }
+            .demo-cta { flex-direction: column; padding: 32px 24px; }
             .demo-btn { width: 100%; justify-content: center; }
         }
-
         @media (max-width: 480px) {
-            .container { padding-bottom: 64px; }
             .hero { padding-left: 20px; padding-right: 20px; }
             .section { padding-left: 20px; padding-right: 20px; }
             .footer { padding-left: 20px; padding-right: 20px; }
-            .feature-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body class="lang-en">
+
+<canvas id="matrix-bg" aria-hidden="true"></canvas>
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
     <span class="lightbox-close">✕ close</span>
@@ -182,7 +109,7 @@
 <nav>
     <div class="nav-inner">
         <a href="index.html" class="nav-back">← Portfolio</a>
-        <button class="lang-btn" onclick="toggleLang()" id="langBtn">中文</button>
+        <button class="lang-btn" onclick="toggleLang()" id="langBtn" aria-pressed="false" aria-label="Switch language to Chinese">中文</button>
     </div>
 </nav>
 
@@ -223,37 +150,37 @@
 
                 <!-- 1. Hero -->
                 <div class="slide" onclick="openLightbox(this.querySelector('img'))">
-                    <img src="https://i.imgur.com/dq7wIhG.png" alt="Aria Chen Real Estate — hero section with luxury home background">
+                    <img src="https://i.imgur.com/dq7wIhG.png" alt="Aria Chen Real Estate — hero section with luxury home background" loading="lazy" decoding="async">
                     <div class="slide-label">Hero Section — Full Viewport</div>
                 </div>
 
                 <!-- 2. Property Search -->
                 <div class="slide" onclick="openLightbox(this.querySelector('img'))">
-                    <img src="https://i.imgur.com/5qrE74x.png" alt="Property search bar and filter pills">
+                    <img src="https://i.imgur.com/5qrE74x.png" alt="Property search bar and filter pills" loading="lazy" decoding="async">
                     <div class="slide-label">Smart Property Search</div>
                 </div>
 
                 <!-- 3. Community Carousel -->
                 <div class="slide" onclick="openLightbox(this.querySelector('img'))">
-                    <img src="https://i.imgur.com/AEzvDjz.png" alt="Community cards horizontal scroll carousel">
+                    <img src="https://i.imgur.com/AEzvDjz.png" alt="Community cards horizontal scroll carousel" loading="lazy" decoding="async">
                     <div class="slide-label">Community Carousel</div>
                 </div>
 
                 <!-- 4. Valuation Tool -->
                 <div class="slide" onclick="openLightbox(this.querySelector('img'))">
-                    <img src="https://i.imgur.com/1Agnb8x.png" alt="Multi-step home valuation tool with progress steps">
+                    <img src="https://i.imgur.com/1Agnb8x.png" alt="Multi-step home valuation tool with progress steps" loading="lazy" decoding="async">
                     <div class="slide-label">Multi-Step Valuation Tool</div>
                 </div>
 
                 <!-- 5. Social Proof -->
                 <div class="slide" onclick="openLightbox(this.querySelector('img'))">
-                    <img src="https://i.imgur.com/I7GweZU.png" alt="Testimonials carousel and Just Sold list">
+                    <img src="https://i.imgur.com/I7GweZU.png" alt="Testimonials carousel and Just Sold list" loading="lazy" decoding="async">
                     <div class="slide-label">Testimonials &amp; Just Sold</div>
                 </div>
 
                 <!-- 6. Mobile view — contain so portrait is fully visible -->
                 <div class="slide contain" onclick="openLightbox(this.querySelector('img'))">
-                    <img src="https://i.imgur.com/WAyMwcW.png" alt="Mobile responsive layout with sticky bottom bar">
+                    <img src="https://i.imgur.com/WAyMwcW.png" alt="Mobile responsive layout with sticky bottom bar" loading="lazy" decoding="async">
                     <div class="slide-label">Mobile Responsive</div>
                 </div>
 
@@ -401,14 +328,26 @@ function slideMove(dir) {
     slides[slideIndex].classList.remove('active');
     slideIndex = (slideIndex + dir + slides.length) % slides.length;
     slides[slideIndex].classList.add('active');
-    document.getElementById('sliderCounter').textContent = (slideIndex + 1) + ' / ' + slides.length;
+    const counter = document.getElementById('sliderCounter');
+    counter.textContent = (slideIndex + 1) + ' / ' + slides.length;
+    counter.animate(
+        [{opacity: 0.3, transform: 'scale(0.9)'}, {opacity: 1, transform: 'scale(1)'}],
+        {duration: 250, easing: 'ease-out'}
+    );
 }
 
-function toggleLang() {
-    document.body.classList.toggle('lang-zh');
-    document.getElementById('langBtn').textContent =
-        document.body.classList.contains('lang-zh') ? 'English' : '中文';
-}
+// Touch swipe support
+let touchStartX = 0;
+const slider = document.getElementById('gallerySlider');
+slider.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, {passive: true});
+slider.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) slideMove(dx < 0 ? 1 : -1);
+}, {passive: true});
+
 </script>
+<button id="canvas-toggle" class="canvas-toggle" onclick="toggleCanvas()" aria-pressed="true" aria-label="Toggle matrix background animation">▶ Matrix</button>
+<script src="js/lang.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>
