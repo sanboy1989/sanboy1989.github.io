@@ -443,10 +443,12 @@
     }
 
     window.addEventListener('resize', resize);
-    document.addEventListener('mousemove', e => {
-        mouse.x = e.clientX; mouse.y = e.clientY; mouse.on = true;
-    });
-    document.addEventListener('mouseleave', () => mouse.on = false);
+    if (window.matchMedia('(pointer: fine)').matches) {
+        document.addEventListener('mousemove', e => {
+            mouse.x = e.clientX; mouse.y = e.clientY; mouse.on = true;
+        });
+        document.addEventListener('mouseleave', () => mouse.on = false);
+    }
 
     resize();
     tick();
