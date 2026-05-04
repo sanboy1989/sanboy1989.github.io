@@ -28,14 +28,14 @@
     <style>
         /* ── Business page overrides (shared styles in css/project.css) ── */
         html, body { overflow-x: hidden; }
-        .nav-inner { max-width: 900px; }
-        .container { max-width: 900px; padding: 0 0 100px; }
-        .hero { padding: 80px 40px 64px; }
+        .nav-inner { max-width: 1100px; }
+        .container { max-width: 1100px; padding: 0 40px 100px; }
+        .hero { padding: 80px 0 64px; }
         .hero-title { font-size: clamp(2.8rem, 8vw, 7.5rem); line-height: 0.88; letter-spacing: -0.05em; }
-        .section { padding: 80px 40px; }
+        .section { padding: 80px 0; }
         .sec-title { max-width: 660px; }
         .sec-body { max-width: 660px; }
-        .footer { padding: 48px 40px 0; }
+        .footer { padding: 48px 0 0; }
         .tag { color: var(--muted); border-color: rgba(255,255,255,0.1); cursor: default; }
         .tag:hover { color: var(--accent); border-color: rgba(56,189,248,0.5); }
 
@@ -81,19 +81,28 @@
         .demo-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #0B0E14; font-family: var(--sans); font-size: 14px; font-weight: 700; text-decoration: none; padding: 10px 22px; border-radius: 6px; transition: opacity 0.2s; white-space: nowrap; flex-shrink: 0; }
         .demo-btn:hover { opacity: 0.85; }
 
+        /* Demo iframe */
+        .demo-iframe-wrap { margin-top: 24px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: var(--bg-up); aspect-ratio: 16 / 9; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .demo-iframe-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+
+        /* Responsive content switching */
+        .desktop-only { display: none; }
+
+        @media (min-width: 769px) {
+            .gallery-slider { display: none; }
+            .desktop-only { display: block; }
+            .mobile-only { display: none; }
+        }
         @media (max-width: 600px) { .gallery-slider { aspect-ratio: 4/3; } }
         @media (max-width: 768px) {
-            .hero { padding: 60px 24px 48px; }
-            .section { padding: 64px 24px; }
-            .footer { padding: 40px 24px 0; }
+            .container { padding: 0 1.5rem 80px; }
+            .hero { padding: 60px 0 48px; }
+            .section { padding: 64px 0; }
+            .footer { padding: 40px 0 0; }
+            .demo-iframe-wrap { display: none; }
             .hero-title { font-size: 2.8rem; }
             .demo-cta { flex-direction: column; padding: 32px 24px; }
             .demo-btn { width: 100%; justify-content: center; }
-        }
-        @media (max-width: 480px) {
-            .hero { padding-left: 20px; padding-right: 20px; }
-            .section { padding-left: 20px; padding-right: 20px; }
-            .footer { padding-left: 20px; padding-right: 20px; }
         }
     </style>
 </head>
@@ -140,10 +149,29 @@
     <!-- ── Gallery ── -->
     <div class="section">
         <div class="sec-eyebrow">Visual Walkthrough</div>
-        <h2 class="sec-title" lang="en">Screenshots — click to enlarge</h2>
-        <h2 class="sec-title" lang="zh">截圖展示——點擊放大</h2>
-        <p class="sec-body" lang="en" style="margin-bottom: 0;">Six sections, one seamless scroll. Screenshots show the site across desktop and mobile breakpoints.</p>
-        <p class="sec-body" lang="zh" style="margin-bottom: 0;">六個區塊，一次流暢滾動。截圖展示桌面及移動端斷點下的表現。</p>
+
+        <div lang="en">
+            <h2 class="sec-title desktop-only">Interactive Preview</h2>
+            <p class="sec-body desktop-only" style="margin-bottom: 0;">Experience the full interface below in real-time.</p>
+            <h2 class="sec-title mobile-only">Visual Walkthrough</h2>
+            <p class="sec-body mobile-only" style="margin-bottom: 0;">Explore the interface via mobile-optimized captures.</p>
+        </div>
+        <div lang="zh">
+            <h2 class="sec-title desktop-only">互動預覽</h2>
+            <p class="sec-body desktop-only" style="margin-bottom: 0;">即時體驗完整介面互動。</p>
+            <h2 class="sec-title mobile-only">視覺導覽</h2>
+            <p class="sec-body mobile-only" style="margin-bottom: 0;">透過手機優化截圖瀏覽介面。</p>
+        </div>
+
+        <div class="demo-iframe-wrap" id="demoIframeWrap">
+            <iframe
+                data-src="https://sanboy1989.github.io/Demo.RealEstate/"
+                src="about:blank"
+                loading="lazy"
+                title="Aria Chen Real Estate — Live Demo"
+                referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+        </div>
 
         <div class="gallery-slider" id="gallerySlider">
             <div class="slider-track" id="sliderTrack">
@@ -344,6 +372,21 @@ slider.addEventListener('touchend', e => {
     const dx = e.changedTouches[0].clientX - touchStartX;
     if (Math.abs(dx) > 50) slideMove(dx < 0 ? 1 : -1);
 }, {passive: true});
+
+// Lazy-load demo iframe via IntersectionObserver
+(function() {
+    var wrap = document.getElementById('demoIframeWrap');
+    if (!wrap) return;
+    var frame = wrap.querySelector('iframe');
+    var io = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting && frame.dataset.src) {
+            frame.src = frame.dataset.src;
+            frame.removeAttribute('data-src');
+            io.disconnect();
+        }
+    }, { rootMargin: '200px' });
+    io.observe(wrap);
+})();
 
 </script>
 <button id="canvas-toggle" class="canvas-toggle" onclick="toggleCanvas()" aria-pressed="true" aria-label="Toggle matrix background animation">▶ Matrix</button>
