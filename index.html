@@ -378,12 +378,14 @@
     function resize() {
         W = canvas.width  = innerWidth;
         H = canvas.height = innerHeight;
-        const n = W < 768 ? 140 : 280;
-        pts = Array.from({ length: n }, (_, i) => mkPt(i < n));
+        ctx.clearRect(0, 0, W, H);
+        if (W < 768) { pts = []; return; }
+        pts = Array.from({ length: 280 }, (_, i) => mkPt(i < 280));
     }
 
     function tick() {
         ctx.clearRect(0, 0, W, H);
+        if (!pts.length) { requestAnimationFrame(tick); return; }
         ctx.fillStyle = ACCENT;
         ctx.textAlign = 'left';
 
