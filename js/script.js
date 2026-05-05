@@ -5,7 +5,7 @@
 (function () {
     const canvas = document.getElementById('matrix-bg');
     const ctx    = canvas.getContext('2d');
-    const ACCENT = '#38BDF8';
+    const ACCENT = '#00FF41';
     const R      = 200;
 
     const mouse = { x: -999, y: -999, on: false };
