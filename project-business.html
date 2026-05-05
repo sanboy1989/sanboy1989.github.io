@@ -92,9 +92,8 @@
             .desktop-only { display: block; }
             .mobile-only { display: none; }
         }
-        @media (max-width: 600px) { .gallery-slider { aspect-ratio: 4/3; } }
         @media (max-width: 768px) {
-            .container { padding: 0 1.5rem 80px; }
+            .container { padding: 0 24px 80px; }
             .hero { padding: 60px 0 48px; }
             .section { padding: 64px 0; }
             .footer { padding: 40px 0 0; }
@@ -102,6 +101,50 @@
             .hero-title { font-size: 2.8rem; }
             .demo-cta { flex-direction: column; padding: 32px 24px; }
             .demo-btn { width: 100%; justify-content: center; }
+
+            /* ── Gallery: full-page vertical stack on mobile ── */
+            .gallery-slider {
+                aspect-ratio: unset;
+                height: auto;
+                overflow: visible;
+                background: transparent;
+                border: none;
+                box-shadow: none;
+                border-radius: 0;
+                margin-top: 20px;
+            }
+            .slider-track {
+                position: static;
+                width: 100%;
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+            .slide {
+                position: static;
+                opacity: 1;
+                pointer-events: auto;
+                cursor: zoom-in;
+                border-radius: 8px;
+                overflow: hidden;
+                border: 1px solid var(--border);
+            }
+            .slide img {
+                width: 100%;
+                height: auto;
+                object-fit: unset;
+                display: block;
+            }
+            .slide.contain img { object-fit: unset; }
+            .slide-label {
+                position: static;
+                padding: 6px 12px 8px;
+                background: var(--bg-up);
+                border-top: 1px solid var(--border);
+            }
+            .slider-btn,
+            .slider-counter { display: none; }
         }
     </style>
 </head>
@@ -177,37 +220,37 @@
 
                 <!-- 1. Hero -->
                 <div class="slide" onclick="openLightbox(this.querySelector('img'))">
-                    <img src="images/business-01.png" alt="Aria Chen Real Estate — hero section with luxury home background" loading="lazy" decoding="async">
+                    <img src="images/business-01.webp" alt="Aria Chen Real Estate — hero section with luxury home background" loading="eager" fetchpriority="high" decoding="async">
                     <div class="slide-label">Hero Section — Full Viewport</div>
                 </div>
 
                 <!-- 2. Property Search -->
                 <div class="slide" onclick="openLightbox(this.querySelector('img'))">
-                    <img src="images/business-02.png" alt="Property search bar and filter pills" loading="lazy" decoding="async">
+                    <img src="images/business-02.webp" alt="Property search bar and filter pills" loading="lazy" decoding="async">
                     <div class="slide-label">Smart Property Search</div>
                 </div>
 
                 <!-- 3. Community Carousel -->
                 <div class="slide" onclick="openLightbox(this.querySelector('img'))">
-                    <img src="images/business-03.png" alt="Community cards horizontal scroll carousel" loading="lazy" decoding="async">
+                    <img src="images/business-03.webp" alt="Community cards horizontal scroll carousel" loading="lazy" decoding="async">
                     <div class="slide-label">Community Carousel</div>
                 </div>
 
                 <!-- 4. Valuation Tool -->
                 <div class="slide" onclick="openLightbox(this.querySelector('img'))">
-                    <img src="images/business-04.png" alt="Multi-step home valuation tool with progress steps" loading="lazy" decoding="async">
+                    <img src="images/business-04.webp" alt="Multi-step home valuation tool with progress steps" loading="lazy" decoding="async">
                     <div class="slide-label">Multi-Step Valuation Tool</div>
                 </div>
 
                 <!-- 5. Social Proof -->
                 <div class="slide" onclick="openLightbox(this.querySelector('img'))">
-                    <img src="images/business-05.png" alt="Testimonials carousel and Just Sold list" loading="lazy" decoding="async">
+                    <img src="images/business-05.webp" alt="Testimonials carousel and Just Sold list" loading="lazy" decoding="async">
                     <div class="slide-label">Testimonials &amp; Just Sold</div>
                 </div>
 
                 <!-- 6. Mobile view — contain so portrait is fully visible -->
                 <div class="slide contain" onclick="openLightbox(this.querySelector('img'))">
-                    <img src="images/business-06.png" alt="Mobile responsive layout with sticky bottom bar" loading="lazy" decoding="async">
+                    <img src="images/business-06.webp" alt="Mobile responsive layout with sticky bottom bar" loading="lazy" decoding="async">
                     <div class="slide-label">Mobile Responsive</div>
                 </div>
 
@@ -331,7 +374,7 @@
 
 <script>
 function openLightbox(img) {
-    if (!img || !img.src || img.naturalWidth === 0) return;
+    if (!img || !img.src) return;
     document.getElementById('lightbox-img').src = img.src;
     document.getElementById('lightbox').classList.add('open');
     document.body.style.overflow = 'hidden';
