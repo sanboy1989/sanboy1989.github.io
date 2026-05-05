@@ -42,36 +42,20 @@
         .protected-badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--gold); border: 1px solid rgba(251,191,36,0.3); background: rgba(251,191,36,0.06); padding: 6px 14px; border-radius: 99px; letter-spacing: -0.01em; margin-bottom: 32px; }
         .protected-badge::before { content: '●'; font-size: 8px; }
 
-        /* Gallery Slider */
-        .gallery-slider { position: relative; margin-top: 24px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: #0F172A; box-shadow: 0 20px 50px rgba(0,0,0,0.5); aspect-ratio: 16 / 9; }
-        .slider-track { position: relative; width: 100%; height: 100%; }
-        .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
-        .slide.active { opacity: 1; pointer-events: auto; cursor: zoom-in; }
-        .slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .slide.contain img { object-fit: contain; }
-        .slide-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 14px; background: linear-gradient(transparent, rgba(11,14,20,0.88)); font-family: var(--mono); font-size: 11px; color: var(--muted); }
-        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(11,14,20,0.72); border: 1px solid var(--border); color: var(--text); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; font-family: var(--mono); transition: background 0.2s, border-color 0.2s, color 0.2s; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 10; }
-        .slider-btn:hover { background: rgba(56,189,248,0.15); border-color: var(--accent); color: var(--accent); }
-        .slider-prev { left: 14px; }
-        .slider-next { right: 14px; }
-        .slider-counter { position: absolute; bottom: 12px; right: 14px; font-family: var(--mono); font-size: 11px; color: var(--muted); background: rgba(11,14,20,0.72); padding: 4px 10px; border-radius: 99px; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 10; letter-spacing: -0.01em; transition: opacity 0.25s ease; }
-
-        /* Shot grid */
-        .shot { position: relative; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: #0F172A; cursor: zoom-in; min-width: 0; box-shadow: 0 20px 50px rgba(0,0,0,0.5); transition: transform 0.3s ease; }
-        .shot.wide { aspect-ratio: 16/9; } .shot.tall { aspect-ratio: 4/5; } .shot.sq { aspect-ratio: 4/3; } .shot.portrait { aspect-ratio: 9/16; }
-        .shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease, opacity 0.3s ease; }
-        .shot:hover img { transform: scale(1.03); opacity: 0.85; }
-        .shot-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 14px; background: linear-gradient(transparent, rgba(11,14,20,0.88)); font-family: var(--mono); font-size: 11px; color: var(--muted); opacity: 0; transition: opacity 0.25s; }
-        .shot:hover .shot-label { opacity: 1; }
-        .shot-placeholder { width: 100%; height: 100%; min-height: 160px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 10px; }
-        .shot-placeholder span { font-family: var(--mono); font-size: 11px; color: #1E293B; text-align: center; padding: 0 20px; line-height: 1.6; }
-
-        /* Lightbox */
-        .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.92); display: none; align-items: center; justify-content: center; z-index: 9999; padding: 24px; cursor: zoom-out; }
-        .lightbox.open { display: flex; }
-        .lightbox img { max-width: 100%; max-height: 90vh; border-radius: 8px; border: 1px solid var(--border); object-fit: contain; box-shadow: 0 0 60px rgba(0,0,0,0.8); }
-        .lightbox-close { position: absolute; top: 20px; right: 24px; font-family: var(--mono); font-size: 13px; color: var(--muted); cursor: pointer; transition: color 0.2s; }
-        .lightbox-close:hover { color: var(--text); }
+        /* Long screenshot */
+        .screenshot-wrap {
+            margin-top: 28px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--bg-up);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+        .screenshot-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
         /* Demo CTA */
         .demo-cta { background: var(--bg-up); border: 1px solid var(--border); border-radius: 8px; padding: 40px; display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
@@ -88,7 +72,6 @@
         .desktop-only { display: none; }
 
         @media (min-width: 769px) {
-            .gallery-slider { display: none; }
             .desktop-only { display: block; }
             .mobile-only { display: none; }
         }
@@ -101,61 +84,12 @@
             .hero-title { font-size: 2.8rem; }
             .demo-cta { flex-direction: column; padding: 32px 24px; }
             .demo-btn { width: 100%; justify-content: center; }
-
-            /* ── Gallery: full-page vertical stack on mobile ── */
-            .gallery-slider {
-                aspect-ratio: unset;
-                height: auto;
-                overflow: visible;
-                background: transparent;
-                border: none;
-                box-shadow: none;
-                border-radius: 0;
-                margin-top: 20px;
-            }
-            .slider-track {
-                position: static;
-                width: 100%;
-                height: auto;
-                display: flex;
-                flex-direction: column;
-                gap: 12px;
-            }
-            .slide {
-                position: static;
-                opacity: 1;
-                pointer-events: auto;
-                cursor: zoom-in;
-                border-radius: 8px;
-                overflow: hidden;
-                border: 1px solid var(--border);
-            }
-            .slide img {
-                width: 100%;
-                height: auto;
-                object-fit: unset;
-                display: block;
-            }
-            .slide.contain img { object-fit: unset; }
-            .slide-label {
-                position: static;
-                padding: 6px 12px 8px;
-                background: var(--bg-up);
-                border-top: 1px solid var(--border);
-            }
-            .slider-btn,
-            .slider-counter { display: none; }
         }
     </style>
 </head>
 <body class="lang-en">
 
 <canvas id="matrix-bg" aria-hidden="true"></canvas>
-
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <span class="lightbox-close">✕ close</span>
-    <img id="lightbox-img" src="" alt="">
-</div>
 
 <nav>
     <div class="nav-inner">
@@ -215,50 +149,12 @@
             ></iframe>
         </div>
 
-        <div class="gallery-slider" id="gallerySlider">
-            <div class="slider-track" id="sliderTrack">
-
-                <!-- 1. Hero -->
-                <div class="slide" onclick="openLightbox(this.querySelector('img'))">
-                    <img src="images/business-01.webp" alt="Aria Chen Real Estate — hero section with luxury home background" loading="eager" fetchpriority="high" decoding="async">
-                    <div class="slide-label">Hero Section — Full Viewport</div>
-                </div>
-
-                <!-- 2. Property Search -->
-                <div class="slide" onclick="openLightbox(this.querySelector('img'))">
-                    <img src="images/business-02.webp" alt="Property search bar and filter pills" loading="lazy" decoding="async">
-                    <div class="slide-label">Smart Property Search</div>
-                </div>
-
-                <!-- 3. Community Carousel -->
-                <div class="slide" onclick="openLightbox(this.querySelector('img'))">
-                    <img src="images/business-03.webp" alt="Community cards horizontal scroll carousel" loading="lazy" decoding="async">
-                    <div class="slide-label">Community Carousel</div>
-                </div>
-
-                <!-- 4. Valuation Tool -->
-                <div class="slide" onclick="openLightbox(this.querySelector('img'))">
-                    <img src="images/business-04.webp" alt="Multi-step home valuation tool with progress steps" loading="lazy" decoding="async">
-                    <div class="slide-label">Multi-Step Valuation Tool</div>
-                </div>
-
-                <!-- 5. Social Proof -->
-                <div class="slide" onclick="openLightbox(this.querySelector('img'))">
-                    <img src="images/business-05.webp" alt="Testimonials carousel and Just Sold list" loading="lazy" decoding="async">
-                    <div class="slide-label">Testimonials &amp; Just Sold</div>
-                </div>
-
-                <!-- 6. Mobile view — contain so portrait is fully visible -->
-                <div class="slide contain" onclick="openLightbox(this.querySelector('img'))">
-                    <img src="images/business-06.webp" alt="Mobile responsive layout with sticky bottom bar" loading="lazy" decoding="async">
-                    <div class="slide-label">Mobile Responsive</div>
-                </div>
-
-            </div>
-
-            <button class="slider-btn slider-prev" onclick="slideMove(-1)">&#8592;</button>
-            <button class="slider-btn slider-next" onclick="slideMove(1)">&#8594;</button>
-            <div class="slider-counter" id="sliderCounter">1 / 6</div>
+        <div class="screenshot-wrap">
+            <img
+                src="images/screencapture-Demo-RealEstate.webp"
+                alt="Aria Chen Real Estate — full page screenshot"
+                loading="lazy"
+                decoding="async">
         </div>
     </div>
 
@@ -373,49 +269,6 @@
 </div>
 
 <script>
-function openLightbox(img) {
-    if (!img || !img.src) return;
-    document.getElementById('lightbox-img').src = img.src;
-    document.getElementById('lightbox').classList.add('open');
-    document.body.style.overflow = 'hidden';
-}
-function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('open');
-    document.body.style.overflow = '';
-}
-document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeLightbox();
-    if (document.getElementById('lightbox').classList.contains('open')) return;
-    if (e.key === 'ArrowLeft')  slideMove(-1);
-    if (e.key === 'ArrowRight') slideMove(1);
-});
-
-let slideIndex = 0;
-const slides = Array.from(document.querySelectorAll('.slide'));
-slides[0].classList.add('active');
-
-function slideMove(dir) {
-    slides[slideIndex].classList.remove('active');
-    slideIndex = (slideIndex + dir + slides.length) % slides.length;
-    slides[slideIndex].classList.add('active');
-    const counter = document.getElementById('sliderCounter');
-    counter.textContent = (slideIndex + 1) + ' / ' + slides.length;
-    counter.animate(
-        [{opacity: 0.3, transform: 'scale(0.9)'}, {opacity: 1, transform: 'scale(1)'}],
-        {duration: 250, easing: 'ease-out'}
-    );
-}
-
-// Touch swipe support
-let touchStartX = 0;
-const slider = document.getElementById('gallerySlider');
-slider.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, {passive: true});
-slider.addEventListener('touchend', e => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 50) slideMove(dx < 0 ? 1 : -1);
-}, {passive: true});
-
-// Lazy-load demo iframe via IntersectionObserver
 (function() {
     var wrap = document.getElementById('demoIframeWrap');
     if (!wrap) return;
@@ -429,7 +282,6 @@ slider.addEventListener('touchend', e => {
     }, { rootMargin: '200px' });
     io.observe(wrap);
 })();
-
 </script>
 <button id="canvas-toggle" class="canvas-toggle" onclick="toggleCanvas()" aria-pressed="true" aria-label="Toggle matrix background animation">▶ Matrix</button>
 <button id="back-to-top" class="back-to-top" aria-label="Back to top">↑ TOP</button>
