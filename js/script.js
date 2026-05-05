@@ -5,7 +5,7 @@
 (function () {
     const canvas = document.getElementById('matrix-bg');
     const ctx    = canvas.getContext('2d');
-    const ACCENT = '#00FF41';
+    const ACCENT = '#1A6B35';
     const R      = 200;
 
     const mouse = { x: -999, y: -999, on: false };
@@ -24,7 +24,7 @@
             y: randY ? Math.random() * (H || innerHeight) : -16,
             vx: 0, vy: baseVy, baseVy,
             char: Math.random() > 0.5 ? '1' : '0',
-            alpha: 0.05 + Math.random() * 0.13,
+            alpha: 0.03 + Math.random() * 0.05,
             size:  11 + Math.floor(Math.random() * 5),
             t: 0, ti: 20 + Math.floor(Math.random() * 40)
         };
@@ -80,9 +80,8 @@
             if (p.x > W + 30) p.x = -10;
 
             const glow = near ? (1 - d / R) : 0;
-            ctx.globalAlpha = near ? 0.35 + 0.65 * glow : p.alpha;
-            ctx.shadowBlur  = glow > 0.05 ? 10 * glow : 0;
-            ctx.shadowColor = ACCENT;
+            ctx.globalAlpha = near ? Math.min(0.1 + 0.14 * glow, 0.22) : p.alpha;
+            ctx.shadowBlur  = 0;
             ctx.font = `${p.size}px "IBM Plex Mono", monospace`;
             ctx.fillText(p.char, p.x, p.y);
         }

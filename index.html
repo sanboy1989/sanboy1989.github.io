@@ -30,8 +30,8 @@
     <!-- Fonts: preconnect first, then load -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=IBM+Plex+Mono&display=swap">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,700;6..96,800&family=Inter:wght@400;700&family=IBM+Plex+Mono&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,700;6..96,800&family=Inter:wght@400;700&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
 
@@ -91,13 +91,14 @@
             <span lang="zh">接受工作邀約</span>
         </div>
         <h1 class="profile-name">Jason Lai</h1>
-        <p class="profile-bio" lang="en">Crafting intuitive and high-performance products. Believing code should be as pure as art — stripping away excess to let technology serve daily life seamlessly.</p>
+        <p class="profile-bio" lang="en">Crafting intuitive and high-performance products.<br> Believing code should be as pure as art — stripping away excess to let technology serve daily life seamlessly.</p>
         <p class="profile-bio" lang="zh">我是一位專注於打造直覺且高效產品的開發者。深信程式碼應該如同藝術般純粹，去除多餘裝飾，讓技術無縫服務於每一天。</p>
         <div class="profile-sub">
             <span lang="en">Problem Solver · Minimalist · Full-Stack</span>
             <span lang="zh">解決問題 · 簡約主義 · 全端開發</span>
         </div>
         <a href="mailto:jasonlai.tech@icloud.com" class="email-link" aria-label="Send email to Jason Lai">jasonlai.tech@icloud.com</a>
+        <div class="scroll-hint" aria-hidden="true"></div>
     </section>
 
     <!-- Filter Bar -->
@@ -113,49 +114,105 @@
 
         <article class="project-item" data-cat="app">
             <a href="project-langimon.html" class="project-link" aria-label="View Langimon — Gamified Japanese learning app built with React Native">
-                <div class="project-thumb">
-                    <div class="project-bg" style="background-image:url('https://www.image2url.com/r2/default/images/1776395975886-d1773200-dd4f-4c0f-8f65-e79d7ca8ef94.jpg')"></div>
+                <div class="project-thumb mockup-app">
+                    <div class="mockup-deco"></div>
+                    <div class="device device-phone">
+                        <div class="device-island"></div>
+                        <div class="device-screen">
+                            <div class="project-bg" style="background-image:url('https://www.image2url.com/r2/default/images/1776395975886-d1773200-dd4f-4c0f-8f65-e79d7ca8ef94.jpg')"></div>
+                        </div>
+                        <div class="device-bar"></div>
+                    </div>
                 </div>
                 <div class="project-info">
                     <h2 class="project-title">Langimon</h2>
                     <p class="project-cat">App · React Native</p>
+                    <p class="project-desc" lang="en">Turns vocabulary study into a monster-raising adventure.</p>
+                    <p class="project-desc" lang="zh">將枯燥的單字背誦轉化為怪獸養成冒險體驗。</p>
                 </div>
             </a>
         </article>
 
         <article class="project-item" data-cat="pwa">
             <a href="project-hero.html" class="project-link" aria-label="View On the Way Hero — Location-based peer-to-peer logistics PWA">
-                <div class="project-thumb">
-                    <div class="project-bg" style="background-image:url('https://www.image2url.com/r2/default/images/1776395941301-00caeb1c-7e09-4085-8a8e-6574bbb5d9ca.jpg')"></div>
+                <div class="project-thumb mockup-pwa">
+                    <div class="mockup-deco"></div>
+                    <div class="device device-laptop">
+                        <div class="device-lid">
+                            <div class="device-screen">
+                                <div class="project-bg" style="background-image:url('https://www.image2url.com/r2/default/images/1776395941301-00caeb1c-7e09-4085-8a8e-6574bbb5d9ca.jpg')"></div>
+                            </div>
+                        </div>
+                        <div class="device-chin"></div>
+                        <div class="device-foot"></div>
+                    </div>
+                    <div class="device device-phone">
+                        <div class="device-island"></div>
+                        <div class="device-screen">
+                            <div class="project-bg" style="background-image:url('https://www.image2url.com/r2/default/images/1776395941301-00caeb1c-7e09-4085-8a8e-6574bbb5d9ca.jpg')"></div>
+                        </div>
+                        <div class="device-bar"></div>
+                    </div>
                 </div>
                 <div class="project-info">
                     <h2 class="project-title">On the Way Hero</h2>
                     <p class="project-cat">PWA · Vue.js</p>
+                    <p class="project-desc" lang="en">Connects people with nearby errands to those who are already heading that way.</p>
+                    <p class="project-desc" lang="zh">媒合路過的人與附近的取件需求，解決末端配送的最後一哩路。</p>
                 </div>
             </a>
         </article>
 
         <article class="project-item" data-cat="pwa">
             <a href="project-travel.html" class="project-link" aria-label="View WanderSync Travel — Smart travel management system built with Next.js">
-                <div class="project-thumb">
-                    <div class="project-bg" style="background-image:url('https://www.image2url.com/r2/default/images/1776395886702-06f54e57-da21-405a-a9f7-9129c9b3741d.jpg')"></div>
+                <div class="project-thumb mockup-pwa">
+                    <div class="mockup-deco"></div>
+                    <div class="device device-laptop">
+                        <div class="device-lid">
+                            <div class="device-screen">
+                                <div class="project-bg" style="background-image:url('https://www.image2url.com/r2/default/images/1776395886702-06f54e57-da21-405a-a9f7-9129c9b3741d.jpg')"></div>
+                            </div>
+                        </div>
+                        <div class="device-chin"></div>
+                        <div class="device-foot"></div>
+                    </div>
+                    <div class="device device-phone">
+                        <div class="device-island"></div>
+                        <div class="device-screen">
+                            <div class="project-bg" style="background-image:url('https://www.image2url.com/r2/default/images/1776395886702-06f54e57-da21-405a-a9f7-9129c9b3741d.jpg')"></div>
+                        </div>
+                        <div class="device-bar"></div>
+                    </div>
                 </div>
                 <div class="project-info">
                     <h2 class="project-title">WanderSync Travel</h2>
                     <p class="project-cat">PWA · Next.js</p>
+                    <p class="project-desc" lang="en">Bridges booking, calendar sync, and automated alerts into one travel workspace.</p>
+                    <p class="project-desc" lang="zh">整合預訂、行事曆同步與主動通知，打造一站式旅行管理工作台。</p>
                 </div>
             </a>
         </article>
 
         <article class="project-item" data-cat="business">
             <a href="project-business.html" class="project-link" aria-label="View Aria Chen Real Estate — Luxury real estate landing page demo">
-                <div class="project-thumb">
-                    <div class="project-bg" style="background-image:url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1280&q=80')"></div>
+                <div class="project-thumb mockup-web">
+                    <div class="mockup-deco"></div>
+                    <div class="device device-laptop">
+                        <div class="device-lid">
+                            <div class="device-screen">
+                                <div class="project-bg" style="background-image:url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1280&q=80')"></div>
+                            </div>
+                        </div>
+                        <div class="device-chin"></div>
+                        <div class="device-foot"></div>
+                    </div>
                     <span class="project-thumb-badge">Demo on Request</span>
                 </div>
                 <div class="project-info">
                     <h2 class="project-title">Aria Chen Real Estate</h2>
                     <p class="project-cat">Business Demo · HTML / CSS / JS</p>
+                    <p class="project-desc" lang="en">Conversion-focused luxury real estate landing page with multi-step valuation tool.</p>
+                    <p class="project-desc" lang="zh">以轉化率為核心的豪宅地產落地頁，內建多步驟估價工具。</p>
                 </div>
             </a>
         </article>
