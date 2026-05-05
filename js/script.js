@@ -34,7 +34,7 @@
         W = canvas.width  = innerWidth;
         H = canvas.height = innerHeight;
         ctx.clearRect(0, 0, W, H);
-        const n = W < 768 ? 80 : 280;
+        const n = W < 768 ? 60 : 200;
         pts = Array.from({ length: n }, (_, i) => mkPt(i < n));
     }
 
@@ -112,6 +112,16 @@
         syncToggleBtn();
     }
 
+    /* Pause RAF when tab is hidden; resume without changing user preference */
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden && rafId) {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+        } else if (!document.hidden && running && !rafId) {
+            rafId = requestAnimationFrame(tick);
+        }
+    });
+
     window.toggleCanvas = function () { running ? stopCanvas() : startCanvas(); };
 
     window.addEventListener('resize', resize);
@@ -141,8 +151,15 @@ function filterProjects(cat, btn) {
     } else {
         url.searchParams.set('filter', cat);
     }
-    history.pushState({}, '', url);
+    history.pushState({ filter: cat }, '', url);
 }
+
+/* Restore filter on browser back/forward */
+window.addEventListener('popstate', function () {
+    const f = new URLSearchParams(location.search).get('filter') || 'all';
+    const b = document.querySelector(`.filter-btn[data-filter="${f}"]`);
+    if (b) filterProjects(f, b);
+});
 
 /* Apply ?filter= param on page load */
 (function () {

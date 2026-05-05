@@ -13,6 +13,7 @@
     <link rel="alternate" hreflang="en"        href="https://sanboy1989.github.io/portfolio/project-langimon.html">
     <link rel="alternate" hreflang="zh-HK"     href="https://sanboy1989.github.io/portfolio/project-langimon.html">
     <link rel="alternate" hreflang="x-default" href="https://sanboy1989.github.io/portfolio/project-langimon.html">
+    <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/project.css">
     <script type="application/ld+json">
     {
@@ -32,7 +33,7 @@
 
 <nav>
     <div class="nav-inner">
-        <a href="./" class="nav-back">← Portfolio</a>
+        <a href="/" class="nav-back">← Portfolio</a>
         <button class="lang-btn" onclick="toggleLang()" id="langBtn" aria-pressed="false" aria-label="Switch language to Chinese">中文</button>
     </div>
 </nav>
@@ -45,9 +46,9 @@
         <h1 class="hero-title">Langimon</h1>
         <p class="hero-tagline" lang="en">What if forgetting Japanese vocabulary made your virtual monster <em>hungry</em>? A gamified study app built on Tamagotchi mechanics and spaced-repetition science.</p>
         <p class="hero-tagline" lang="zh">如果忘記日文單字會讓你的虛擬怪獸「餓肚子」，你還會偷懶嗎？基於電子雞機制與間隔重複科學打造的遊戲化學習 App。</p>
-        <img src="https://www.image2url.com/r2/default/images/1776395975886-d1773200-dd4f-4c0f-8f65-e79d7ca8ef94.jpg"
+        <img src="images/langimon.jpg"
              class="hero-img" alt="Langimon app screenshot — monster raising and vocabulary quiz interface"
-             loading="lazy" decoding="async">
+             loading="eager" fetchpriority="high" decoding="async">
         <div class="tag-row">
             <span class="tag">#ReactNative</span>
             <span class="tag">#Firebase</span>

@@ -1,116 +1,9 @@
-:root {
-    --bg:       #FFFFFF;
-    --bg-up:    #F8FAFC;
-    --text:     #1A1A1A;
-    --muted:    #71717A;
-    --accent:   #38BDF8;
-    --gold:     #D97706;
-    --border:   rgba(0, 0, 0, 0.08);
-    --overlay:  rgba(255, 255, 255, 0.88);
-    --serif:    'Bodoni Moda', Georgia, serif;
-    --sans:     'Inter', sans-serif;
-    --mono:     'IBM Plex Mono', monospace;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    line-height: 1.6;
-}
-
-/* ── Page fade-in ── */
-@keyframes pageFadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── Canvas background ── */
-#matrix-bg {
-    position: fixed;
-    inset: 0;
-    width: 100%; height: 100%;
-    z-index: 0;
-    pointer-events: none;
-}
+/* ─────────────────────────────────────────────
+   style.css — index.html only
+   Shared tokens/components are in css/global.css
+───────────────────────────────────────────── */
 
 main, footer { position: relative; z-index: 1; }
-
-/* ── Nav ── */
-nav {
-    position: sticky; top: 0;
-    z-index: 50;
-    background: rgba(255, 255, 255, 0.88);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 40px;
-}
-.nav-inner {
-    max-width: 1100px; margin: 0 auto;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 56px;
-}
-.nav-logo {
-    font-family: var(--serif); font-size: 17px; font-weight: 700;
-    color: var(--text); text-decoration: none;
-    letter-spacing: 0.06em;
-    font-optical-sizing: auto;
-}
-.lang-btn {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    padding: 5px 14px; border-radius: 6px;
-    cursor: pointer; font-family: var(--mono);
-    font-size: 12px; letter-spacing: -0.01em;
-    transition: all 0.2s;
-}
-.lang-btn:hover,
-.lang-btn[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
-
-/* ── Canvas toggle ── */
-.canvas-toggle {
-    position: fixed; bottom: 20px; right: 40px;
-    background: rgba(255, 255, 255, 0.92);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    padding: 6px 14px; border-radius: 6px;
-    cursor: pointer; font-family: var(--mono);
-    font-size: 11px; z-index: 10;
-    transition: all 0.2s;
-    backdrop-filter: blur(10px);
-    letter-spacing: -0.01em;
-}
-.canvas-toggle:hover { border-color: var(--accent); color: var(--accent); }
-
-/* ── Back to Top ── */
-.back-to-top {
-    position: fixed; bottom: 40px;
-    left: 50%; transform: translateX(-50%) translateY(8px);
-    padding: 8px 24px;
-    background: rgba(255, 255, 255, 0.7);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    border-radius: 6px;
-    cursor: pointer; font-family: var(--mono);
-    font-size: 11px; letter-spacing: 0.06em;
-    z-index: 10;
-    display: flex; align-items: center; justify-content: center; gap: 6px;
-    white-space: nowrap;
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease,
-                border-color 0.2s, color 0.2s;
-    backdrop-filter: blur(10px);
-}
-.back-to-top.visible {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateX(-50%) translateY(0);
-}
-.back-to-top:hover { border-color: var(--accent); color: var(--accent); }
 
 /* ── Main container ── */
 main {
@@ -147,12 +40,11 @@ main {
     50% { opacity: 0.3; }
 }
 .profile-name {
-    font-family: var(--serif);
+    font-family: var(--sans);
     font-size: clamp(3.5rem, 9vw, 6.5rem);
     font-weight: 800; color: var(--text);
-    line-height: 0.92; letter-spacing: 0.01em;
+    line-height: 0.92; letter-spacing: -0.05em;
     margin-bottom: 32px;
-    font-optical-sizing: auto;
 }
 .profile-bio {
     font-size: 17px; color: var(--muted);
@@ -294,14 +186,13 @@ main {
 
 /* ── Layer 2: Title ── */
 .project-title {
-    font-family: var(--serif);
-    font-size: clamp(0.95rem, 1.9vw, 1.15rem);
+    font-family: var(--sans);
+    font-size: clamp(0.9rem, 1.8vw, 1.1rem);
     font-weight: 700;
     color: var(--text);
-    letter-spacing: 0.02em;
+    letter-spacing: -0.02em;
     line-height: 1.25;
     margin-bottom: 4px;
-    font-optical-sizing: auto;
 }
 .project-item:hover { opacity: 0.72; transition: opacity 0.3s ease; }
 
@@ -556,11 +447,39 @@ footer {
     color: var(--accent);
 }
 
-/* ── Lang toggle ── */
-[lang="zh"] { display: none; }
-.lang-zh [lang="en"] { display: none; }
-.lang-zh [lang="zh"] { display: block; }
-.lang-zh span[lang="zh"] { display: inline; }
+/* ── Footer placeholder links ── */
+.footer-link-tbd {
+    opacity: 0.38;
+    cursor: default;
+    pointer-events: none;
+}
+.footer-link-tbd::after {
+    content: ' [soon]';
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+/* ── 767px: Mobile — replace device mockups with plain image ── */
+@media (max-width: 767px) {
+    .project-thumb.mockup-app,
+    .project-thumb.mockup-pwa,
+    .project-thumb.mockup-web {
+        display: block;
+        background-image: var(--img, none);
+        background-size: cover;
+        background-position: top center;
+    }
+    .project-thumb.mockup-app .mockup-deco,
+    .project-thumb.mockup-app .device-phone,
+    .project-thumb.mockup-pwa .mockup-deco,
+    .project-thumb.mockup-pwa .device-laptop,
+    .project-thumb.mockup-pwa .device-phone,
+    .project-thumb.mockup-web .mockup-deco,
+    .project-thumb.mockup-web .device-laptop {
+        display: none;
+    }
+}
 
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
@@ -571,13 +490,6 @@ footer {
     main { animation: none; }
 }
 
-/* ── Focus states ── */
-a:focus-visible,
-button:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-    border-radius: 3px;
-}
 .project-link:focus-visible { outline-offset: -4px; }
 
 /* ── Grid: single column on narrow screens ── */
@@ -588,9 +500,8 @@ button:focus-visible {
     }
 }
 
-/* ── 600px: filter-bar edge-to-edge scroll, hide canvas toggle ── */
+/* ── 600px: filter-bar edge-to-edge scroll ── */
 @media (max-width: 600px) {
-    .canvas-toggle { display: none; }
     .filter-bar {
         flex-wrap: nowrap;
         overflow-x: auto;
@@ -605,15 +516,15 @@ button:focus-visible {
     .filter-bar::-webkit-scrollbar { display: none; }
 }
 
-/* ── 480px: mobile padding 24px ── */
+/* ── 480px: mobile padding ── */
 @media (max-width: 480px) {
-    nav { padding: 0 24px; }
     main { padding: 0 24px 80px; }
     footer { padding: 40px 24px; }
     .profile { padding: 40px 0 72px; }
     .profile-name { font-size: clamp(2.8rem, 13vw, 3.8rem); }
     .profile-bio { font-size: 16px; }
     .footer-inner { flex-direction: column; gap: 16px; }
+    .project-title { font-size: 0.875rem; }
     .filter-bar {
         margin-left: -24px;
         margin-right: -24px;

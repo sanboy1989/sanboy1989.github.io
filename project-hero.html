@@ -13,6 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
     <script>if(localStorage.getItem('lang')==='zh')document.documentElement.classList.add('lang-zh');</script>
+    <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/project.css">
     <script type="application/ld+json">
     {
@@ -32,7 +33,7 @@
 
 <nav>
     <div class="nav-inner">
-        <a href="./" class="nav-back">← Portfolio</a>
+        <a href="/" class="nav-back">← Portfolio</a>
         <button class="lang-btn" onclick="toggleLang()" id="langBtn" aria-pressed="false" aria-label="Switch language to Chinese">中文</button>
     </div>
 </nav>
@@ -44,9 +45,9 @@
         <h1 class="hero-title">On the Way Hero</h1>
         <p class="hero-tagline" lang="en">A location-based platform that turns everyday commuters into last-mile delivery heroes — solving C2C logistics without a fleet or warehouse.</p>
         <p class="hero-tagline" lang="zh">一個將日常通勤者轉化為末端配送英雄的地理位置平台——無需車隊或倉庫解決 C2C 物流問題。</p>
-        <img src="https://www.image2url.com/r2/default/images/1776395941301-00caeb1c-7e09-4085-8a8e-6574bbb5d9ca.jpg"
+        <img src="images/hero.jpg"
              class="hero-img" alt="On the Way Hero app screenshot — map view with route matching"
-             loading="lazy" decoding="async">
+             loading="eager" fetchpriority="high" decoding="async">
         <div class="tag-row">
             <span class="tag">#VueJS</span>
             <span class="tag">#MapsAPI</span>
