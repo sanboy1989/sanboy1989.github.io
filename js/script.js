@@ -5,7 +5,7 @@
 (function () {
     const canvas = document.getElementById('matrix-bg');
     const ctx    = canvas.getContext('2d');
-    const ACCENT = '#1A6B35';
+    const ACCENT = '#000000';
     const R      = 200;
 
     const mouse = { x: -999, y: -999, on: false };
@@ -24,7 +24,7 @@
             y: randY ? Math.random() * (H || innerHeight) : -16,
             vx: 0, vy: baseVy, baseVy,
             char: Math.random() > 0.5 ? '1' : '0',
-            alpha: 0.03 + Math.random() * 0.05,
+            alpha: 0.02 + Math.random() * 0.03,
             size:  11 + Math.floor(Math.random() * 5),
             t: 0, ti: 20 + Math.floor(Math.random() * 40)
         };
@@ -80,7 +80,7 @@
             if (p.x > W + 30) p.x = -10;
 
             const glow = near ? (1 - d / R) : 0;
-            ctx.globalAlpha = near ? Math.min(0.1 + 0.14 * glow, 0.22) : p.alpha;
+            ctx.globalAlpha = near ? Math.min(0.06 + 0.08 * glow, 0.14) : p.alpha;
             ctx.shadowBlur  = 0;
             ctx.font = `${p.size}px "IBM Plex Mono", monospace`;
             ctx.fillText(p.char, p.x, p.y);
@@ -151,6 +151,18 @@ function filterProjects(cat, btn) {
         const btn = document.querySelector(`.filter-btn[data-filter="${filter}"]`);
         if (btn) filterProjects(filter, btn);
     }
+})();
+
+/* ── Back to Top ── */
+(function () {
+    const btn = document.getElementById('back-to-top');
+    if (!btn) return;
+    window.addEventListener('scroll', function () {
+        btn.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+    btn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 })();
 
 /* ── Lang toggle is defined in js/lang.js ── */
