@@ -18,94 +18,40 @@
     <style>
         /* ── Live Demo CTA Button ── */
         .demo-cta-wrap {
-            margin-top: 24px;
+            margin-top: 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
         }
         .demo-cta-btn {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 10px 22px;
+            gap: 8px;
+            padding: 13px 28px;
             background: #1A1A1A;
             color: #FFFFFF;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
             font-family: inherit;
-            font-size: 0.875rem;
-            font-weight: 500;
-            letter-spacing: 0.03em;
-            cursor: pointer;
-            transition: opacity 0.22s ease, transform 0.22s ease;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+            transition: opacity 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
         }
         .demo-cta-btn:hover {
-            opacity: 0.78;
+            opacity: 0.82;
             transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
         }
-
-        /* ── Demo Modal Overlay ── */
-        .demo-modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .demo-modal.is-open {
-            display: flex;
-        }
-
-        /* Control bar */
-        .demo-modal-bar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 20px;
-        }
-        .demo-modal-bar a,
-        .demo-modal-bar button {
-            background: none;
-            border: 1px solid #1A1A1A;
-            color: #1A1A1A;
-            font-family: inherit;
-            font-size: 0.8125rem;
-            font-weight: 500;
-            padding: 6px 14px;
-            border-radius: 4px;
-            cursor: pointer;
-            text-decoration: none;
+        .demo-cta-hint {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--muted);
             letter-spacing: 0.02em;
-            transition: background 0.18s ease, color 0.18s ease;
-        }
-        .demo-modal-bar a:hover,
-        .demo-modal-bar button:hover {
-            background: #1A1A1A;
-            color: #FFFFFF;
-        }
-
-        /* iPhone-proportioned device frame (desktop) */
-        .demo-iframe-wrap {
-            width: 375px;
-            height: 812px;
-            border-radius: 40px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-            background: #fff;
-            border: 1px solid rgba(0, 0, 0, 0.07);
-        }
-        .demo-iframe-wrap iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
+            margin: 0;
         }
 
         /* ── Full Page Showcase ── */
@@ -119,23 +65,6 @@
             border: 1px solid var(--border);
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
             display: block;
-        }
-
-        /* Mobile: full-bleed */
-        @media (max-width: 680px) {
-            .demo-iframe-wrap {
-                width: 100vw;
-                height: 100vh;
-                border-radius: 0;
-                box-shadow: none;
-                border: none;
-            }
-            .demo-modal-bar {
-                background: rgba(255, 255, 255, 0.92);
-                backdrop-filter: blur(10px);
-                -webkit-backdrop-filter: blur(10px);
-                border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-            }
         }
     </style>
     <script type="application/ld+json">
@@ -168,9 +97,6 @@
         <h1 class="hero-title">Horizon Travel</h1>
         <p class="hero-tagline" lang="en">An all-in-one travel management system that replaces fragmented WhatsApp coordination with automated itinerary delivery, calendar sync, and proactive client alerts.</p>
         <p class="hero-tagline" lang="zh">一站式旅行社管理系統，用自動化行程交付、日曆同步與主動通知取代碎片化的 WhatsApp 溝通。</p>
-        <img src="images/travel.jpg"
-             class="hero-img" alt="Horizon Travel dashboard — itinerary management view"
-             loading="eager" fetchpriority="high" decoding="async">
         <div class="tag-row">
             <span class="tag">#NextJS</span>
             <span class="tag">#NodeJS</span>
@@ -179,7 +105,8 @@
             <span class="tag">#SSR</span>
         </div>
         <div class="demo-cta-wrap">
-            <button class="demo-cta-btn" id="openDemoBtn">Live App Demo ↗</button>
+            <a href="https://demo-travel-agency-xi.vercel.app/" target="_blank" rel="noopener noreferrer" class="demo-cta-btn">Live App Demo ↗</a>
+            <p class="demo-cta-hint">Opens in new tab · Installable PWA</p>
         </div>
     </div>
 
@@ -258,50 +185,5 @@
 <script src="js/lang.js"></script>
 <script src="js/script.js"></script>
 
-<!-- Live Demo Modal -->
-<div id="demoModal" class="demo-modal" role="dialog" aria-modal="true" aria-label="Horizon Travel Live Demo">
-    <div class="demo-modal-bar">
-        <a href="https://demo-travel-agency-xi.vercel.app/" target="_blank" rel="noopener noreferrer">↗ Open in New Tab</a>
-        <button id="closeDemoBtn">✕ Close</button>
-    </div>
-    <div class="demo-iframe-wrap">
-        <iframe id="demoIframe" src="" title="Horizon Travel Live Demo" allow="fullscreen"></iframe>
-    </div>
-</div>
-
-<script>
-(function () {
-    var DEMO_URL = 'https://demo-travel-agency-xi.vercel.app/';
-    var modal    = document.getElementById('demoModal');
-    var iframe   = document.getElementById('demoIframe');
-    var openBtn  = document.getElementById('openDemoBtn');
-    var closeBtn = document.getElementById('closeDemoBtn');
-
-    function openModal() {
-        iframe.src = DEMO_URL;
-        modal.classList.add('is-open');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-        modal.classList.remove('is-open');
-        iframe.src = '';
-        document.body.style.overflow = '';
-    }
-
-    openBtn.addEventListener('click', openModal);
-    closeBtn.addEventListener('click', closeModal);
-
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && modal.classList.contains('is-open')) {
-            closeModal();
-        }
-    });
-
-    modal.addEventListener('click', function (e) {
-        if (e.target === modal) closeModal();
-    });
-}());
-</script>
 </body>
 </html>
