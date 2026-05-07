@@ -19,14 +19,17 @@ main {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 60px 0 80px;
+    padding: 60px 24px 88px;
     position: relative;
     border-bottom: 1px solid var(--border);
 }
 .profile-eyebrow {
-    font-family: var(--mono); font-size: 12px;
-    color: var(--muted); letter-spacing: 0.12em;
-    text-transform: uppercase; margin-bottom: 24px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
     display: flex; align-items: center; justify-content: center; gap: 10px;
 }
 .profile-eyebrow::before {
@@ -37,28 +40,44 @@ main {
 }
 @keyframes pulse {
     0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
+    50%       { opacity: 0.3; }
 }
 .profile-name {
     font-family: var(--sans);
-    font-size: clamp(2.8rem, 7vw, 5rem);
-    font-weight: 800; color: var(--text);
-    line-height: 1.0; letter-spacing: -0.05em;
-    margin-bottom: 56px;
+    font-size: clamp(2.5rem, 6.5vw, 4.5rem);
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.0;
+    letter-spacing: -0.05em;
+    margin-bottom: 64px;
+}
+.profile-sub {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+    text-align: center;
 }
 .profile-bio {
     font-family: var(--mono);
-    font-size: 13px; color: var(--muted);
-    max-width: 560px; line-height: 1.8;
-    margin-bottom: 8px;
+    font-size: 0.8125rem;
+    color: var(--muted);
+    max-width: 400px;
+    line-height: 2.2;
+    margin-bottom: 0;
     text-align: center;
     text-wrap: balance;
+    letter-spacing: 0.01em;
 }
-.profile-sub {
-    font-family: var(--mono); font-size: 11.5px;
-    color: var(--muted); margin-bottom: 12px;
-    letter-spacing: -0.02em;
-    text-align: center;
+.profile-location {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 20px;
+    letter-spacing: 0.12em;
+    opacity: 0.45;
+    text-transform: uppercase;
 }
 
 /* ── Scroll hint ── */
@@ -86,11 +105,12 @@ main {
 }
 .email-link {
     display: inline-flex; align-items: center; gap: 8px;
-    font-family: var(--mono); font-size: 13px;
+    font-family: var(--mono); font-size: 12px;
     color: var(--text); text-decoration: none;
     border: 1px solid var(--border);
-    padding: 8px 20px; border-radius: 6px;
-    transition: all 0.25s; letter-spacing: -0.02em;
+    padding: 9px 22px; border-radius: 6px;
+    margin-top: 32px;
+    transition: all 0.25s; letter-spacing: -0.01em;
 }
 .email-link:hover { border-color: var(--accent); color: var(--accent); }
 
@@ -119,8 +139,8 @@ main {
 #projects {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 48px 32px;
-    padding-top: 40px;
+    gap: 68px 40px;
+    padding-top: 48px;
     padding-bottom: 16px;
 }
 
@@ -129,6 +149,10 @@ main {
 .project-link {
     display: block;
     text-decoration: none;
+    transition: transform 0.38s ease;
+}
+.project-link:hover {
+    transform: translateY(-5px);
 }
 
 /* ── Layer 1: Thumbnail ── */
@@ -136,9 +160,13 @@ main {
     position: relative;
     aspect-ratio: 16 / 9;
     overflow: hidden;
-    border-radius: 2px;
-    margin-bottom: 14px;
+    border-radius: 4px;
+    margin-bottom: 16px;
     background: var(--bg-up);
+    transition: box-shadow 0.38s ease;
+}
+.project-link:hover .project-thumb {
+    box-shadow: 0 20px 52px rgba(0, 0, 0, 0.22), 0 4px 12px rgba(0, 0, 0, 0.10);
 }
 
 .project-bg {
@@ -166,7 +194,7 @@ main {
     content: '';
     position: absolute;
     bottom: 0; left: 0; right: 0;
-    height: 2px;
+    height: 3px;
     background: var(--accent);
     transform: scaleX(0);
     transform-origin: left center;
@@ -188,14 +216,15 @@ main {
 /* ── Layer 2: Title ── */
 .project-title {
     font-family: var(--sans);
-    font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+    font-size: clamp(0.95rem, 1.9vw, 1.15rem);
     font-weight: 700;
     color: var(--text);
     letter-spacing: -0.02em;
     line-height: 1.25;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
+    transition: color 0.28s ease;
 }
-.project-item:hover { opacity: 0.72; transition: opacity 0.3s ease; }
+.project-link:hover .project-title { color: var(--accent); }
 
 /* ── Layer 3: Category ── */
 .project-cat {
@@ -210,10 +239,10 @@ main {
 
 /* ── Layer 4: Description ── */
 .project-desc {
-    font-size: 12.5px;
+    font-size: 12px;
     font-weight: 400;
     color: var(--muted);
-    line-height: 1.6;
+    line-height: 1.65;
     letter-spacing: -0.01em;
 }
 
@@ -221,9 +250,22 @@ main {
    Device Mockups
 ══════════════════════════════════════════════ */
 
-.project-item:has(.mockup-app):hover,
-.project-item:has(.mockup-pwa):hover,
-.project-item:has(.mockup-web):hover { opacity: 1; }
+.project-info::after {
+    content: 'View Project →';
+    display: block;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    margin-top: 10px;
+    opacity: 0;
+    transform: translateX(-5px);
+    transition: opacity 0.28s ease, transform 0.28s ease;
+}
+.project-link:hover .project-info::after {
+    opacity: 1;
+    transform: translateX(0);
+}
 
 .project-thumb.mockup-app,
 .project-thumb.mockup-web {
@@ -470,6 +512,7 @@ footer {
         background-image: var(--img, none);
         background-size: cover;
         background-position: top center;
+        max-height: 200px;
     }
     .project-thumb.mockup-app .mockup-deco,
     .project-thumb.mockup-app .device-phone,
@@ -497,8 +540,21 @@ footer {
 @media (max-width: 720px) {
     #projects {
         grid-template-columns: 1fr;
-        gap: 36px 0;
+        gap: 44px 0;
     }
+}
+
+/* ── 640px: profile — mid-size phones ── */
+@media (max-width: 640px) {
+    .profile { padding: 48px 20px 72px; }
+    .profile-name {
+        font-size: clamp(2.2rem, 9vw, 3.5rem);
+        margin-bottom: 52px;
+    }
+    .profile-sub { font-size: 10.5px; margin-bottom: 16px; }
+    .profile-bio { font-size: 0.75rem; line-height: 2.0; max-width: 88%; }
+    .profile-location { font-size: 9.5px; margin-top: 14px; }
+    .email-link { font-size: 11.5px; padding: 8px 18px; margin-top: 26px; }
 }
 
 /* ── 600px: filter-bar edge-to-edge scroll ── */
@@ -517,19 +573,28 @@ footer {
     .filter-bar::-webkit-scrollbar { display: none; }
 }
 
-/* ── 480px: mobile padding ── */
+/* ── 480px: mobile ── */
 @media (max-width: 480px) {
     main { padding: 0 24px 80px; }
     footer { padding: 40px 24px; }
-    .profile { padding: 40px 0 72px; }
-    .profile-name { font-size: clamp(2.2rem, 11vw, 3rem); }
-    .profile-bio { font-size: 14px; }
+    .profile { padding: 36px 16px 56px; }
+    .profile-name {
+        font-size: clamp(2.0rem, 11vw, 2.8rem);
+        margin-bottom: 40px;
+    }
+    .profile-bio { font-size: 0.7rem; line-height: 1.95; max-width: 92%; }
+    .profile-sub { font-size: 10px; }
+    .profile-location { font-size: 9px; margin-top: 12px; }
+    .email-link { font-size: 11px; padding: 7px 16px; margin-top: 20px; }
     .footer-inner { flex-direction: column; gap: 16px; }
-    .project-title { font-size: 0.875rem; }
+    .project-title { font-size: 0.9rem; }
+    .project-desc { font-size: 11.5px; }
     .filter-bar {
+        padding: 14px 0;
         margin-left: -24px;
         margin-right: -24px;
         padding-left: 24px;
         padding-right: 24px;
+        padding-bottom: 10px;
     }
 }
