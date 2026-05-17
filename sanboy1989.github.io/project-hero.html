@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On the Way Hero | Vue.js PWA | Jason Lai</title>
+    <meta name="description" content="On the Way Hero — a location-based Vue.js PWA connecting Hong Kong commuters with last-mile C2C delivery. Built with Google Maps API and Service Workers.">
+    <link rel="canonical" href="https://sanboy1989.github.io/portfolio/project-hero.html">
+    <link rel="alternate" hreflang="en"      href="https://sanboy1989.github.io/portfolio/project-hero.html">
+    <link rel="alternate" hreflang="zh-HK"   href="https://sanboy1989.github.io/portfolio/project-hero.html">
+    <link rel="alternate" hreflang="x-default" href="https://sanboy1989.github.io/portfolio/project-hero.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+    <script>if(localStorage.getItem('lang')==='zh')document.documentElement.classList.add('lang-zh');</script>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/project.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        "name": "On the Way Hero",
+        "description": "Location-based peer-to-peer logistics PWA connecting commuters with last-mile delivery in Hong Kong.",
+        "author": { "@id": "https://sanboy1989.github.io/portfolio/#jason" },
+        "url": "https://sanboy1989.github.io/portfolio/project-hero.html",
+        "keywords": "Vue.js, PWA, Google Maps API, Geolocation, Service Workers, Last-mile delivery"
+    }
+    </script>
+</head>
+<body class="lang-en">
+
+<canvas id="matrix-bg" aria-hidden="true"></canvas>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="nav-back">← Portfolio</a>
+        <button class="lang-btn" onclick="toggleLang()" id="langBtn" aria-pressed="false" aria-label="Switch language to Chinese">中文</button>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="hero">
+        <div class="hero-label">PWA · Vue.js · Google Maps · 2024</div>
+        <h1 class="hero-title">On the Way Hero</h1>
+        <p class="hero-tagline" lang="en">A location-based platform that turns everyday commuters into last-mile delivery heroes — solving C2C logistics without a fleet or warehouse.</p>
+        <p class="hero-tagline" lang="zh">一個將日常通勤者轉化為末端配送英雄的地理位置平台——無需車隊或倉庫解決 C2C 物流問題。</p>
+        <img src="images/hero.jpg"
+             class="hero-img" alt="On the Way Hero app screenshot — map view with route matching"
+             loading="eager" fetchpriority="high" decoding="async">
+        <div class="tag-row">
+            <span class="tag">#VueJS</span>
+            <span class="tag">#MapsAPI</span>
+            <span class="tag">#PWA</span>
+            <span class="tag">#ServiceWorker</span>
+            <span class="tag">#Geolocation</span>
+        </div>
+    </div>
+
+    <!-- Context & Problem -->
+    <div class="section">
+        <div class="sec-eyebrow">01 · Context &amp; Problem</div>
+        <h2 class="sec-title" lang="en">The last-mile problem nobody solved for C2C</h2>
+        <h2 class="sec-title" lang="zh">C2C 市場無人解決的末端配送問題</h2>
+
+        <p class="sec-body" lang="en">In Hong Kong's secondhand market, "meet in-person" is the dominant exchange method. But most sellers live across town. Buyers won't pay courier fees on a $50 item. Sellers won't make a special trip. The transaction dies before it starts.</p>
+        <p class="sec-body" lang="zh">在香港二手市場，「親身交收」是主流方式。但大多數賣家住在城市另一端。買家不願為 50 元物品支付快遞費。賣家不願專程跑一趟。交易在開始前就已死亡。</p>
+
+        <div class="callout">
+            <div class="callout-label" lang="en">The Insight</div>
+            <div class="callout-label" lang="zh">核心洞察</div>
+            <p lang="en">Every morning, thousands of people commute from Kowloon to Hong Kong Island. That empty bag space is <strong>idle logistics capacity</strong>. On the Way Hero connects commuters ("Heroes") with buyers whose pickup points fall along the Hero's existing route — turning dead commute time into micro-earnings.</p>
+            <p lang="zh">每天早上，數千人從九龍通勤到港島。那個空背包就是<strong>閒置的物流容量</strong>。On the Way Hero 將通勤者（「英雄」）與取貨地點恰好在其路線上的買家配對——把死時間轉化為微收入。</p>
+        </div>
+    </div>
+
+    <!-- Tech Deep Dive -->
+    <div class="section">
+        <div class="sec-eyebrow">02 · Tech Deep Dive</div>
+        <h2 class="sec-title" lang="en">The Stack &amp; the Hard Parts</h2>
+        <h2 class="sec-title" lang="zh">技術棧與解決難題</h2>
+
+        <p class="sec-body" lang="en">Vue.js as a PWA eliminates App Store friction — users install to their home screen in one tap. Google Maps API powers the route polyline rendering and proximity filtering. Service Workers cache map tiles and active delivery state so the app stays usable in MTR dead zones.</p>
+        <p class="sec-body" lang="zh">Vue.js 作為 PWA 消除了應用商店門檻——用戶一鍵安裝到主螢幕。Google Maps API 驅動路線多邊形渲染和鄰近過濾。Service Workers 緩存地圖磁貼和活躍配送狀態，讓 App 在港鐵無信號區依然可用。</p>
+
+        <div class="callout">
+            <div class="callout-label" lang="en">Key Decision — Fuzzy geolocation for privacy</div>
+            <div class="callout-label" lang="zh">關鍵決策——模糊定位保護隱私</div>
+            <p lang="en">Showing a Hero's exact real-time location to strangers is a safety non-starter. Before a delivery is confirmed, the platform only exposes an <strong>approximate area (500m radius)</strong> — enough for route matching, not enough to track someone. Exact coordinates unlock only after both parties confirm the delivery.</p>
+            <p lang="zh">向陌生人展示英雄的精確實時位置，從安全角度來看是不可行的。在配送確認之前，平台只暴露<strong>大致區域（500 米半徑）</strong>——足以匹配路線，卻不足以追蹤某人。精確坐標僅在雙方確認配送後才解鎖。</p>
+        </div>
+
+        <div class="stack-row">
+            <span class="chip">Vue.js</span>
+            <span class="chip">Google Maps API</span>
+            <span class="chip">Service Workers</span>
+            <span class="chip">Push Notifications</span>
+            <span class="chip">Geolocation API</span>
+        </div>
+
+        <div class="callout" style="margin-top: 32px;">
+            <div class="callout-label" lang="en">Hardest Bug — Route matching false negatives</div>
+            <div class="callout-label" lang="zh">最難解決的 Bug — 路線匹配假陰性</div>
+            <p lang="en">Heroes who were clearly on the right route were being filtered out. Root cause: <strong>coordinate precision drift</strong> in the Maps API — snapped-to-road coordinates differed by up to 80m from raw GPS points. Fixed by increasing corridor tolerance and switching from point-in-radius checks to polyline buffer intersections, which is far more robust to GPS noise.</p>
+            <p lang="zh">明顯在正確路線上的英雄被過濾掉了。根本原因：Maps API 中的<strong>坐標精度漂移</strong>——道路捕捉後的坐標與原始 GPS 點相差最多 80 米。解決方案是增加走廊容忍度，並從半徑點查詢切換為多段線緩衝區交集，這對 GPS 噪聲的容錯性要高得多。</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <a href="./">← Back to portfolio</a>
+    </div>
+
+</div>
+
+<button id="canvas-toggle" class="canvas-toggle" onclick="toggleCanvas()" aria-pressed="true" aria-label="Toggle matrix background animation">▶ Matrix</button>
+<button id="back-to-top" class="back-to-top" aria-label="Back to top">↑ TOP</button>
+<script src="js/lang.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>

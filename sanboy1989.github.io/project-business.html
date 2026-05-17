@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aria Chen Real Estate | Business Demo | Jason Lai</title>
+    <meta name="description" content="Conversion-focused luxury real estate landing page — multi-step home valuation tool, property search, and community showcase. Built with HTML5, CSS3, and Vanilla JS.">
+    <link rel="canonical" href="https://sanboy1989.github.io/portfolio/project-business.html">
+    <link rel="alternate" hreflang="en"        href="https://sanboy1989.github.io/portfolio/project-business.html">
+    <link rel="alternate" hreflang="zh-HK"     href="https://sanboy1989.github.io/portfolio/project-business.html">
+    <link rel="alternate" hreflang="x-default" href="https://sanboy1989.github.io/portfolio/project-business.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+    <script>if(localStorage.getItem('lang')==='zh')document.documentElement.classList.add('lang-zh');</script>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/project.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        "name": "Aria Chen Real Estate",
+        "description": "Conversion-focused luxury real estate landing page featuring a multi-step home valuation tool, property search, and community showcase.",
+        "author": { "@id": "https://sanboy1989.github.io/portfolio/#jason" },
+        "url": "https://sanboy1989.github.io/portfolio/project-business.html",
+        "keywords": "HTML5, CSS3, Vanilla JS, Real Estate, Schema.org, Open Graph, Landing Page, Conversion"
+    }
+    </script>
+    <style>
+        /* ── Business page overrides (shared styles in css/project.css) ── */
+        html, body { overflow-x: hidden; }
+        .hero { padding: 80px 0 64px; }
+        .hero-title { font-size: clamp(2.8rem, 8vw, 7.5rem); line-height: 0.88; letter-spacing: -0.05em; }
+        .section { padding: 80px 0; }
+        .sec-title { max-width: 660px; }
+        .sec-body { max-width: 660px; }
+        .footer { padding: 48px 0 0; }
+        .tag { color: var(--muted); border-color: rgba(255,255,255,0.1); cursor: default; }
+        .tag:hover { color: var(--accent); border-color: rgba(56,189,248,0.5); }
+
+        /* Protected badge */
+        .protected-badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--gold); border: 1px solid rgba(251,191,36,0.3); background: rgba(251,191,36,0.06); padding: 6px 14px; border-radius: 99px; letter-spacing: -0.01em; margin-bottom: 32px; }
+        .protected-badge::before { content: '●'; font-size: 8px; }
+
+        /* Long screenshot */
+        .screenshot-wrap {
+            margin-top: 28px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--bg-up);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+        .screenshot-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Demo CTA */
+        .demo-cta { background: var(--bg-up); border: 1px solid var(--border); border-radius: 8px; padding: 40px; display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+        .demo-cta-text h3 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+        .demo-cta-text p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+        .demo-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #0B0E14; font-family: var(--sans); font-size: 14px; font-weight: 700; text-decoration: none; padding: 10px 22px; border-radius: 6px; transition: opacity 0.2s; white-space: nowrap; flex-shrink: 0; }
+        .demo-btn:hover { opacity: 0.85; }
+
+        /* Demo iframe */
+        .demo-iframe-wrap { margin-top: 24px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: var(--bg-up); aspect-ratio: 16 / 9; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .demo-iframe-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+
+        /* Responsive content switching */
+        .desktop-only { display: none; }
+
+        @media (min-width: 769px) {
+            .desktop-only { display: block; }
+            .mobile-only { display: none; }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 0 24px 80px; }
+            .hero { padding: 60px 0 48px; }
+            .section { padding: 64px 0; }
+            .footer { padding: 40px 0 0; }
+            .demo-iframe-wrap { display: none; }
+            .hero-title { font-size: 2.8rem; }
+            .demo-cta { flex-direction: column; padding: 32px 24px; }
+            .demo-btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body class="lang-en">
+
+<canvas id="matrix-bg" aria-hidden="true"></canvas>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="nav-back">← Portfolio</a>
+        <button class="lang-btn" onclick="toggleLang()" id="langBtn" aria-pressed="false" aria-label="Switch language to Chinese">中文</button>
+    </div>
+</nav>
+
+<div class="container">
+
+    <!-- ── Hero ── -->
+    <div class="hero">
+        <div class="hero-label">Business Demo · HTML / CSS / Vanilla JS</div>
+        <h1 class="hero-title">Aria Chen Real Estate</h1>
+        <p class="hero-tagline" lang="en">A conversion-focused luxury real estate landing page for a Vancouver REALTOR® — multi-step home valuation tool, property search, and community showcase built with zero dependencies.</p>
+        <p class="hero-tagline" lang="zh">為溫哥華地產經紀人打造的轉化率導向豪宅落地頁——多步驟估價工具、物業搜索與社區展示，零依賴純 HTML/CSS/JS。</p>
+
+        <div class="protected-badge">
+            <span lang="en">Source code protected — demo available on request</span>
+            <span lang="zh">代碼受保護——如需演示請聯絡</span>
+        </div>
+
+        <div class="tag-row">
+            <span class="tag">#HTML5</span>
+            <span class="tag">#CSS3</span>
+            <span class="tag">#VanillaJS</span>
+            <span class="tag">#SchemaOrg</span>
+            <span class="tag">#OpenGraph</span>
+            <span class="tag">#CriticalCSS</span>
+        </div>
+    </div>
+
+    <!-- ── Gallery ── -->
+    <div class="section">
+        <div class="sec-eyebrow">Visual Walkthrough</div>
+
+        <div lang="en">
+            <h2 class="sec-title desktop-only">Interactive Preview</h2>
+            <p class="sec-body desktop-only" style="margin-bottom: 0;">Experience the full interface below in real-time.</p>
+            <h2 class="sec-title mobile-only">Visual Walkthrough</h2>
+            <p class="sec-body mobile-only" style="margin-bottom: 0;">Explore the interface via mobile-optimized captures.</p>
+        </div>
+        <div lang="zh">
+            <h2 class="sec-title desktop-only">互動預覽</h2>
+            <p class="sec-body desktop-only" style="margin-bottom: 0;">即時體驗完整介面互動。</p>
+            <h2 class="sec-title mobile-only">視覺導覽</h2>
+            <p class="sec-body mobile-only" style="margin-bottom: 0;">透過手機優化截圖瀏覽介面。</p>
+        </div>
+
+        <div class="demo-iframe-wrap" id="demoIframeWrap">
+            <iframe
+                data-src="https://sanboy1989.github.io/Demo.RealEstate/"
+                src="about:blank"
+                loading="lazy"
+                title="Aria Chen Real Estate — Live Demo"
+                referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+        </div>
+
+        <div class="screenshot-wrap">
+            <img
+                src="images/screencapture-Demo-RealEstate.webp"
+                alt="Aria Chen Real Estate — full page screenshot"
+                loading="lazy"
+                decoding="async">
+        </div>
+    </div>
+
+    <!-- ── Context & Problem ── -->
+    <div class="section">
+        <div class="sec-eyebrow">01 · Context &amp; Problem</div>
+        <h2 class="sec-title" lang="en">Real estate sites are slow, generic, and lose leads at the first scroll.</h2>
+        <h2 class="sec-title" lang="zh">地產網站速度慢、模版化，第一屏就流失潛在客戶。</h2>
+
+        <p class="sec-body" lang="en">Most real estate agents use templated platforms (Squarespace, Wix, board-provided portals) that load heavy JavaScript frameworks, prioritize MLS feed over conversion, and have zero personality. The result: sites that feel like property databases rather than a trusted advisor's presence.</p>
+        <p class="sec-body" lang="zh">大多數地產經紀人使用模板平台（Squarespace、Wix 或協會提供的入口），載入重型 JavaScript 框架，以 MLS 信息為重心而非轉化，且毫無個人風格。結果：網站感覺像物業數據庫，而非可信賴顧問的存在。</p>
+
+        <div class="callout">
+            <div class="callout-label" lang="en">The Brief</div>
+            <div class="callout-label" lang="zh">設計要求</div>
+            <p lang="en">Build a <strong>conversion-first</strong> landing page that: (1) loads hero content instantly without waiting for external JS, (2) captures seller leads via a multi-step valuation tool, (3) showcases neighbourhoods to establish local authority, and (4) communicates trust through social proof — all without any framework or library.</p>
+            <p lang="zh">建立一個<strong>以轉化為首要目標</strong>的落地頁：(1) 無需等待外部 JS 即可即時載入 Hero 內容；(2) 透過多步驟估價工具捕捉賣家潛在客戶；(3) 展示社區以建立本地專業形象；(4) 透過社會認證傳達信任——全部無需任何框架或庫。</p>
+        </div>
+    </div>
+
+    <!-- ── Tech Deep Dive ── -->
+    <div class="section">
+        <div class="sec-eyebrow">02 · Tech Deep Dive</div>
+        <h2 class="sec-title" lang="en">Zero dependencies. Maximum performance.</h2>
+        <h2 class="sec-title" lang="zh">零依賴。最大效能。</h2>
+
+        <p class="sec-body" lang="en">The site ships <strong>no npm packages, no framework, no runtime</strong>. Every interaction — the scroll animations, the carousel, the multi-step form, the counter animations — is vanilla JS. This keeps Time-to-Interactive under 1 second and eliminates an entire class of dependency vulnerabilities.</p>
+        <p class="sec-body" lang="zh">網站<strong>不包含 npm 包、框架或運行時</strong>。所有互動——滾動動畫、輪播、多步驟表單、計數器動畫——均為原生 JS。這使互動時間保持在 1 秒以內，並消除了整類依賴漏洞。</p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// Critical CSS Inline</div>
+                <div class="feature-card-title" lang="zh">// 內聯關鍵 CSS</div>
+                <p lang="en">Nav + hero styles are inlined in <code>&lt;head&gt;</code>. The full stylesheet loads async via <code>preload</code>. First Contentful Paint happens before any network round-trip.</p>
+                <p lang="zh">Nav + Hero 樣式內聯於 <code>&lt;head&gt;</code>。完整樣式表通過 <code>preload</code> 異步加載。首次內容繪製在任何網路往返之前完成。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// requestIdleCallback</div>
+                <div class="feature-card-title" lang="zh">// 空閒時初始化</div>
+                <p lang="en">Non-critical modules (valuation form, communities, testimonials) initialize inside <code>requestIdleCallback</code> — the browser handles them when the main thread is free, not during page load.</p>
+                <p lang="zh">非關鍵模塊（估價表單、社區、推薦信）在 <code>requestIdleCallback</code> 內初始化——瀏覽器在主線程空閒時處理，而非頁面加載期間。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// IntersectionObserver</div>
+                <div class="feature-card-title" lang="zh">// 滾動觸發動畫</div>
+                <p lang="en">All scroll-triggered reveal animations use <code>IntersectionObserver</code> — no scroll event listeners, no layout thrashing. Each element observes itself and unobserves after animating.</p>
+                <p lang="zh">所有滾動觸發的揭示動畫使用 <code>IntersectionObserver</code>——無滾動事件監聽器，無佈局抖動。每個元素自我觀察，動畫後取消觀察。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// JSON-LD Schema</div>
+                <div class="feature-card-title" lang="zh">// 結構化資料 SEO</div>
+                <p lang="en"><code>RealEstateAgent</code> schema with <code>aggregateRating</code> and <code>review</code> array. Enables Google rich results (star ratings in SERPs) without any plugin.</p>
+                <p lang="zh"><code>RealEstateAgent</code> schema 含 <code>aggregateRating</code> 和 <code>review</code> 陣列。無需任何插件即可在 Google 搜索結果中顯示星級評分。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// WebP + &lt;picture&gt;</div>
+                <div class="feature-card-title" lang="zh">// 響應式圖片</div>
+                <p lang="en">Every image uses <code>&lt;picture&gt;</code> with WebP <code>&lt;source&gt;</code> and JPEG fallback. <code>srcset</code> and <code>sizes</code> ensure the browser downloads exactly the right resolution for each viewport.</p>
+                <p lang="zh">每張圖片使用帶 WebP <code>&lt;source&gt;</code> 和 JPEG 備用的 <code>&lt;picture&gt;</code>。<code>srcset</code> 和 <code>sizes</code> 確保瀏覽器為每個視口下載恰好合適的分辨率。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// Multi-Step Valuation Form</div>
+                <div class="feature-card-title" lang="zh">// 多步驟估價表單</div>
+                <p lang="en">Address → Contact → Loading sequence → Result. Inline field validation on blur/input. A fake progress bar with rotating AI-copy messages sells the "analysis" UX during the 4-second wait.</p>
+                <p lang="zh">地址 → 聯絡資料 → 加載序列 → 結果。失焦/輸入時的內聯字段驗證。假進度條配合輪換 AI 文案訊息，在 4 秒等待中銷售「分析」使用體驗。</p>
+            </div>
+        </div>
+
+        <div class="stack-row" style="margin-top: 28px;">
+            <span class="chip">HTML5</span>
+            <span class="chip">CSS Custom Properties</span>
+            <span class="chip">Vanilla JS</span>
+            <span class="chip">IntersectionObserver</span>
+            <span class="chip">requestIdleCallback</span>
+            <span class="chip">JSON-LD Schema</span>
+            <span class="chip">Open Graph</span>
+            <span class="chip">WebP + &lt;picture&gt;</span>
+            <span class="chip">Google Fonts</span>
+        </div>
+
+        <div class="callout" style="margin-top: 32px;">
+            <div class="callout-label" lang="en">Hardest Part — Hero image loading without layout shift</div>
+            <div class="callout-label" lang="zh">最難的部分——Hero 圖片加載而不引起佈局偏移</div>
+            <p lang="en">
+                The Ken Burns zoom animation (<code>transform: scale(1.04)</code> → <code>scale(1)</code> over 12 seconds) had to start <strong>before</strong> the hero image fully loaded, or the first frame would show a jerky jump. The fix: set explicit <code>width</code> and <code>height</code> attributes on the <code>&lt;img&gt;</code> to reserve the layout space, use <code>fetchpriority="high"</code> and a <code>&lt;link rel="preload"&gt;</code> in <code>&lt;head&gt;</code> so the image is fetched as the highest priority resource, and start the CSS animation unconditionally — by the time it matters visually, the image is already loaded.
+            </p>
+            <p lang="zh">
+                Ken Burns 縮放動畫（12 秒內 <code>transform: scale(1.04)</code> → <code>scale(1)</code>）必須在 Hero 圖片完全加載<strong>之前</strong>開始，否則第一幀會出現跳躍。解決方案：在 <code>&lt;img&gt;</code> 上設置明確的 <code>width</code> 和 <code>height</code> 屬性以預留佈局空間，在 <code>&lt;head&gt;</code> 中使用 <code>fetchpriority="high"</code> 和 <code>&lt;link rel="preload"&gt;</code> 使圖片以最高優先級獲取，並無條件啟動 CSS 動畫——在視覺上重要之前，圖片已經加載完成。
+            </p>
+        </div>
+    </div>
+
+    <!-- ── Demo Request CTA ── -->
+    <div class="section" style="border-bottom: none; padding-bottom: 0;">
+        <div class="demo-cta">
+            <div class="demo-cta-text">
+                <h3 lang="en">Want to see it live?</h3>
+                <h3 lang="zh">想看現場演示？</h3>
+                <p lang="en">Source code stays private. Happy to walk through the site on a call or share a password-protected staging link on request.</p>
+                <p lang="zh">原始碼保密。樂意在通話中帶你瀏覽，或應要求分享密碼保護的預覽連結。</p>
+            </div>
+            <a href="mailto:jasonlai.tech@icloud.com?subject=Demo%20Request%20%E2%80%94%20Aria%20Chen%20Real%20Estate" class="demo-btn">
+                Request Demo →
+            </a>
+        </div>
+    </div>
+
+    <div class="footer" style="padding-top: 40px;">
+        <a href="./">← Back to portfolio</a>
+    </div>
+
+</div>
+
+<script>
+(function() {
+    var wrap = document.getElementById('demoIframeWrap');
+    if (!wrap) return;
+    var frame = wrap.querySelector('iframe');
+    var io = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting && frame.dataset.src) {
+            frame.src = frame.dataset.src;
+            frame.removeAttribute('data-src');
+            io.disconnect();
+        }
+    }, { rootMargin: '200px' });
+    io.observe(wrap);
+})();
+</script>
+<button id="canvas-toggle" class="canvas-toggle" onclick="toggleCanvas()" aria-pressed="true" aria-label="Toggle matrix background animation">▶ Matrix</button>
+<button id="back-to-top" class="back-to-top" aria-label="Back to top">↑ TOP</button>
+<script src="js/lang.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizon Travel | Next.js PWA | Jason Lai</title>
+    <meta name="description" content="Horizon Travel — smart travel agency management system built with Next.js SSR, Node.js, and Google Calendar API. Automated itinerary delivery and client alerts.">
+    <link rel="canonical" href="https://sanboy1989.github.io/portfolio/project-travel.html">
+    <link rel="alternate" hreflang="en"      href="https://sanboy1989.github.io/portfolio/project-travel.html">
+    <link rel="alternate" hreflang="zh-HK"   href="https://sanboy1989.github.io/portfolio/project-travel.html">
+    <link rel="alternate" hreflang="x-default" href="https://sanboy1989.github.io/portfolio/project-travel.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+    <script>if(localStorage.getItem('lang')==='zh')document.documentElement.classList.add('lang-zh');</script>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/project.css">
+    <style>
+        /* ── Live Demo CTA Button ── */
+        .demo-cta-wrap {
+            margin-top: 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .demo-cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 28px;
+            background: #1A1A1A;
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+            transition: opacity 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+        }
+        .demo-cta-btn:hover {
+            opacity: 0.82;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
+        }
+        .demo-cta-hint {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 0.02em;
+            margin: 0;
+        }
+
+        /* ── Full Page Showcase ── */
+        .full-page-preview {
+            margin-top: 32px;
+        }
+        .full-page-preview img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+            display: block;
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        "name": "Horizon Travel",
+        "description": "Smart travel management system bridging booking, calendar sync, and automated client alerts — built with Next.js and Node.js.",
+        "author": { "@id": "https://sanboy1989.github.io/portfolio/#jason" },
+        "url": "https://sanboy1989.github.io/portfolio/project-travel.html",
+        "keywords": "Next.js, Node.js, Google Calendar API, Nodemailer, SSR, Travel Management"
+    }
+    </script>
+</head>
+<body class="lang-en">
+
+<canvas id="matrix-bg" aria-hidden="true"></canvas>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="nav-back">← Portfolio</a>
+        <button class="lang-btn" onclick="toggleLang()" id="langBtn" aria-pressed="false" aria-label="Switch language to Chinese">中文</button>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="hero">
+        <div class="hero-label">PWA · Next.js · Node.js · 2024</div>
+        <h1 class="hero-title">Horizon Travel</h1>
+        <p class="hero-tagline" lang="en">An all-in-one travel management system that replaces fragmented WhatsApp coordination with automated itinerary delivery, calendar sync, and proactive client alerts.</p>
+        <p class="hero-tagline" lang="zh">一站式旅行社管理系統，用自動化行程交付、日曆同步與主動通知取代碎片化的 WhatsApp 溝通。</p>
+        <div class="tag-row">
+            <span class="tag">#NextJS</span>
+            <span class="tag">#NodeJS</span>
+            <span class="tag">#CalendarAPI</span>
+            <span class="tag">#Nodemailer</span>
+            <span class="tag">#SSR</span>
+        </div>
+        <div class="demo-cta-wrap">
+            <a href="https://demo-travel-agency-xi.vercel.app/" target="_blank" rel="noopener noreferrer" class="demo-cta-btn">Live App Demo ↗</a>
+            <p class="demo-cta-hint">Opens in new tab · Installable PWA</p>
+        </div>
+    </div>
+
+    <!-- Visual Walkthrough -->
+    <div class="section">
+        <div class="sec-eyebrow">Visual Walkthrough</div>
+        <h2 class="sec-title" lang="en">Full Page Showcase</h2>
+        <h2 class="sec-title" lang="zh">完整頁面展示</h2>
+        <div class="full-page-preview">
+            <picture>
+                <img src="images/screencapture-demo-travel-agency.webp"
+                     alt="Horizon Travel — full page screenshot walkthrough"
+                     loading="lazy"
+                     decoding="async">
+            </picture>
+        </div>
+    </div>
+
+    <!-- Context & Problem -->
+    <div class="section">
+        <div class="sec-eyebrow">01 · Context &amp; Problem</div>
+        <h2 class="sec-title" lang="en">Why travel agencies are losing client trust to fragmented communication</h2>
+        <h2 class="sec-title" lang="zh">旅行社為何因碎片化溝通而失去客戶信任</h2>
+
+        <p class="sec-body" lang="en">A travel agent manages dozens of simultaneous trips. Every client has a different flight, hotel, and itinerary. When a flight changes at 2am, the agent must notify 8 clients manually — one by one, via WhatsApp. Messages get missed. Calendars don't update. Clients show up at the wrong terminal.</p>
+        <p class="sec-body" lang="zh">旅行社代理同時管理數十個行程。每位客戶有不同的航班、酒店和行程。當航班在凌晨 2 點更改時，代理需要逐一手動通知 8 位客戶——通過 WhatsApp。消息被遺漏。日曆未更新。客戶走錯航廈。</p>
+
+        <div class="callout">
+            <div class="callout-label" lang="en">The Gap</div>
+            <div class="callout-label" lang="zh">缺口所在</div>
+            <p lang="en">The problem isn't that agents are bad at their jobs — it's that <strong>their tools force them to act as human notification systems</strong>. Every itinerary change requires manual coordination across multiple channels. WanderSync automates that entire layer so agents can focus on planning, not pinging.</p>
+            <p lang="zh">問題不是代理工作不努力——而是<strong>他們的工具強迫他們充當人工通知系統</strong>。每次行程變更都需要跨多個渠道手動協調。WanderSync 自動化整個層級，讓代理專注於規劃，而不是不停傳訊息。</p>
+        </div>
+    </div>
+
+    <!-- Tech Deep Dive -->
+    <div class="section">
+        <div class="sec-eyebrow">02 · Tech Deep Dive</div>
+        <h2 class="sec-title" lang="en">The Stack &amp; the Hard Parts</h2>
+        <h2 class="sec-title" lang="zh">技術棧與解決難題</h2>
+
+        <p class="sec-body" lang="en">Next.js with SSR is the right choice because the client booking portal needs SEO, and server-side rendering keeps itinerary data out of the client bundle for security. Node.js handles the Google Calendar API orchestration and notification dispatch on the backend. The notification layer uses a webhook pattern rather than polling — changes propagate in seconds rather than on the next client request.</p>
+        <p class="sec-body" lang="zh">Next.js 配合 SSR 是正確選擇，因為客戶預訂入口需要 SEO，而伺服器端渲染也讓行程數據遠離客戶端捆綁包以確保安全。Node.js 在後端處理 Google Calendar API 編排和通知分發。通知層使用 Webhook 模式而非輪詢——變更在數秒內傳播，而不是等待下次客戶請求。</p>
+
+        <div class="callout">
+            <div class="callout-label" lang="en">Key Decision — Admin CRM as single source of truth</div>
+            <div class="callout-label" lang="zh">關鍵決策——Admin CRM 作為唯一真實來源</div>
+            <p lang="en">All itinerary changes flow through the Admin panel, never directly from clients. This creates a <strong>full audit trail</strong> (every change logged with timestamp + agent ID) and prevents partial updates where the client's calendar drifts ahead of the agent's records.</p>
+            <p lang="zh">所有行程變更都通過 Admin 面板流轉，而非直接來自客戶。這創建了<strong>完整的審計追蹤</strong>（每次變更記錄時間戳和代理 ID），並防止客戶日曆超前於代理記錄的部分更新。</p>
+        </div>
+
+        <div class="stack-row">
+            <span class="chip">Next.js (SSR)</span>
+            <span class="chip">Node.js</span>
+            <span class="chip">Google Calendar API</span>
+            <span class="chip">Nodemailer</span>
+            <span class="chip">Webhook Pattern</span>
+        </div>
+
+        <div class="callout" style="margin-top: 32px;">
+            <div class="callout-label" lang="en">Hardest Bug — Duplicate calendar events under concurrency</div>
+            <div class="callout-label" lang="zh">最難解決的 Bug — 高併發條件下的重複日曆事件</div>
+            <p lang="en">When an agent updated an itinerary while a client simultaneously opened the portal, two Google Calendar API writes fired in parallel — one from the agent save, one from the portal's <code>onMount</code> sync. The Calendar API created two events instead of updating the existing one. Fixed with <strong>idempotency keys</strong>: every itinerary item has a stable UUID used as the Calendar event ID, making any write an upsert rather than a blind create.</p>
+            <p lang="zh">當代理更新行程且客戶同時打開入口網站時，兩個 Google Calendar API 寫入並行觸發——一個來自代理保存，另一個來自入口的 <code>onMount</code> 同步。Calendar API 創建了兩個事件而非更新現有事件。解決方案是<strong>冪等鍵</strong>：每個行程項目有一個穩定的 UUID 用作日曆事件 ID，讓任何寫入都是更新插入而非盲目創建。</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <a href="./">← Back to portfolio</a>
+    </div>
+
+</div>
+
+<button id="canvas-toggle" class="canvas-toggle" onclick="toggleCanvas()" aria-pressed="true" aria-label="Toggle matrix background animation">▶ Matrix</button>
+<button id="back-to-top" class="back-to-top" aria-label="Back to top">↑ TOP</button>
+<script src="js/lang.js"></script>
+<script src="js/script.js"></script>
+
+</body>
+</html>

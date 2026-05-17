@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Langimon — Jason Lai</title>
+    <meta name="description" content="Langimon: a gamified Japanese learning app using Tamagotchi mechanics and SRS to fight the forgetting curve.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+    <script>if(localStorage.getItem('lang')==='zh')document.documentElement.classList.add('lang-zh');</script>
+    <link rel="canonical" href="https://sanboy1989.github.io/portfolio/project-langimon.html">
+    <link rel="alternate" hreflang="en"        href="https://sanboy1989.github.io/portfolio/project-langimon.html">
+    <link rel="alternate" hreflang="zh-HK"     href="https://sanboy1989.github.io/portfolio/project-langimon.html">
+    <link rel="alternate" hreflang="x-default" href="https://sanboy1989.github.io/portfolio/project-langimon.html">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/project.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        "name": "Langimon",
+        "description": "Gamified Japanese vocabulary learning app using Tamagotchi mechanics and spaced-repetition science — built with React Native and Firebase.",
+        "author": { "@id": "https://sanboy1989.github.io/portfolio/#jason" },
+        "url": "https://sanboy1989.github.io/portfolio/project-langimon.html",
+        "keywords": "React Native, Firebase, Lottie, SRS, Gamification, Japanese Learning, Mobile App"
+    }
+    </script>
+</head>
+<body class="lang-en">
+
+<canvas id="matrix-bg" aria-hidden="true"></canvas>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="nav-back">← Portfolio</a>
+        <button class="lang-btn" onclick="toggleLang()" id="langBtn" aria-pressed="false" aria-label="Switch language to Chinese">中文</button>
+    </div>
+</nav>
+
+<div class="container">
+
+    <!-- ── Hero ── -->
+    <div class="hero">
+        <div class="hero-label">App · React Native · 2024</div>
+        <h1 class="hero-title">Langimon</h1>
+        <p class="hero-tagline" lang="en">What if forgetting Japanese vocabulary made your virtual monster <em>hungry</em>? A gamified study app built on Tamagotchi mechanics and spaced-repetition science.</p>
+        <p class="hero-tagline" lang="zh">如果忘記日文單字會讓你的虛擬怪獸「餓肚子」，你還會偷懶嗎？基於電子雞機制與間隔重複科學打造的遊戲化學習 App。</p>
+        <img src="images/langimon.jpg"
+             class="hero-img" alt="Langimon app screenshot — monster raising and vocabulary quiz interface"
+             loading="eager" fetchpriority="high" decoding="async">
+        <div class="tag-row">
+            <span class="tag">#ReactNative</span>
+            <span class="tag">#Firebase</span>
+            <span class="tag">#Lottie</span>
+            <span class="tag">#SRS</span>
+            <span class="tag">#Gamification</span>
+        </div>
+    </div>
+
+    <!-- ── The Problem ── -->
+    <div class="section">
+        <div class="sec-eyebrow">01 · The Problem</div>
+        <h2 class="sec-title" lang="en">The forgetting curve kills motivation before it kills vocabulary.</h2>
+        <h2 class="sec-title" lang="zh">遺忘曲線消磨動力，比消磨詞彙更快。</h2>
+
+        <p class="sec-body" lang="en">
+            Within 24 hours of a study session, the average learner forgets up to 70% of new vocabulary without review. That stat alone isn't the killer — the <em>feeling</em> is. You study 30 words on Monday. By Wednesday they're gone. Repeat this enough times and the lesson isn't "I need to review more" — it's "I'm not built for languages."
+        </p>
+        <p class="sec-body" lang="zh">
+            在一次學習後的 24 小時內，普通學習者在沒有複習的情況下會忘記高達 70% 的新詞彙。單純的數字本身不是殺手——<em>那種感受</em>才是。週一背了 30 個單字，週三全忘了。重複幾次後，你得到的結論不是「我需要多複習」，而是「我天生不適合學外語」。
+        </p>
+
+        <div class="callout">
+            <div class="callout-label" lang="en">Core Insight</div>
+            <div class="callout-label" lang="zh">核心洞察</div>
+            <p lang="en">
+                The problem isn't a <strong>memory problem</strong> — it's a <strong>motivation and feedback loop problem</strong>. Traditional flashcard apps give no reward for consistency, no visible consequence for neglect. Progress is invisible until the JLPT exam.
+            </p>
+            <p lang="zh">
+                問題不是<strong>記憶力問題</strong>——而是<strong>動力與反饋循環問題</strong>。傳統單字卡 App 對堅持不給予任何獎勵，對疏忽也沒有任何可見後果。進步是不可見的，直到 JLPT 考試才見真章。
+            </p>
+        </div>
+
+        <p class="sec-body" lang="en">
+            Existing solutions like Anki are powerful but clinical. Duolingo gamifies with streaks, but streaks are easily broken and easily ignored. The gap: a system where your progress lives inside something that visibly <em>needs</em> you.
+        </p>
+        <p class="sec-body" lang="zh">
+            現有解決方案如 Anki 功能強大但過於冷靜。多鄰國用連續打卡遊戲化，但連續打卡很容易斷，也很容易被忽視。缺口在這裡：一個讓你的進步活在某個明顯<em>需要你</em>的存在之中的系統。
+        </p>
+    </div>
+
+    <!-- ── The Solution ── -->
+    <div class="section">
+        <div class="sec-eyebrow">02 · The Solution</div>
+        <h2 class="sec-title" lang="en">Make your monster hungry for your vocabulary reviews.</h2>
+        <h2 class="sec-title" lang="zh">讓你的怪獸飢渴你的單字複習。</h2>
+
+        <p class="sec-body" lang="en">
+            Langimon pairs a Tamagotchi-style virtual monster with a spaced-repetition vocabulary engine. The monster's state — healthy, hungry, or evolving — is a direct mirror of your study consistency. This transforms an abstract habit into a visceral, daily obligation.
+        </p>
+        <p class="sec-body" lang="zh">
+            Langimon 將電子雞風格的虛擬怪獸與間隔重複詞彙引擎配對。怪獸的狀態——健康、飢餓或進化中——直接反映你的學習一致性。這將一個抽象習慣轉化為一種真實的、每日的責任感。
+        </p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// Feeding Mechanic</div>
+                <div class="feature-card-title" lang="zh">// 餵食機制</div>
+                <p lang="en">Complete 10 vocabulary quizzes → earn "Exp Candy" → feed your monster to restore stamina. Fail to review → monster shows a "Hungry" animation.</p>
+                <p lang="zh">完成 10 個單字測驗 → 獲得「經驗糖果」→ 餵食怪獸恢復體力。疏於複習 → 怪獸顯示「飢餓」動畫。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// Evolution System</div>
+                <div class="feature-card-title" lang="zh">// 進化系統</div>
+                <p lang="en">Master all N5 vocabulary (800 words) → evolution animation triggers. Each JLPT milestone is a visual transformation, making long-term progress tangible.</p>
+                <p lang="zh">掌握全部 N5 詞彙（800 個單字）→ 觸發進化動畫。每個 JLPT 里程碑都是一次視覺蛻變，讓長期進步變得有形可見。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// SRS Algorithm</div>
+                <div class="feature-card-title" lang="zh">// SRS 演算法</div>
+                <p lang="en">Words are scheduled for review at scientifically optimal intervals. Words you know well surface less. Words you struggle with surface more — adjusting to your personal retention curve.</p>
+                <p lang="zh">單字按科學最優間隔安排複習。你掌握的單字出現頻率低，困難單字出現頻率高——適應你個人的記憶保留曲線。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// Stamina Cap</div>
+                <div class="feature-card-title" lang="zh">// 每日體力上限</div>
+                <p lang="en">Users can only feed their monster a limited amount per day. This prevents binge-studying, which the research shows is less effective than distributed practice.</p>
+                <p lang="zh">用戶每天只能餵食怪獸有限次數。這防止了一次性刷題，研究表明這比分散練習效果差。</p>
+            </div>
+        </div>
+
+        <p class="sec-body" lang="en" style="margin-top: 28px;">
+            The core design bet: people who would skip a flashcard deck will not let their monster starve. The emotional attachment created by the monster's visual state (healthy → hungry → sick) acts as a commitment device that Anki-style apps can't replicate.
+        </p>
+        <p class="sec-body" lang="zh" style="margin-top: 28px;">
+            核心設計賭注：會跳過單字卡的人，不會讓他們的怪獸捱餓。怪獸視覺狀態（健康 → 飢餓 → 生病）創造的情感依附，是 Anki 風格 App 無法複製的承諾機制。
+        </p>
+    </div>
+
+    <!-- ── Tech Deep Dive ── -->
+    <div class="section">
+        <div class="sec-eyebrow">03 · Tech Deep Dive</div>
+        <h2 class="sec-title" lang="en">Why these tools, and what broke along the way.</h2>
+        <h2 class="sec-title" lang="zh">為何選這套技術，以及過程中什麼出了問題。</h2>
+
+        <p class="sec-body" lang="en">
+            React Native was the obvious choice: one codebase, two platforms, and a mature ecosystem for the UI patterns this app needed. The monster animations are handled by Lottie, which renders After Effects animations as performant JSON — avoiding the heavy weight of embedded video while keeping rich, frame-by-frame expressiveness.
+        </p>
+        <p class="sec-body" lang="zh">
+            React Native 是顯而易見的選擇：一套程式碼，兩個平台，以及適合此 App 所需 UI 模式的成熟生態系。怪獸動畫由 Lottie 處理，它將 After Effects 動畫渲染為高效能的 JSON——避免了嵌入式視頻的沉重負擔，同時保留豐富的逐幀表現力。
+        </p>
+
+        <div class="callout">
+            <div class="callout-label" lang="en">Why Firebase over a custom backend</div>
+            <div class="callout-label" lang="zh">為什麼選 Firebase 而非自建後端</div>
+            <p lang="en">
+                The monster's stamina and XP values needed to be <strong>instantly consistent across devices</strong> — if a user studies on their iPad in the morning and checks their iPhone in the afternoon, the monster state should match. Firebase Realtime Database's live-sync model handles this without any custom websocket infrastructure. Firebase Auth also gave me email + anonymous auth in an afternoon rather than a week of custom session management.
+            </p>
+            <p lang="zh">
+                怪獸的體力和 XP 值需要<strong>跨設備即時一致</strong>——如果用戶早上在 iPad 上學習，下午查看 iPhone，怪獸狀態應該一致。Firebase Realtime Database 的實時同步模型無需任何自定義 WebSocket 基礎設施即可處理這個問題。Firebase Auth 也讓我在一個下午而非一週的自定義 Session 管理內完成了電郵 + 匿名認證。
+            </p>
+        </div>
+
+        <div class="stack-row">
+            <span class="chip">React Native</span>
+            <span class="chip">Firebase Realtime DB</span>
+            <span class="chip">Firebase Auth</span>
+            <span class="chip">Lottie</span>
+            <span class="chip">SRS (SM-2 variant)</span>
+        </div>
+
+        <hr class="divider">
+
+        <h3 class="sec-title" lang="en" style="font-size: 20px; margin-bottom: 14px;">Animation performance on mid-range Android</h3>
+        <h3 class="sec-title" lang="zh" style="font-size: 20px; margin-bottom: 14px;">中階 Android 設備的動畫效能</h3>
+        <p class="sec-body" lang="en">
+            The evolution animation is complex — a 4-second transformation sequence with particle effects. On mid-range Android devices (Snapdragon 665 class), running this on the JS thread caused frame drops during the quiz-to-evolution transition. The fix: used the Lottie <code>cacheComposition</code> flag to pre-parse the JSON at app launch, and triggered the animation inside a <code>InteractionManager.runAfterInteractions()</code> block so the JS thread cleared the navigation stack before starting the render-heavy sequence.
+        </p>
+        <p class="sec-body" lang="zh">
+            進化動畫很複雜——一個帶有粒子效果的 4 秒轉換序列。在中階 Android 設備（Snapdragon 665 級別）上，在 JS 線程上運行這個動畫在測驗到進化的過渡期間導致了掉幀。解決方案：使用 Lottie 的 <code>cacheComposition</code> 標誌在 App 啟動時預解析 JSON，並在 <code>InteractionManager.runAfterInteractions()</code> 塊內觸發動畫，讓 JS 線程在開始渲染密集序列前清空導航棧。
+        </p>
+
+        <hr class="divider">
+
+        <div class="callout">
+            <div class="callout-label" lang="en">Hardest Bug — Firebase race condition on multi-device writes</div>
+            <div class="callout-label" lang="zh">最難解決的 Bug — 多設備寫入的 Firebase 競態條件</div>
+            <p lang="en">
+                When a user had two devices logged in simultaneously, both sessions could trigger a stamina-deduction write at the same time. Firebase's last-write-wins model meant one deduction silently disappeared — the monster ended up with <strong>more stamina than it should have</strong>. The system was rewarding cheating that no one was doing on purpose. Fixed by switching all stamina and XP mutations to <strong>Firebase Transactions</strong>, which enforce atomic read-modify-write cycles: the transaction reads the current value, modifies it, and retries automatically if another write happened in the meantime.
+            </p>
+            <p lang="zh">
+                當用戶同時有兩台設備登入時，兩個 Session 可能同時觸發體力扣除寫入。Firebase 的最後寫入優先模型意味著一次扣除靜默消失——怪獸最終<strong>體力比應有的更多</strong>。系統在無意中獎勵了作弊。解決方案是將所有體力和 XP 變更切換為 <strong>Firebase Transactions</strong>，它強制執行原子性讀取-修改-寫入週期：Transaction 讀取當前值，修改它，如果同時發生了另一次寫入則自動重試。
+            </p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <a href="./">← Back to portfolio</a>
+    </div>
+
+</div>
+
+<button id="canvas-toggle" class="canvas-toggle" onclick="toggleCanvas()" aria-pressed="true" aria-label="Toggle matrix background animation">▶ Matrix</button>
+<button id="back-to-top" class="back-to-top" aria-label="Back to top">↑ TOP</button>
+<script src="js/lang.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
