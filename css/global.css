@@ -59,6 +59,12 @@ nav {
     font-family: var(--sans); font-size: 17px; font-weight: 700;
     color: var(--text); text-decoration: none;
     letter-spacing: -0.02em;
+    display: flex; align-items: center;
+}
+.nav-logo-img {
+    height: 30px;
+    width: auto;
+    display: block;
 }
 .nav-back {
     font-family: var(--mono); font-size: 12px;

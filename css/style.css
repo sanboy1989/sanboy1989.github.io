@@ -51,6 +51,12 @@ main {
     letter-spacing: -0.05em;
     margin-bottom: 64px;
 }
+.profile-name-img {
+    width: clamp(260px, 50vw, 500px);
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
 .profile-sub {
     font-family: var(--mono);
     font-size: 11px;
