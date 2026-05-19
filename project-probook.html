@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrairiePro Book | Business Demo | Jason Lai</title>
+    <meta name="description" content="A fully self-contained Calgary home-service booking demo — transparent pricing, professional team profiles, and a Calendly-style multi-step booking wizard. Built with HTML5, Tailwind CSS, and Vanilla JS.">
+    <link rel="canonical" href="https://jasonlai.work/project-probook.html">
+    <link rel="alternate" hreflang="en"        href="https://jasonlai.work/project-probook.html">
+    <link rel="alternate" hreflang="zh-HK"     href="https://jasonlai.work/project-probook.html">
+    <link rel="alternate" hreflang="x-default" href="https://jasonlai.work/project-probook.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+    <script>if(localStorage.getItem('lang')==='zh')document.documentElement.classList.add('lang-zh');</script>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/project.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        "name": "PrairiePro Book",
+        "description": "A fully self-contained Calgary home-service booking demo featuring transparent pricing, professional team profiles, and a multi-step Calendly-style booking wizard.",
+        "author": { "@id": "https://jasonlai.work/#jason" },
+        "url": "https://jasonlai.work/project-probook.html",
+        "keywords": "HTML5, Tailwind CSS, Vanilla JS, localStorage, Booking Wizard, Calgary, Home Services, Demo"
+    }
+    </script>
+    <style>
+        /* ── PrairiePro Book page overrides (shared styles in css/project.css) ── */
+        html, body { overflow-x: hidden; }
+        .hero { padding: 80px 0 64px; }
+        .hero-title { font-size: clamp(2.8rem, 8vw, 7.5rem); line-height: 0.88; letter-spacing: -0.05em; }
+        .section { padding: 80px 0; }
+        .sec-title { max-width: 660px; }
+        .sec-body { max-width: 660px; }
+        .footer { padding: 48px 0 0; }
+        .tag { color: var(--muted); border-color: rgba(0, 0, 0, 0.08); cursor: default; }
+        .tag:hover { color: var(--accent); border-color: rgba(56,189,248,0.5); }
+
+        /* Demo CTA */
+        .demo-cta { background: var(--bg-up); border: 1px solid var(--border); border-radius: 8px; padding: 40px; display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+        .demo-cta-text h3 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+        .demo-cta-text p { font-size: 14px; color: var(--muted); line-height: 1.6; max-width: 480px; }
+        .demo-btn-group { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; flex-shrink: 0; }
+        .demo-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #0B0E14; font-family: var(--sans); font-size: 14px; font-weight: 700; text-decoration: none; padding: 10px 22px; border-radius: 6px; transition: opacity 0.2s; white-space: nowrap; }
+        .demo-btn:hover { opacity: 0.85; }
+        .demo-btn-outline { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--muted); font-family: var(--sans); font-size: 14px; font-weight: 400; text-decoration: none; padding: 10px 22px; border-radius: 6px; border: 1px solid var(--border); transition: all 0.2s; white-space: nowrap; }
+        .demo-btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* Demo iframe */
+        .demo-iframe-wrap { margin-top: 24px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: var(--bg-up); aspect-ratio: 16 / 9; box-shadow: 0 20px 50px rgba(0,0,0,0.07); }
+        .demo-iframe-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+
+        /* Code block */
+        .code-block { background: #F8FAFC; border: 1px solid var(--border); border-radius: 6px; padding: 18px 22px; margin: 20px 0; overflow-x: auto; }
+        .code-block code { font-family: var(--mono); font-size: 12.5px; color: var(--text); line-height: 2.0; white-space: pre; display: block; }
+        .ck { color: #6366F1; }
+        .cm { color: var(--muted); }
+        .cs { color: #0D9488; }
+
+        /* Responsive content switching */
+        .desktop-only { display: none; }
+        @media (min-width: 769px) {
+            .desktop-only { display: block; }
+            .mobile-only { display: none; }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 0 24px 80px; }
+            .hero { padding: 60px 0 48px; }
+            .section { padding: 64px 0; }
+            .footer { padding: 40px 0 0; }
+            .demo-iframe-wrap { display: none; }
+            .hero-title { font-size: 2.8rem; }
+            .demo-cta { flex-direction: column; padding: 32px 24px; }
+            .demo-btn, .demo-btn-outline { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body class="lang-en">
+
+<canvas id="matrix-bg" aria-hidden="true"></canvas>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="nav-back">← Portfolio</a>
+        <button class="lang-btn" onclick="toggleLang()" id="langBtn" aria-pressed="false" aria-label="Switch language to Chinese">中文</button>
+    </div>
+</nav>
+
+<div class="container">
+
+    <!-- ── Hero ── -->
+    <div class="hero">
+        <div class="hero-label">Business Demo · HTML5 / Tailwind CSS / Vanilla JS</div>
+        <h1 class="hero-title">PrairiePro Book</h1>
+        <p class="hero-tagline" lang="en">A fully self-contained Calgary home-service booking demo — transparent pricing, professional team profiles, and a Calendly-style multi-step booking wizard. Zero dependencies. One file.</p>
+        <p class="hero-tagline" lang="zh">完全自包含的卡加利家居服務預約示範——透明定價、專業團隊介紹，以及 Calendly 風格的多步驟預約精靈。零依賴，單一檔案。</p>
+
+        <div class="tag-row">
+            <span class="tag">#HTML5</span>
+            <span class="tag">#TailwindCSS</span>
+            <span class="tag">#VanillaJS</span>
+            <span class="tag">#localStorage</span>
+            <span class="tag">#BookingWizard</span>
+            <span class="tag">#Calgary</span>
+            <span class="tag">#ZeroDependencies</span>
+        </div>
+    </div>
+
+    <!-- ── Visual Walkthrough ── -->
+    <div class="section">
+        <div class="sec-eyebrow">Visual Walkthrough</div>
+
+        <div lang="en">
+            <h2 class="sec-title desktop-only">Interactive Preview</h2>
+            <p class="sec-body desktop-only" style="margin-bottom: 0;">The full booking flow runs live below — try selecting a service, picking a date, and completing a reservation.</p>
+            <h2 class="sec-title mobile-only">Try the Demo</h2>
+            <p class="sec-body mobile-only" style="margin-bottom: 0;">Open the demo on a larger screen to experience the full interactive booking flow — or tap the link below.</p>
+        </div>
+        <div lang="zh">
+            <h2 class="sec-title desktop-only">互動預覽</h2>
+            <p class="sec-body desktop-only" style="margin-bottom: 0;">完整預約流程在下方即時運行——試著選擇服務、選取日期，完成一次預約。</p>
+            <h2 class="sec-title mobile-only">體驗示範</h2>
+            <p class="sec-body mobile-only" style="margin-bottom: 0;">在較大螢幕上開啟示範，體驗完整互動預約流程——或點擊下方連結。</p>
+        </div>
+
+        <div class="demo-iframe-wrap" id="demoIframeWrap">
+            <iframe
+                data-src="projects/probook/demo/"
+                src="about:blank"
+                loading="lazy"
+                title="PrairiePro Book — Live Demo"
+                referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+        </div>
+
+        <!-- Uncomment and add path once a full-page screenshot is available:
+        <div style="margin-top: 28px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: var(--bg-up); box-shadow: 0 30px 60px rgba(0,0,0,0.08);">
+            <img src="images/probook-preview.jpg" alt="PrairiePro Book — full page screenshot" loading="lazy" decoding="async" style="width:100%; height:auto; display:block;">
+        </div>
+        -->
+    </div>
+
+    <!-- ── Context & Problem ── -->
+    <div class="section">
+        <div class="sec-eyebrow">01 · Context &amp; Problem</div>
+        <h2 class="sec-title" lang="en">Local home-service businesses lose clients the moment they say "call us to book."</h2>
+        <h2 class="sec-title" lang="zh">本地家居服務業者一說「請來電預約」，就已流失了客戶。</h2>
+
+        <p class="sec-body" lang="en">Most Calgary tradespeople — electricians, plumbers, cleaners, HVAC technicians — have no real online booking presence. Their digital footprint ranges from a Facebook page to a static website with a phone number buried in the footer. When a homeowner needs a service at 10pm on a Sunday, "we'll get back to you next business day" is a conversion killer. The competitor with a real booking flow wins, every time.</p>
+        <p class="sec-body" lang="zh">大多數卡加利的技工——電工、水喉匠、清潔工、暖通空調技術人員——沒有真正的線上預約管道。他們的數位存在從 Facebook 頁面到只有電話號碼的靜態網站不等。當屋主在週日晚上 10 點需要服務時，「我們下個工作日回覆您」是拒客的殺手。擁有真實預約流程的競爭對手每次都會勝出。</p>
+
+        <p class="sec-body" lang="en">Off-the-shelf solutions like Calendly or Square Appointments work, but they strip away brand entirely and offer no control over how pricing or team credentials are presented. A bespoke demo gives a business owner a tangible vision — something they can click through, share with clients, and say <em>"this is exactly what I want."</em></p>
+        <p class="sec-body" lang="zh">Calendly 或 Square Appointments 等現成方案有效，但它們完全剝奪了品牌，且無法控制定價或團隊資質的呈現方式。一個客製化示範為業主提供了切實的願景——他們可以親自點擊體驗、向客戶展示，並說：<em>「這正是我想要的。」</em></p>
+
+        <div class="callout">
+            <div class="callout-label" lang="en">The Brief</div>
+            <div class="callout-label" lang="zh">設計要求</div>
+            <p lang="en">Build a <strong>conversion-first</strong> home-service booking demo that: (1) surfaces transparent, per-service pricing — no "call for a quote" friction; (2) builds trust with professional team profiles and star ratings before the first visit; (3) delivers a booking UX that matches Calendly quality — multi-step, mobile-first, with visual progress tracking; (4) persists confirmed bookings client-side so appointment confirmations survive page reloads; and (5) ships as a <strong>single, self-contained HTML file</strong> — instantly shareable, zero infrastructure required.</p>
+            <p lang="zh">建立一個<strong>以轉化為首要目標</strong>的家居服務預約示範：(1) 顯示透明的按服務定價——消除「請來電查詢」的摩擦；(2) 通過專業團隊介紹和星級評分，在首次上門前建立信任；(3) 提供與 Calendly 媲美的預約體驗——多步驟、手機優先、帶視覺進度追蹤；(4) 在客戶端持久化確認預約，確認信息在頁面刷新後仍然存在；(5) 以<strong>單一自包含 HTML 檔案</strong>交付——即時可共享，零基礎設施。</p>
+        </div>
+    </div>
+
+    <!-- ── Tech Deep Dive ── -->
+    <div class="section">
+        <div class="sec-eyebrow">02 · Tech Deep Dive</div>
+        <h2 class="sec-title" lang="en">Zero dependencies. Full Calendly-style UX. One file.</h2>
+        <h2 class="sec-title" lang="zh">零依賴。完整 Calendly 體驗。單一檔案。</h2>
+
+        <p class="sec-body" lang="en">The entire application — pricing grid, team profiles, interactive booking wizard, appointment persistence, and confirmation screen — ships as a single HTML file. No <code style="font-family:var(--mono);font-size:13px;color:var(--accent);background:rgba(56,189,248,0.08);padding:1px 5px;border-radius:3px;">npm install</code>, no build step, no server. Tailwind's utility classes are loaded via CDN, and every interaction is handled by vanilla JavaScript.</p>
+        <p class="sec-body" lang="zh">整個應用——定價網格、團隊介紹、互動預約精靈、預約持久化和確認畫面——以單一 HTML 檔案交付。無需 <code style="font-family:var(--mono);font-size:13px;color:var(--accent);background:rgba(56,189,248,0.08);padding:1px 5px;border-radius:3px;">npm install</code>，無構建步驟，無伺服器。Tailwind 工具類通過 CDN 加載，所有互動均由原生 JavaScript 處理。</p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// Multi-Step Booking Wizard</div>
+                <div class="feature-card-title" lang="zh">// 多步驟預約精靈</div>
+                <p lang="en">A 4-step flow: Service Selection → Date &amp; Time → Contact Details → Confirmation. Each step is a distinct view rendered by a central JS state object. The progress stepper reflects the active step; clicking a completed step jumps back to it; the Back button correctly restores all previous selections.</p>
+                <p lang="zh">4 步驟流程：服務選擇 → 日期與時間 → 聯絡資料 → 確認。每個步驟都是由中央 JS 狀態物件渲染的獨立視圖。進度步進器反映當前步驟；點擊已完成步驟可跳回；返回按鈕正確還原之前所有選擇。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// Simulated Availability Engine</div>
+                <div class="feature-card-title" lang="zh">// 模擬可用時段引擎</div>
+                <p lang="en">A seeded pseudo-random function — keyed to the selected date's numeric value — deterministically marks 30–40% of time slots as unavailable. The same date always shows the same availability across all page reloads and sessions, without any backend or API call.</p>
+                <p lang="zh">以選定日期數值為種子的偽隨機函數，確定性地將 30–40% 的時段標記為不可用。同一日期在所有頁面刷新和會話之間始終顯示相同的可用性，無需任何後端或 API 調用。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// localStorage Persistence</div>
+                <div class="feature-card-title" lang="zh">// localStorage 持久化</div>
+                <p lang="en">Every confirmed booking is serialised to <code>localStorage</code> under a unique booking ID. The confirmation screen — service type, technician name, date, time, and reference number — survives page reloads. A returning visitor sees their prior booking until they explicitly cancel it.</p>
+                <p lang="zh">每個確認的預約均以唯一預約 ID 序列化到 <code>localStorage</code>。確認畫面——服務類型、技術人員姓名、日期、時間和參考號碼——在頁面刷新後仍然存在。回訪者將看到之前的預約，直到明確取消。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// Selectable Card Pattern</div>
+                <div class="feature-card-title" lang="zh">// 可選卡片模式</div>
+                <p lang="en">Services, date cells, time slots, and team members all use a consistent "selectable card" pattern: styled <code>&lt;div&gt;</code>s with <code>data-value</code> attributes, a toggled <code>.selected</code> class on click, and keyboard-accessible focus rings — eliminating the cross-browser styling inconsistencies of native radio inputs.</p>
+                <p lang="zh">服務、日期格、時段和團隊成員均使用一致的「可選卡片」模式：帶 <code>data-value</code> 屬性的樣式 <code>&lt;div&gt;</code>，點擊時切換 <code>.selected</code> 類，以及鍵盤可訪問的焦點環——消除原生 radio 輸入的跨瀏覽器樣式不一致。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// Tailwind via CDN</div>
+                <div class="feature-card-title" lang="zh">// Tailwind CDN 部署</div>
+                <p lang="en">The full design system — spacing, typography, colour palette, shadows, and responsive breakpoints — is driven by Tailwind utility classes loaded from a single CDN <code>&lt;script&gt;</code> tag. No PostCSS, no purging, no pipeline. The tradeoff (~400 KB stylesheet) is acceptable for a demo that prioritises shareability over raw performance.</p>
+                <p lang="zh">整個設計系統——間距、排版、色彩、陰影和響應式斷點——由單一 CDN <code>&lt;script&gt;</code> 標籤加載的 Tailwind 工具類驅動。無 PostCSS，無清除，無構建流程。權衡（約 400 KB 樣式表）對於優先考慮可共享性的示範是可接受的。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-title" lang="en">// Demo Mode Banner</div>
+                <div class="feature-card-title" lang="zh">// 示範模式橫幅</div>
+                <p lang="en">A sticky teal banner at the top of the page explicitly labels the site as a portfolio demo, prevents confusion about whether it is a live business, and links back to the portfolio. Standard practice for client-facing demos that may be shared publicly without context.</p>
+                <p lang="zh">頁面頂部的固定青色橫幅明確標示網站為作品集示範，防止對其是否為真實業務的混淆，並連結返回作品集。這是可能在無背景情況下公開分享的示範的標準做法。</p>
+            </div>
+        </div>
+
+        <div class="stack-row" style="margin-top: 28px;">
+            <span class="chip">HTML5</span>
+            <span class="chip">Tailwind CSS</span>
+            <span class="chip">Vanilla JS</span>
+            <span class="chip">localStorage API</span>
+            <span class="chip">Seeded LCG</span>
+            <span class="chip">Multi-step Wizard</span>
+            <span class="chip">CSS Grid</span>
+            <span class="chip">Responsive Design</span>
+        </div>
+
+        <div class="callout" style="margin-top: 32px;">
+            <div class="callout-label" lang="en">Hardest Part — Making simulated availability feel deterministically real</div>
+            <div class="callout-label" lang="zh">最難的部分——讓模擬時段在每次刷新後保持一致</div>
+            <p lang="en">Without a backend, time slot availability resets on every page load — which immediately breaks the illusion when a user refreshes the page. The naive fix, <code>Math.random()</code>, generates a different set of available slots every time, making the simulation obvious. The fix is a <strong>seeded Linear Congruential Generator (LCG)</strong> — a deterministic pseudo-random function that produces the same sequence of numbers for any given seed:</p>
+            <p lang="zh">沒有後端，時間段可用性在每次頁面加載時重置——用戶刷新時立即打破幻覺。簡單的修復方法 <code>Math.random()</code> 每次生成不同的可用時段，使模擬顯而易見。解決方案是<strong>帶種子的線性同餘生成器（LCG）</strong>——一種確定性偽隨機函數，對任何給定種子都能生成相同的數字序列：</p>
+        </div>
+
+        <div class="code-block">
+            <code><span class="ck">function</span> seededRandom(seed) {
+  <span class="ck">let</span> s = seed;
+  <span class="ck">return</span> () => {
+    s = (s * 1664525 + 1013904223) &amp; 0xffffffff;
+    <span class="ck">return</span> (s >>> 0) / 0xffffffff;
+  };
+}
+
+<span class="cm">// Seed = selected date as a single integer</span>
+<span class="ck">const</span> seed = year * 10000 + month * 100 + day;
+<span class="ck">const</span> rand = seededRandom(seed);
+
+<span class="cm">// Same date → same "booked" slots, every reload</span>
+slots.forEach(slot => {
+  slot.available = rand() > 0.35; <span class="cm">// ~65% available</span>
+});</code>
+        </div>
+
+        <div class="callout">
+            <p lang="en">The seed is derived from the date itself: <code>year × 10000 + month × 100 + day</code>. This means 20 May always shows the exact same availability pattern, while 22 May shows a different-but-equally-stable one — <strong>consistent across every reload and session</strong>, without a single API call. The calendar looks live, plausible, and completely convincing to a first-time visitor.</p>
+            <p lang="zh">種子來自日期本身：<code>year × 10000 + month × 100 + day</code>。這意味著 5 月 20 日始終顯示完全相同的可用性模式，而 5 月 22 日則顯示不同但同樣穩定的模式——<strong>在每次刷新和會話中保持一致</strong>，無需任何 API 調用。日曆看起來真實、合理，對首次訪客完全具說服力。</p>
+        </div>
+    </div>
+
+    <!-- ── Demo CTA ── -->
+    <div class="section" style="border-bottom: none; padding-bottom: 0;">
+        <div class="demo-cta">
+            <div class="demo-cta-text">
+                <h3 lang="en">Want to see it live?</h3>
+                <h3 lang="zh">想親自體驗？</h3>
+                <p lang="en">The demo runs entirely in your browser — no backend, no signup required. Try the full 4-step booking flow, explore the simulated calendar, and complete a reservation. Want this adapted for your own business? Let's talk.</p>
+                <p lang="zh">示範完全在瀏覽器中運行——無後端，無需註冊。試用完整的 4 步驟預約流程，探索模擬日曆，完成一次預約。想將此定制為您的業務？歡迎聯絡。</p>
+            </div>
+            <div class="demo-btn-group">
+                <a href="projects/probook/demo/" class="demo-btn" target="_blank" rel="noopener noreferrer">
+                    Open Demo →
+                </a>
+                <a href="mailto:info@jasonlai.work?subject=Custom%20Build%20%E2%80%94%20Booking%20Site" class="demo-btn-outline">
+                    <span lang="en">Request a Custom Build</span>
+                    <span lang="zh">查詢客製化版本</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer" style="padding-top: 40px;">
+        <a href="./">← Back to portfolio</a>
+    </div>
+
+</div>
+
+<script>
+(function() {
+    var wrap = document.getElementById('demoIframeWrap');
+    if (!wrap) return;
+    var frame = wrap.querySelector('iframe');
+    var io = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting && frame.dataset.src) {
+            frame.src = frame.dataset.src;
+            frame.removeAttribute('data-src');
+            io.disconnect();
+        }
+    }, { rootMargin: '200px' });
+    io.observe(wrap);
+})();
+</script>
+<button id="canvas-toggle" class="canvas-toggle" onclick="toggleCanvas()" aria-pressed="true" aria-label="Toggle matrix background animation">▶ Matrix</button>
+<button id="back-to-top" class="back-to-top" aria-label="Back to top">↑ TOP</button>
+<script src="js/lang.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>

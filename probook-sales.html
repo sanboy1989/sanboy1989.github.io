@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Online Booking Website for Local Service Businesses | Jason Lai</title>
+  <meta name="description" content="Get a professional online booking website for your home service business in Calgary. Clients book 24/7. You get more jobs. No technical knowledge needed." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script>
+    if (localStorage.getItem('lang') === 'zh') document.documentElement.classList.add('lang-zh');
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; }
+
+    /* ── Bilingual toggle ── */
+    /* Use html:not(.lang-zh) to get specificity 0-2-1, beating any class-based display rules */
+    html:not(.lang-zh) [lang="zh"] { display: none; }
+    .lang-zh [lang="en"] { display: none; }
+    .lang-zh [lang="zh"] { display: block; }
+    .lang-zh span[lang="zh"],
+    .lang-zh li[lang="zh"],
+    .lang-zh a[lang="zh"],
+    .lang-zh p[lang="zh"],
+    .lang-zh h1[lang="zh"],
+    .lang-zh h2[lang="zh"],
+    .lang-zh h3[lang="zh"],
+    .lang-zh div[lang="zh"] { display: block; }
+    .lang-zh .inline-zh { display: inline; }
+
+    /* ── Animations ── */
+    @keyframes fadeInUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .anim-up  { animation: fadeInUp .5s ease both; }
+    .anim-up-2 { animation: fadeInUp .5s .1s ease both; }
+    .anim-up-3 { animation: fadeInUp .5s .2s ease both; }
+    .dot-pulse { animation: pulse-dot 2s ease infinite; }
+
+    /* ── Section label ── */
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+      color: #38BDF8; margin-bottom: 14px;
+    }
+    .eyebrow::before, .eyebrow::after {
+      content: ''; display: block; height: 1px; width: 20px; background: #38BDF8;
+    }
+
+    /* ── Sticky nav blur ── */
+    .nav-blur { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+
+    /* ── Pain check mark ── */
+    .pain-item::before {
+      content: '→';
+      color: #EF4444;
+      font-weight: 700;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+    .benefit-item::before {
+      content: '✓';
+      color: #10B981;
+      font-weight: 700;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+    .pain-item, .benefit-item {
+      display: flex; align-items: flex-start;
+    }
+
+    /* ── Process step connector ── */
+    .step-line {
+      position: absolute; left: 17px; top: 40px; bottom: -20px;
+      width: 2px; background: #E2E8F0; z-index: 0;
+    }
+    .step-item:last-child .step-line { display: none; }
+
+    /* ── Pricing card ── */
+    .pricing-card { transition: transform .2s ease, box-shadow .2s ease; }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px rgba(0,0,0,.10); }
+
+    /* ── FAQ accordion ── */
+    .faq-body { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .faq-body.open { max-height: 400px; }
+    .faq-chevron { transition: transform .3s ease; }
+    .faq-chevron.rot { transform: rotate(180deg); }
+
+    /* ── Demo iframe ── */
+    .demo-frame-wrap { border-radius: 12px; overflow: hidden; border: 1px solid #E2E8F0; box-shadow: 0 24px 60px rgba(0,0,0,.10); aspect-ratio: 16/9; }
+    .demo-frame-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+
+    @media (max-width: 768px) {
+      .demo-frame-wrap { display: none; }
+    }
+
+    /* ── Scroll indicator ── */
+    .scroll-line { height: 48px; width: 1px; background: linear-gradient(to bottom, #38BDF8, transparent); margin: 0 auto; }
+  </style>
+</head>
+<body class="bg-white text-gray-900 antialiased">
+
+<!-- ── Nav ── -->
+<nav class="sticky top-0 z-50 bg-white/90 nav-blur border-b border-gray-100">
+  <div class="max-w-5xl mx-auto px-5 h-14 flex items-center justify-between gap-4">
+    <a href="/" class="font-mono text-xs text-gray-400 hover:text-sky-500 transition-colors tracking-tight">
+      ← Portfolio
+    </a>
+    <div class="flex items-center gap-3">
+      <button
+        id="langBtn"
+        onclick="toggleLang()"
+        class="font-mono text-xs text-gray-400 border border-gray-200 px-3 py-1.5 rounded-md hover:border-sky-400 hover:text-sky-500 transition-all">中文</button>
+      <a href="mailto:info@jasonlai.work?subject=Booking%20Website%20Enquiry"
+        class="text-xs font-semibold bg-sky-500 hover:bg-sky-600 text-white px-4 py-1.5 rounded-md transition-colors hidden sm:inline-flex items-center gap-1">
+        <span lang="en">Free Consultation</span>
+        <span lang="zh">免費諮詢</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="max-w-5xl mx-auto px-5 pt-20 pb-16">
+  <div class="anim-up">
+    <div class="eyebrow"><span lang="en">For Calgary Home Service Businesses</span><span lang="zh">卡加利本地服務業</span></div>
+  </div>
+
+  <h1 class="anim-up-2 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] tracking-tight mb-6 max-w-3xl">
+    <span lang="en">Every missed call is a booking<br>
+      <span class="text-sky-500">your competitor just took.</span>
+    </span>
+    <span lang="zh">每個漏接的電話<br>
+      <span class="text-sky-500">都是對手搶走的一個預約。</span>
+    </span>
+  </h1>
+
+  <p class="anim-up-3 text-lg text-gray-500 leading-relaxed max-w-xl mb-4" lang="en">
+    Most Calgary home service businesses still take bookings by phone. That means missed calls after hours, clients quietly going to whoever has online booking, and hours wasted on scheduling instead of actual work. I build custom booking websites for local service businesses — so you capture every job, even while you sleep.
+  </p>
+  <p class="anim-up-3 text-lg text-gray-500 leading-relaxed max-w-xl mb-4" lang="zh">
+    大多數卡加利本地服務業仍靠電話接受預約——下班後漏接電話、客人悄悄轉去有網上預約的對手，每天大量時間花在排班而非真正工作。我為本地服務業打造客製化預約網站，讓您即使在休息時也不會錯過任何一個預約。
+  </p>
+
+  <p class="text-xs font-mono text-gray-400 mb-7" lang="en">✓ Delivered in 3–7 days &nbsp;·&nbsp; ✓ 3 months free updates included &nbsp;·&nbsp; ✓ No payment until you approve the design</p>
+  <p class="text-xs font-mono text-gray-400 mb-7" lang="zh">✓ 3–7 天內完成交付 &nbsp;·&nbsp; ✓ 首 3 個月免費更新 &nbsp;·&nbsp; ✓ 設計審批後才付款</p>
+
+  <div class="flex flex-wrap gap-3 mb-4">
+    <a href="mailto:info@jasonlai.work?subject=Booking%20Website%20Enquiry"
+      class="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white font-bold px-6 py-3 rounded-lg text-sm transition-colors">
+      <span lang="en">Get a Free Consultation →</span>
+      <span lang="zh">免費諮詢 →</span>
+    </a>
+    <a href="projects/probook/demo/" target="_blank" rel="noopener noreferrer"
+      class="inline-flex items-center gap-2 border border-gray-200 hover:border-sky-400 text-gray-600 hover:text-sky-500 font-medium px-6 py-3 rounded-lg text-sm transition-all">
+      <span lang="en">See Demo First</span>
+      <span lang="zh">先看示範</span>
+    </a>
+  </div>
+
+  <p class="text-xs text-gray-400 font-mono" lang="en">No commitment. No jargon. Just a friendly chat.</p>
+  <p class="text-xs text-gray-400 font-mono" lang="zh">無需承諾。無技術術語。輕鬆傾談。</p>
+
+  <div class="scroll-line mt-14"></div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PAIN SECTION
+══════════════════════════════════════════ -->
+<section class="bg-gray-50 py-20">
+  <div class="max-w-5xl mx-auto px-5">
+    <div class="eyebrow"><span lang="en">The Problem</span><span lang="zh">問題所在</span></div>
+
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4 max-w-2xl leading-tight">
+      <span lang="en">Does any of this sound familiar?</span>
+      <span lang="zh">以下情況聽起來熟悉嗎？</span>
+    </h2>
+    <p class="text-gray-500 mb-10 max-w-lg" lang="en">If you're running a home service business, chances are you've hit at least a few of these.</p>
+    <p class="text-gray-500 mb-10 max-w-lg" lang="zh">如果您在經營本地服務業，以下情況您很可能遇過不止一次。</p>
+
+    <div class="grid sm:grid-cols-2 gap-4">
+
+      <div class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+        <p class="pain-item text-gray-700 leading-relaxed" lang="en"><span>Clients call at 8pm wanting to book — and you miss it because you're done for the day.</span></p>
+        <p class="pain-item text-gray-700 leading-relaxed" lang="zh"><span>客人晚上 8 點打來想預約——但您已下班，錯過了。</span></p>
+      </div>
+
+      <div class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+        <p class="pain-item text-gray-700 leading-relaxed" lang="en"><span>Your website just has a phone number — or you don't have a website at all.</span></p>
+        <p class="pain-item text-gray-700 leading-relaxed" lang="zh"><span>您的網站只有電話號碼——甚至根本沒有網站。</span></p>
+      </div>
+
+      <div class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+        <p class="pain-item text-gray-700 leading-relaxed" lang="en"><span>A client went to a competitor simply because the competitor had online booking and you didn't.</span></p>
+        <p class="pain-item text-gray-700 leading-relaxed" lang="zh"><span>客人轉去了競爭對手，只因為對方有網上預約而您沒有。</span></p>
+      </div>
+
+      <div class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+        <p class="pain-item text-gray-700 leading-relaxed" lang="en"><span>You spend more time on the phone scheduling than actually doing the work you're good at.</span></p>
+        <p class="pain-item text-gray-700 leading-relaxed" lang="zh"><span>您花在電話排班的時間，比真正做工的時間還多。</span></p>
+      </div>
+
+      <div class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+        <p class="pain-item text-gray-700 leading-relaxed" lang="en"><span>You tried Calendly or Square, but it looks generic and clients can't even see your pricing or team.</span></p>
+        <p class="pain-item text-gray-700 leading-relaxed" lang="zh"><span>您試過 Calendly，但它看起來像任何人的頁面，客人看不到您的定價或團隊介紹。</span></p>
+      </div>
+
+      <div class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+        <p class="pain-item text-gray-700 leading-relaxed" lang="en"><span>Every quote request turns into a long back-and-forth before anyone even commits to a booking.</span></p>
+        <p class="pain-item text-gray-700 leading-relaxed" lang="zh"><span>每次報價都要來來回回溝通很久，客人才肯確定預約。</span></p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TRUST STRIP
+══════════════════════════════════════════ -->
+<section class="py-14 border-y border-gray-100">
+  <div class="max-w-5xl mx-auto px-5">
+    <div class="grid sm:grid-cols-3 gap-8 text-center">
+      <div>
+        <div class="text-4xl font-extrabold text-sky-500 mb-1">3–7</div>
+        <p class="text-sm font-bold text-gray-800 mb-1" lang="en">Days to go live</p>
+        <p class="text-sm font-bold text-gray-800 mb-1" lang="zh">天內上線</p>
+        <p class="text-xs text-gray-400 font-mono" lang="en">From first chat to live website</p>
+        <p class="text-xs text-gray-400 font-mono" lang="zh">從第一次對話到網站上線</p>
+      </div>
+      <div>
+        <div class="text-4xl font-extrabold text-sky-500 mb-1">$0</div>
+        <p class="text-sm font-bold text-gray-800 mb-1" lang="en">Monthly platform fees. Ever.</p>
+        <p class="text-sm font-bold text-gray-800 mb-1" lang="zh">每月平台費。永遠。</p>
+        <p class="text-xs text-gray-400 font-mono" lang="en">One-time build cost. You own it outright.</p>
+        <p class="text-xs text-gray-400 font-mono" lang="zh">一次性費用，網站完全歸您所有</p>
+      </div>
+      <div>
+        <div class="text-4xl font-extrabold text-sky-500 mb-1">100%</div>
+        <p class="text-sm font-bold text-gray-800 mb-1" lang="en">Yours to keep</p>
+        <p class="text-sm font-bold text-gray-800 mb-1" lang="zh">完全屬於您</p>
+        <p class="text-xs text-gray-400 font-mono" lang="en">You own the code. No lock-in. No contracts.</p>
+        <p class="text-xs text-gray-400 font-mono" lang="zh">代碼歸您所有，無綁定，無長期合約</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SOLUTION / DEMO PREVIEW
+══════════════════════════════════════════ -->
+<section class="py-20">
+  <div class="max-w-5xl mx-auto px-5">
+    <div class="eyebrow"><span lang="en">The Solution</span><span lang="zh">解決方案</span></div>
+
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4 max-w-2xl leading-tight">
+      <span lang="en">A booking website that looks like <em>your</em> business.</span>
+      <span lang="zh">一個看起來像<em>您的</em>業務的預約網站。</span>
+    </h2>
+    <p class="text-gray-500 mb-3 max-w-xl leading-relaxed" lang="en">
+      Below is a real example I built — PrairiePro Book — a demo booking site for a Calgary home services company. Click around. Try booking a service. This is the kind of thing your clients would experience.
+    </p>
+    <p class="text-gray-500 mb-3 max-w-xl leading-relaxed" lang="zh">
+      以下是我實際製作的示範——PrairiePro Book——一個卡加利家居服務公司的預約網站示範。請隨意點擊，嘗試預約一項服務。這就是您的客人會看到的體驗。
+    </p>
+    <a href="projects/probook/demo/" target="_blank" rel="noopener noreferrer"
+      class="inline-flex items-center gap-2 text-sky-500 hover:text-sky-600 text-sm font-semibold mb-8 transition-colors">
+      <span lang="en">Open full demo in new tab →</span>
+      <span lang="zh">在新分頁開啟完整示範 →</span>
+    </a>
+
+    <!-- Desktop iframe -->
+    <div class="demo-frame-wrap" id="demoWrap">
+      <iframe data-src="projects/probook/demo/" src="about:blank" title="PrairiePro Book — Booking Website Demo" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    <!-- Mobile screenshot -->
+    <div class="block md:hidden">
+      <a href="projects/probook/demo/" target="_blank" rel="noopener noreferrer" class="block">
+        <img src="images/screencapture-Probook.webp" alt="PrairiePro Book booking website demo"
+          class="w-full rounded-xl border border-gray-200 shadow-lg" />
+      </a>
+      <p class="text-center text-xs font-mono text-gray-400 mt-3" lang="en">Tap image to open the interactive demo →</p>
+      <p class="text-center text-xs font-mono text-gray-400 mt-3" lang="zh">點擊圖片開啟互動示範 →</p>
+    </div>
+
+    <!-- Walk-through cards -->
+    <div class="grid sm:grid-cols-4 gap-3 mt-8">
+      <div class="bg-gray-50 rounded-xl p-4 text-center">
+        <div class="text-2xl mb-2">🔧</div>
+        <p class="font-semibold text-sm text-gray-800" lang="en">Pick a service</p>
+        <p class="font-semibold text-sm text-gray-800" lang="zh">選擇服務</p>
+        <p class="text-xs text-gray-500 mt-1" lang="en">With clear pricing upfront</p>
+        <p class="text-xs text-gray-500 mt-1" lang="zh">價格一目了然</p>
+      </div>
+      <div class="bg-gray-50 rounded-xl p-4 text-center">
+        <div class="text-2xl mb-2">📅</div>
+        <p class="font-semibold text-sm text-gray-800" lang="en">Choose a date & time</p>
+        <p class="font-semibold text-sm text-gray-800" lang="zh">選擇日期與時間</p>
+        <p class="text-xs text-gray-500 mt-1" lang="en">Available slots shown live</p>
+        <p class="text-xs text-gray-500 mt-1" lang="zh">即時顯示可用時段</p>
+      </div>
+      <div class="bg-gray-50 rounded-xl p-4 text-center">
+        <div class="text-2xl mb-2">📝</div>
+        <p class="font-semibold text-sm text-gray-800" lang="en">Enter contact details</p>
+        <p class="font-semibold text-sm text-gray-800" lang="zh">填寫聯絡資料</p>
+        <p class="text-xs text-gray-500 mt-1" lang="en">Name, phone, address</p>
+        <p class="text-xs text-gray-500 mt-1" lang="zh">姓名、電話、地址</p>
+      </div>
+      <div class="bg-gray-50 rounded-xl p-4 text-center">
+        <div class="text-2xl mb-2">✅</div>
+        <p class="font-semibold text-sm text-gray-800" lang="en">Booking confirmed</p>
+        <p class="font-semibold text-sm text-gray-800" lang="zh">預約確認</p>
+        <p class="text-xs text-gray-500 mt-1" lang="en">Instant — no follow-up calls</p>
+        <p class="text-xs text-gray-500 mt-1" lang="zh">即時確認，無需回電</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     BENEFITS
+══════════════════════════════════════════ -->
+<section class="bg-gray-50 py-20">
+  <div class="max-w-5xl mx-auto px-5">
+    <div class="eyebrow"><span lang="en">What You Get</span><span lang="zh">您將獲得</span></div>
+
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-10 max-w-xl leading-tight">
+      <span lang="en">Everything a client needs to trust you and book you.</span>
+      <span lang="zh">讓客人信任您、預約您所需的一切。</span>
+    </h2>
+
+    <div class="bg-sky-50 border border-sky-100 rounded-2xl p-5 mb-8">
+      <p class="text-sky-800 font-semibold leading-relaxed" lang="en">Think about it: a client searches for a plumber at 10pm and finds two businesses — one with an online booking page, one with just a phone number. Which one gets the job?</p>
+      <p class="text-sky-800 font-semibold leading-relaxed" lang="zh">想想看：客人晚上 10 點上網找水喉師傅，看到兩家——一家有網上預約，一家只有電話號碼。誰會接到這個工作？</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-x-12 gap-y-5">
+
+      <div class="benefit-item gap-2 text-gray-700" lang="en">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">Online booking, 24/7</strong> — clients schedule themselves while you sleep</span>
+      </div>
+      <div class="benefit-item gap-2 text-gray-700" lang="zh">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">24/7 網上預約</strong>——客人在您休息時自助排期</span>
+      </div>
+
+      <div class="benefit-item gap-2 text-gray-700" lang="en">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">Transparent pricing displayed</strong> — no awkward "call for a quote" conversations</span>
+      </div>
+      <div class="benefit-item gap-2 text-gray-700" lang="zh">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">清晰展示服務收費</strong>——省去「請來電查詢」的尷尬</span>
+      </div>
+
+      <div class="benefit-item gap-2 text-gray-700" lang="en">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">Professional team profiles</strong> — names, photos, and credentials build trust before arrival</span>
+      </div>
+      <div class="benefit-item gap-2 text-gray-700" lang="zh">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">專業團隊介紹</strong>——姓名、照片、資歷，讓客人上門前已建立信任</span>
+      </div>
+
+      <div class="benefit-item gap-2 text-gray-700" lang="en">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">Booking confirmation on screen</strong> — clients see a reference number immediately, no waiting</span>
+      </div>
+      <div class="benefit-item gap-2 text-gray-700" lang="zh">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">即時確認頁面</strong>——客人馬上看到預約號碼，無需等待</span>
+      </div>
+
+      <div class="benefit-item gap-2 text-gray-700" lang="en">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">Mobile-friendly</strong> — works perfectly on any phone, tablet, or computer</span>
+      </div>
+      <div class="benefit-item gap-2 text-gray-700" lang="zh">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">手機完美顯示</strong>——在任何手機、平板或電腦上均完美呈現</span>
+      </div>
+
+      <div class="benefit-item gap-2 text-gray-700" lang="en">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">Your brand, your colours, your style</strong> — not a generic template that looks like everyone else</span>
+      </div>
+      <div class="benefit-item gap-2 text-gray-700" lang="zh">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">您的品牌、您的顏色、您的風格</strong>——不是人人相同的模板</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     WHY NON-TECH
+══════════════════════════════════════════ -->
+<section class="py-20">
+  <div class="max-w-5xl mx-auto px-5">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="eyebrow"><span lang="en">No Tech Skills Needed</span><span lang="zh">無需技術知識</span></div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-5 leading-tight">
+          <span lang="en">I handle everything. You just tell me about your business.</span>
+          <span lang="zh">我負責所有事情。您只需告訴我您的業務。</span>
+        </h2>
+        <p class="text-gray-500 leading-relaxed mb-5" lang="en">
+          You don't need to understand websites, code, or any of that. Your job is to know your trade — mine is to put it online in the most professional way possible.
+        </p>
+        <p class="text-gray-500 leading-relaxed mb-5" lang="zh">
+          您不需要了解網站、代碼或任何技術知識。您的工作是精通您的行業——我的工作是以最專業的方式將它呈現在網上。
+        </p>
+        <p class="text-gray-500 leading-relaxed" lang="en">
+          After we launch, if you want to update a price, add a new service, or change your hours — just send me a message. I'll take care of it.
+        </p>
+        <p class="text-gray-500 leading-relaxed" lang="zh">
+          上線後，如果您想更新價格、增加新服務或更改時間——只需給我發訊息。我會處理好。
+        </p>
+      </div>
+      <div class="space-y-4">
+        <div class="flex items-start gap-4 bg-gray-50 rounded-xl p-5">
+          <div class="w-10 h-10 rounded-full bg-sky-100 text-sky-600 flex items-center justify-center text-lg flex-shrink-0">🚫</div>
+          <div>
+            <p class="font-semibold text-gray-800 mb-0.5" lang="en">No apps to install</p>
+            <p class="font-semibold text-gray-800 mb-0.5" lang="zh">無需安裝任何程式</p>
+            <p class="text-sm text-gray-500" lang="en">Your clients just open a link in their browser — nothing to download.</p>
+            <p class="text-sm text-gray-500" lang="zh">客人只需在瀏覽器開啟連結——無需下載任何東西。</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 bg-gray-50 rounded-xl p-5">
+          <div class="w-10 h-10 rounded-full bg-sky-100 text-sky-600 flex items-center justify-center text-lg flex-shrink-0">📱</div>
+          <div>
+            <p class="font-semibold text-gray-800 mb-0.5" lang="en">No platforms to learn</p>
+            <p class="font-semibold text-gray-800 mb-0.5" lang="zh">無需學習任何平台</p>
+            <p class="text-sm text-gray-500" lang="en">I build it for you from scratch. You don't need to touch any settings.</p>
+            <p class="text-sm text-gray-500" lang="zh">我從頭為您打造。您不需要碰任何設定。</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 bg-gray-50 rounded-xl p-5">
+          <div class="w-10 h-10 rounded-full bg-sky-100 text-sky-600 flex items-center justify-center text-lg flex-shrink-0">💬</div>
+          <div>
+            <p class="font-semibold text-gray-800 mb-0.5" lang="en">Updates are just a message away</p>
+            <p class="font-semibold text-gray-800 mb-0.5" lang="zh">更新只需傳訊息</p>
+            <p class="text-sm text-gray-500" lang="en">Need to change a price or add a service? Text me and it's done within 48 hours.</p>
+            <p class="text-sm text-gray-500" lang="zh">需要更改價格或新增服務？傳訊息給我，48 小時內搞定。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PROCESS
+══════════════════════════════════════════ -->
+<section class="bg-gray-50 py-20">
+  <div class="max-w-5xl mx-auto px-5">
+    <div class="eyebrow"><span lang="en">How It Works</span><span lang="zh">合作流程</span></div>
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-12 max-w-xl leading-tight">
+      <span lang="en">From first chat to live website in 4 steps.</span>
+      <span lang="zh">從第一次對話到網站上線，只需 4 個步驟。</span>
+    </h2>
+
+    <div class="max-w-lg space-y-0">
+
+      <div class="step-item relative flex gap-5 pb-8">
+        <div class="step-line"></div>
+        <div class="relative z-10 w-9 h-9 rounded-full bg-sky-500 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">1</div>
+        <div class="pt-1">
+          <h3 class="font-bold text-gray-900 mb-1" lang="en">We chat (20 minutes)</h3>
+          <h3 class="font-bold text-gray-900 mb-1" lang="zh">我們傾談（20 分鐘）</h3>
+          <p class="text-gray-500 text-sm leading-relaxed" lang="en">Tell me about your business: what services you offer, your prices, your team, and who your typical clients are. That's it. No technical questions, I promise.</p>
+          <p class="text-gray-500 text-sm leading-relaxed" lang="zh">告訴我您的業務：您提供什麼服務、收費標準、團隊情況，以及典型客人是誰。就是這樣。我保證不問任何技術問題。</p>
+        </div>
+      </div>
+
+      <div class="step-item relative flex gap-5 pb-8">
+        <div class="step-line"></div>
+        <div class="relative z-10 w-9 h-9 rounded-full bg-sky-500 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">2</div>
+        <div class="pt-1">
+          <h3 class="font-bold text-gray-900 mb-1" lang="en">I build your site (3–7 days)</h3>
+          <h3 class="font-bold text-gray-900 mb-1" lang="zh">我製作您的網站（3–7 天）</h3>
+          <p class="text-gray-500 text-sm leading-relaxed" lang="en">I design and build a custom version tailored to your brand — your colours, your services, your team photos. You don't lift a finger.</p>
+          <p class="text-gray-500 text-sm leading-relaxed" lang="zh">我按照您的品牌設計並製作客製化版本——您的顏色、您的服務、您的團隊照片。您完全不用動手。</p>
+        </div>
+      </div>
+
+      <div class="step-item relative flex gap-5 pb-8">
+        <div class="step-line"></div>
+        <div class="relative z-10 w-9 h-9 rounded-full bg-sky-500 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">3</div>
+        <div class="pt-1">
+          <h3 class="font-bold text-gray-900 mb-1" lang="en">We review together</h3>
+          <h3 class="font-bold text-gray-900 mb-1" lang="zh">我們一起審閱</h3>
+          <p class="text-gray-500 text-sm leading-relaxed" lang="en">I share a preview link. You click through it and tell me what you'd like to change. We refine until it looks exactly right. Usually takes one or two rounds.</p>
+          <p class="text-gray-500 text-sm leading-relaxed" lang="zh">我分享預覽連結。您點擊瀏覽，告訴我想修改什麼。我們調整直到效果完全符合您的期望。通常一至兩輪即可。</p>
+        </div>
+      </div>
+
+      <div class="step-item relative flex gap-5">
+        <div class="relative z-10 w-9 h-9 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">✓</div>
+        <div class="pt-1">
+          <h3 class="font-bold text-gray-900 mb-1" lang="en">Go live — start receiving bookings</h3>
+          <h3 class="font-bold text-gray-900 mb-1" lang="zh">正式上線——開始接收預約</h3>
+          <p class="text-gray-500 text-sm leading-relaxed" lang="en">Share the link on your Google Business profile, Instagram, Facebook, or business cards. Your clients can start booking immediately.</p>
+          <p class="text-gray-500 text-sm leading-relaxed" lang="zh">在您的 Google 商業檔案、Instagram、Facebook 或名片上分享連結。客人立即可以開始預約。</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PRICING
+══════════════════════════════════════════ -->
+<section class="py-20">
+  <div class="max-w-5xl mx-auto px-5">
+    <div class="eyebrow"><span lang="en">Investment</span><span lang="zh">費用</span></div>
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4 max-w-xl leading-tight">
+      <span lang="en">One-time cost. No monthly platform fees.</span>
+      <span lang="zh">一次性費用。無每月平台費。</span>
+    </h2>
+    <p class="text-gray-500 mb-10 max-w-md" lang="en">Unlike Wix, Squarespace, or Calendly — you own the website outright. No subscriptions, no per-booking charges.</p>
+    <p class="text-gray-500 mb-10 max-w-md" lang="zh">與 Wix、Squarespace 或 Calendly 不同——您完全擁有該網站。無訂閱費，無按預約收費。</p>
+
+    <div class="grid sm:grid-cols-3 gap-6">
+
+      <!-- Starter -->
+      <div class="pricing-card bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+        <p class="text-xs font-mono text-gray-400 uppercase tracking-widest mb-3" lang="en">Starter</p>
+        <p class="text-xs font-mono text-gray-400 uppercase tracking-widest mb-3" lang="zh">入門版</p>
+        <div class="text-3xl font-extrabold text-gray-900 mb-1">
+          <span lang="en">From <span class="text-sky-500">$799</span> <span class="text-base font-normal text-gray-400">CAD</span></span>
+          <span lang="zh">低至 <span class="text-sky-500">$799</span> <span class="text-base font-normal text-gray-400">加幣</span></span>
+        </div>
+        <p class="text-xs text-gray-400 mb-5" lang="en">One-time · No monthly fees</p>
+        <p class="text-xs text-gray-400 mb-5" lang="zh">一次性費用 · 無每月收費</p>
+        <ul class="space-y-2.5 mb-7 text-sm text-gray-600">
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Single-page booking site</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 單頁預約網站</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Up to 6 services with pricing</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 最多 6 項服務含定價</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Team intro section</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 團隊介紹版塊</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Online booking flow</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 完整線上預約流程</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Mobile-friendly</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 手機完美顯示</li>
+        </ul>
+        <a href="mailto:info@jasonlai.work?subject=Starter%20Package%20Enquiry"
+          class="block text-center border border-gray-200 hover:border-sky-400 hover:text-sky-500 text-gray-600 font-semibold py-2.5 rounded-lg text-sm transition-all">
+          <span lang="en">Get a Quote</span>
+          <span lang="zh">查詢報價</span>
+        </a>
+      </div>
+
+      <!-- Professional — Featured -->
+      <div class="pricing-card bg-sky-500 rounded-2xl p-6 shadow-xl text-white relative overflow-hidden">
+        <div class="absolute top-4 right-4 bg-white/20 text-white text-xs font-bold px-2.5 py-1 rounded-full" lang="en">Most Popular</div>
+        <div class="absolute top-4 right-4 bg-white/20 text-white text-xs font-bold px-2.5 py-1 rounded-full" lang="zh">最受歡迎</div>
+        <p class="text-xs font-mono text-sky-200 uppercase tracking-widest mb-3" lang="en">Professional</p>
+        <p class="text-xs font-mono text-sky-200 uppercase tracking-widest mb-3" lang="zh">專業版</p>
+        <div class="text-3xl font-extrabold mb-1">
+          <span lang="en">From <span class="text-white">$1,499</span> <span class="text-base font-normal text-sky-200">CAD</span></span>
+          <span lang="zh">低至 <span class="text-white">$1,499</span> <span class="text-base font-normal text-sky-200">加幣</span></span>
+        </div>
+        <p class="text-xs text-sky-200 mb-5" lang="en">One-time · No monthly fees</p>
+        <p class="text-xs text-sky-200 mb-5" lang="zh">一次性費用 · 無每月收費</p>
+        <ul class="space-y-2.5 mb-7 text-sm text-sky-50">
+          <li class="flex gap-2" lang="en"><span class="text-white font-bold">✓</span> Everything in Starter</li>
+          <li class="flex gap-2" lang="zh"><span class="text-white font-bold">✓</span> 包含入門版所有功能</li>
+          <li class="flex gap-2" lang="en"><span class="text-white font-bold">✓</span> Multi-page website (Home, About, Services, Contact)</li>
+          <li class="flex gap-2" lang="zh"><span class="text-white font-bold">✓</span> 多頁面網站（首頁、關於、服務、聯絡）</li>
+          <li class="flex gap-2" lang="en"><span class="text-white font-bold">✓</span> Customer reviews / testimonials section</li>
+          <li class="flex gap-2" lang="zh"><span class="text-white font-bold">✓</span> 客戶評價版塊</li>
+          <li class="flex gap-2" lang="en"><span class="text-white font-bold">✓</span> Google-friendly setup (SEO basics)</li>
+          <li class="flex gap-2" lang="zh"><span class="text-white font-bold">✓</span> 有利 Google 搜尋（基本 SEO）</li>
+          <li class="flex gap-2" lang="en"><span class="text-white font-bold">✓</span> 2 rounds of revisions included</li>
+          <li class="flex gap-2" lang="zh"><span class="text-white font-bold">✓</span> 包含 2 輪修改</li>
+        </ul>
+        <a href="mailto:info@jasonlai.work?subject=Professional%20Package%20Enquiry"
+          class="block text-center bg-white text-sky-600 hover:bg-sky-50 font-bold py-2.5 rounded-lg text-sm transition-colors">
+          <span lang="en">Get a Quote</span>
+          <span lang="zh">查詢報價</span>
+        </a>
+      </div>
+
+      <!-- Custom -->
+      <div class="pricing-card bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+        <p class="text-xs font-mono text-gray-400 uppercase tracking-widest mb-3" lang="en">Custom</p>
+        <p class="text-xs font-mono text-gray-400 uppercase tracking-widest mb-3" lang="zh">客製化版</p>
+        <div class="text-3xl font-extrabold text-gray-900 mb-1">
+          <span lang="en">Let's <span class="text-sky-500">talk</span></span>
+          <span lang="zh">歡迎<span class="text-sky-500">傾談</span></span>
+        </div>
+        <p class="text-xs text-gray-400 mb-5" lang="en">Tailored to your requirements</p>
+        <p class="text-xs text-gray-400 mb-5" lang="zh">按您的需求度身訂造</p>
+        <ul class="space-y-2.5 mb-7 text-sm text-gray-600">
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Everything in Professional</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 包含專業版所有功能</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Custom features or integrations</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 客製化功能或整合</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Multiple locations support</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 多店鋪支援</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Bilingual (English + Chinese)</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 雙語版本（英文 + 中文）</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Priority support</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 優先技術支援</li>
+        </ul>
+        <a href="mailto:info@jasonlai.work?subject=Custom%20Package%20Enquiry"
+          class="block text-center bg-gray-900 hover:bg-gray-700 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors">
+          <span lang="en">Get a Quote</span>
+          <span lang="zh">查詢報價</span>
+        </a>
+      </div>
+
+    </div>
+    <p class="text-center text-xs text-gray-400 mt-6 font-mono" lang="en">Prices are estimates. Final cost depends on scope. Free quote — no obligation.</p>
+    <p class="text-center text-xs text-gray-400 mt-6 font-mono" lang="zh">以上為估算價格，最終費用視乎項目範圍而定。免費報價，無需承諾。</p>
+
+    <div class="mt-8 bg-sky-50 border border-sky-100 rounded-2xl p-6 max-w-2xl mx-auto text-center">
+      <p class="text-base font-bold text-sky-700 mb-2" lang="en">No payment until you approve the design</p>
+      <p class="text-base font-bold text-sky-700 mb-2" lang="zh">設計審批通過後才需要付款</p>
+      <p class="text-sm text-gray-500 font-mono" lang="en">You'll see a full preview first. If anything isn't right, we revise together at no charge — until you're genuinely happy with what you see.</p>
+      <p class="text-sm text-gray-500 font-mono" lang="zh">您會先看到完整預覽。有任何不滿意，我們免費一起修改——直到您真正滿意設計為止。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FAQ
+══════════════════════════════════════════ -->
+<section class="bg-gray-50 py-20">
+  <div class="max-w-3xl mx-auto px-5">
+    <div class="eyebrow"><span lang="en">FAQ</span><span lang="zh">常見問題</span></div>
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-10 leading-tight">
+      <span lang="en">Questions you probably have.</span>
+      <span lang="zh">您可能想問的問題。</span>
+    </h2>
+
+    <div class="space-y-3" id="faqList">
+
+      <div class="faq-item bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm">
+        <button class="faq-btn w-full text-left px-5 py-4 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-semibold text-gray-800 text-sm" lang="en">I know nothing about technology — is this still for me?</span>
+          <span class="font-semibold text-gray-800 text-sm" lang="zh">我完全不懂技術——這適合我嗎？</span>
+          <svg class="faq-chevron flex-shrink-0 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="px-5 pb-4">
+            <p class="text-sm text-gray-500 leading-relaxed" lang="en">100% yes. You'll never need to touch any code or technical settings — ever. Your clients just open a link in their browser and click through to book. You'll receive the booking details in a straightforward format. If anything needs updating, you send me a message.</p>
+            <p class="text-sm text-gray-500 leading-relaxed" lang="zh">完全適合。您永遠不需要碰任何代碼或技術設定。您的客人只需在瀏覽器打開連結，按步驟完成預約。您會以簡單易懂的格式收到預約詳情。如果有任何需要更新，只需傳訊息給我。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm">
+        <button class="faq-btn w-full text-left px-5 py-4 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-semibold text-gray-800 text-sm" lang="en">How is this different from Calendly or Square?</span>
+          <span class="font-semibold text-gray-800 text-sm" lang="zh">這和 Calendly 或 Square 有什麼分別？</span>
+          <svg class="faq-chevron flex-shrink-0 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="px-5 pb-4">
+            <p class="text-sm text-gray-500 leading-relaxed" lang="en">With Calendly, your clients see a page that says "Calendly" — not your business. There's no space for your pricing, team photos, or brand. A custom site looks like YOUR business from top to bottom: your logo, your colours, your team. And there are no monthly subscription fees eating into your profits.</p>
+            <p class="text-sm text-gray-500 leading-relaxed" lang="zh">使用 Calendly，客人看到的頁面寫著「Calendly」——不是您的業務。沒有空間展示您的定價、團隊照片或品牌。客製化網站從頭到尾都像您的業務：您的標誌、您的顏色、您的團隊。而且沒有每月訂閱費蠶食您的利潤。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm">
+        <button class="faq-btn w-full text-left px-5 py-4 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-semibold text-gray-800 text-sm" lang="en">What if I need to change my prices or add a new service later?</span>
+          <span class="font-semibold text-gray-800 text-sm" lang="zh">之後如果我想更改收費或增加新服務怎麼辦？</span>
+          <svg class="faq-chevron flex-shrink-0 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="px-5 pb-4">
+            <p class="text-sm text-gray-500 leading-relaxed" lang="en">Just send me a message — text, WhatsApp, or email — and I'll update it within 48 hours. Minor updates like price changes or adding a service are included free of charge for the first 3 months. After that, I offer a simple maintenance package, or I can teach you to make basic changes yourself.</p>
+            <p class="text-sm text-gray-500 leading-relaxed" lang="zh">只需傳訊息給我——短信、WhatsApp 或電郵——我會在 48 小時內更新。首 3 個月內，更改價格或新增服務等小型更新免費。之後我提供簡單的維護套餐，或者我可以教您自行做基本修改。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm">
+        <button class="faq-btn w-full text-left px-5 py-4 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-semibold text-gray-800 text-sm" lang="en">Do I need to pay for hosting every month?</span>
+          <span class="font-semibold text-gray-800 text-sm" lang="zh">我每個月需要付主機費嗎？</span>
+          <svg class="faq-chevron flex-shrink-0 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="px-5 pb-4">
+            <p class="text-sm text-gray-500 leading-relaxed" lang="en">For a basic setup, hosting costs are minimal — around CAD $5–15/month, or free on certain platforms. I'll recommend the most cost-effective option for your situation. If you already have a domain (yourcompanyname.com), I can usually deploy there at no extra hosting cost.</p>
+            <p class="text-sm text-gray-500 leading-relaxed" lang="zh">對於基本設置，主機費用極低——約每月 $5–15 加幣，或在某些平台上免費。我會根據您的情況推薦最具成本效益的方案。如果您已有域名（yourcompanyname.com），通常可以免額外主機費部署。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm">
+        <button class="faq-btn w-full text-left px-5 py-4 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-semibold text-gray-800 text-sm" lang="en">Do I own the website after you build it?</span>
+          <span class="font-semibold text-gray-800 text-sm" lang="zh">您建好後，網站是屬於我的嗎？</span>
+          <svg class="faq-chevron flex-shrink-0 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="px-5 pb-4">
+            <p class="text-sm text-gray-500 leading-relaxed" lang="en">Yes, completely. The code and all content belong to you. I can hand over the full source files anytime you ask. You're never locked in to working with me — though I hope the quality of the work keeps you coming back!</p>
+            <p class="text-sm text-gray-500 leading-relaxed" lang="zh">是的，完全屬於您。代碼和所有內容都是您的。您隨時可以要求我交出完整的源文件。您不會被綁定在我這裡——雖然我希望工作質量讓您願意繼續合作！</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm">
+        <button class="faq-btn w-full text-left px-5 py-4 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-semibold text-gray-800 text-sm" lang="en">How long does the whole thing take?</span>
+          <span class="font-semibold text-gray-800 text-sm" lang="zh">整個過程需要多長時間？</span>
+          <svg class="faq-chevron flex-shrink-0 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="px-5 pb-4">
+            <p class="text-sm text-gray-500 leading-relaxed" lang="en">From our first conversation to your site going live, usually 1–2 weeks. The fastest I've done it is 4 days. The timeline mostly depends on how quickly you can share your content (logo, photos, service descriptions). I'll give you a simple checklist of exactly what I need — it's quick.</p>
+            <p class="text-sm text-gray-500 leading-relaxed" lang="zh">從第一次對話到網站上線，通常需要 1–2 週。最快的紀錄是 4 天。時間主要取決於您提供內容的速度（標誌、照片、服務描述）。我會給您一份簡單的清單列出所需資料——不會花太多時間。</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FINAL CTA
+══════════════════════════════════════════ -->
+<section class="py-24">
+  <div class="max-w-3xl mx-auto px-5 text-center">
+    <div class="eyebrow justify-center"><span lang="en">Ready?</span><span lang="zh">準備好了嗎？</span></div>
+    <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-5 leading-tight">
+      <span lang="en">Stop missing bookings.<br><span class="text-sky-500">Let's fix that today.</span></span>
+      <span lang="zh">不再錯過預約。<br><span class="text-sky-500">今天就讓我來解決。</span></span>
+    </h2>
+    <p class="text-gray-500 text-lg leading-relaxed mb-5 max-w-md mx-auto" lang="en">
+      A free 20-minute call. You tell me about your business. I'll tell you exactly what I can build for you and what it'll cost. No pressure. No jargon.
+    </p>
+    <p class="text-gray-500 text-lg leading-relaxed mb-5 max-w-md mx-auto" lang="zh">
+      免費 20 分鐘通話。您告訴我您的業務情況。我告訴您我能為您打造什麼，以及費用多少。無壓力，無技術術語。
+    </p>
+    <p class="text-sm font-mono text-sky-400 mb-7" lang="en">⚡ I take on a limited number of new clients each month — spots fill quickly.</p>
+    <p class="text-sm font-mono text-sky-400 mb-7" lang="zh">⚡ 每月只接受有限數量的新客戶——名額很快就會滿。</p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center mb-6">
+      <a href="mailto:info@jasonlai.work?subject=Booking%20Website%20Enquiry"
+        class="inline-flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-600 text-white font-bold px-8 py-4 rounded-xl text-base transition-colors shadow-lg shadow-sky-200">
+        <span lang="en">Email Jason →</span>
+        <span lang="zh">電郵 Jason →</span>
+      </a>
+    </div>
+    <p class="text-sm text-gray-400" lang="en">Or reach out directly: <a href="mailto:info@jasonlai.work" class="text-sky-500 hover:underline">info@jasonlai.work</a> · Usually replies within a few hours.</p>
+    <p class="text-sm text-gray-400" lang="zh">或直接聯絡：<a href="mailto:info@jasonlai.work" class="text-sky-500 hover:underline">info@jasonlai.work</a> · 通常在數小時內回覆。</p>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="border-t border-gray-100 py-8">
+  <div class="max-w-5xl mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <p class="font-mono text-xs text-gray-400">© 2026 JasonLai.Work</p>
+    <div class="flex gap-6">
+      <a href="/" class="font-mono text-xs text-gray-400 hover:text-sky-500 transition-colors" lang="en">← Back to Portfolio</a>
+      <a href="/" class="font-mono text-xs text-gray-400 hover:text-sky-500 transition-colors" lang="zh">← 返回作品集</a>
+      <a href="mailto:info@jasonlai.work" class="font-mono text-xs text-gray-400 hover:text-sky-500 transition-colors">info@jasonlai.work</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ── Scripts ── -->
+<script>
+  /* Language toggle */
+  function toggleLang() {
+    var html = document.documentElement;
+    var isZh = html.classList.toggle('lang-zh');
+    var btn = document.getElementById('langBtn');
+    localStorage.setItem('lang', isZh ? 'zh' : 'en');
+    btn.textContent = isZh ? 'EN' : '中文';
+    btn.setAttribute('aria-pressed', isZh);
+  }
+
+  /* FAQ accordion */
+  function toggleFaq(btn) {
+    var body = btn.nextElementSibling;
+    var chevron = btn.querySelector('.faq-chevron');
+    var isOpen = body.classList.contains('open');
+    document.querySelectorAll('.faq-body').forEach(function(b) { b.classList.remove('open'); });
+    document.querySelectorAll('.faq-chevron').forEach(function(c) { c.classList.remove('rot'); });
+    if (!isOpen) {
+      body.classList.add('open');
+      chevron.classList.add('rot');
+    }
+  }
+
+  /* Lazy-load iframe */
+  (function () {
+    var wrap = document.getElementById('demoWrap');
+    if (!wrap) return;
+    var frame = wrap.querySelector('iframe');
+    var io = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting && frame.dataset.src) {
+        frame.src = frame.dataset.src;
+        frame.removeAttribute('data-src');
+        io.disconnect();
+      }
+    }, { rootMargin: '300px' });
+    io.observe(wrap);
+  })();
+</script>
+</body>
+</html>
