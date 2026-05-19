@@ -3,6 +3,8 @@
    Loaded on every page before page-specific CSS
 ───────────────────────────────────────────── */
 
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 :root {
     --bg:       #FFFFFF;
     --bg-up:    #F8FAFC;
@@ -12,8 +14,8 @@
     --gold:     #D97706;
     --border:   rgba(0, 0, 0, 0.08);
     --overlay:  rgba(255, 255, 255, 0.88);
-    --sans:     'Inter', sans-serif;
-    --mono:     'IBM Plex Mono', monospace;
+    --sans:     'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --mono:     'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
