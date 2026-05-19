@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "PowerShell(New-Item -ItemType Directory -Force -Path \"c:\\\\vs code\\\\portfolio\\\\images\")"
+      "PowerShell(New-Item -ItemType Directory -Force -Path \"c:\\\\vs code\\\\portfolio\\\\images\")",
+      "Bash(dir \"c:\\\\vs code\\\\portfolio\" /b)"
     ]
   }
 }

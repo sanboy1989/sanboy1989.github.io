@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal Portfolio Website for Real Estate Agents | Jason Lai</title>
+  <meta name="description" content="Stand out from your brokerage. I build professional personal websites for Calgary real estate agents — bilingual, mobile-friendly, and delivered in 3–7 days." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    if (localStorage.getItem('lang') === 'zh') document.documentElement.classList.add('lang-zh');
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif; }
+
+    /* ── Bilingual toggle ── */
+    html:not(.lang-zh) [lang="zh"] { display: none; }
+    .lang-zh [lang="en"] { display: none; }
+    .lang-zh [lang="zh"] { display: block; }
+    .lang-zh span[lang="zh"],
+    .lang-zh li[lang="zh"],
+    .lang-zh a[lang="zh"],
+    .lang-zh p[lang="zh"],
+    .lang-zh h1[lang="zh"],
+    .lang-zh h2[lang="zh"],
+    .lang-zh h3[lang="zh"],
+    .lang-zh div[lang="zh"] { display: block; }
+    .lang-zh .inline-zh { display: inline; }
+
+    /* ── Animations ── */
+    @keyframes fadeInUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .anim-up   { animation: fadeInUp .5s ease both; }
+    .anim-up-2 { animation: fadeInUp .5s .1s ease both; }
+    .anim-up-3 { animation: fadeInUp .5s .2s ease both; }
+    .dot-pulse { animation: pulse-dot 2s ease infinite; }
+
+    /* ── Section label ── */
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+      font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+      color: #38BDF8; margin-bottom: 14px;
+    }
+    .eyebrow::before, .eyebrow::after {
+      content: ''; display: block; height: 1px; width: 20px; background: #38BDF8;
+    }
+
+    /* ── Sticky nav blur ── */
+    .nav-blur { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+
+    /* ── Pain / benefit items ── */
+    .pain-item::before {
+      content: '→'; color: #EF4444; font-weight: 700; margin-right: 10px; flex-shrink: 0;
+    }
+    .benefit-item::before {
+      content: '✓'; color: #10B981; font-weight: 700; margin-right: 10px; flex-shrink: 0;
+    }
+    .pain-item, .benefit-item { display: flex; align-items: flex-start; }
+
+    /* ── Process step connector ── */
+    .step-line {
+      position: absolute; left: 17px; top: 40px; bottom: -20px;
+      width: 2px; background: #E2E8F0; z-index: 0;
+    }
+    .step-item:last-child .step-line { display: none; }
+
+    /* ── Pricing card ── */
+    .pricing-card { transition: transform .2s ease, box-shadow .2s ease; }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px rgba(0,0,0,.10); }
+
+    /* ── FAQ accordion ── */
+    .faq-body { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .faq-body.open { max-height: 500px; }
+    .faq-chevron { transition: transform .3s ease; }
+    .faq-chevron.rot { transform: rotate(180deg); }
+
+    /* ── Scroll indicator ── */
+    .scroll-line { height: 48px; width: 1px; background: linear-gradient(to bottom, #38BDF8, transparent); margin: 0 auto; }
+  </style>
+</head>
+<body class="bg-white text-gray-900 antialiased">
+
+<!-- ── Nav ── -->
+<nav class="sticky top-0 z-50 bg-white/90 nav-blur border-b border-gray-100">
+  <div class="max-w-5xl mx-auto px-5 h-14 flex items-center justify-between gap-4">
+    <a href="/" class="font-mono text-xs text-gray-400 hover:text-sky-500 transition-colors tracking-tight">
+      ← Portfolio
+    </a>
+    <div class="flex items-center gap-3">
+      <button
+        id="langBtn"
+        onclick="toggleLang()"
+        class="font-mono text-xs text-gray-400 border border-gray-200 px-3 py-1.5 rounded-md hover:border-sky-400 hover:text-sky-500 transition-all">中文</button>
+      <a href="mailto:info@jasonlai.work?subject=Real%20Estate%20Website%20Enquiry"
+        class="text-xs font-semibold bg-sky-500 hover:bg-sky-600 text-white px-4 py-1.5 rounded-md transition-colors hidden sm:inline-flex items-center gap-1">
+        <span lang="en">Free Consultation</span>
+        <span lang="zh">免費諮詢</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="max-w-5xl mx-auto px-5 pt-20 pb-16">
+  <div class="anim-up">
+    <div class="eyebrow">
+      <span lang="en">For Calgary Real Estate Agents</span>
+      <span lang="zh">卡加利地產代理專屬</span>
+    </div>
+  </div>
+
+  <h1 class="anim-up-2 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] tracking-tight mb-6 max-w-3xl">
+    <span lang="en">Your brokerage gave you a profile page.<br>
+      <span class="text-sky-500">Your competitors built a personal brand.</span>
+    </span>
+    <span lang="zh">公司給了你一個員工頁面。<br>
+      <span class="text-sky-500">你的對手卻在建立個人品牌。</span>
+    </span>
+  </h1>
+
+  <p class="anim-up-3 text-lg text-gray-500 leading-relaxed max-w-xl mb-4" lang="en">
+    In Calgary's real estate market, clients research agents before they ever pick up the phone. If your Google results lead to a generic brokerage staff page — or nothing at all — you're already losing deals to agents who show up as credible, established professionals. I build personal portfolio websites for real estate agents who are ready to own their brand.
+  </p>
+  <p class="anim-up-3 text-lg text-gray-500 leading-relaxed max-w-xl mb-4" lang="zh">
+    在卡加利的房地產市場，客人在致電前早已在網上研究代理。如果你的 Google 搜尋結果只顯示一個千篇一律的公司員工頁面——甚至什麼都沒有——你已經在把潛在客戶輸給那些更有份量的對手了。我為準備好建立個人品牌的地產代理打造專業個人網站。
+  </p>
+
+  <p class="text-xs font-mono text-gray-400 mb-7" lang="en">✓ Delivered in 3–7 days &nbsp;·&nbsp; ✓ You own the website, forever &nbsp;·&nbsp; ✓ No payment until you approve the design</p>
+  <p class="text-xs font-mono text-gray-400 mb-7" lang="zh">✓ 3–7 天內完成交付 &nbsp;·&nbsp; ✓ 網站永久屬於你 &nbsp;·&nbsp; ✓ 設計審批後才付款</p>
+
+  <div class="flex flex-wrap gap-3 mb-4">
+    <a href="mailto:info@jasonlai.work?subject=Real%20Estate%20Website%20Enquiry"
+      class="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white font-bold px-6 py-3 rounded-lg text-sm transition-colors">
+      <span lang="en">Get a Free Consultation →</span>
+      <span lang="zh">免費諮詢 →</span>
+    </a>
+    <a href="#pricing"
+      class="inline-flex items-center gap-2 border border-gray-200 hover:border-sky-400 text-gray-600 hover:text-sky-500 font-medium px-6 py-3 rounded-lg text-sm transition-all">
+      <span lang="en">See Pricing</span>
+      <span lang="zh">查看費用</span>
+    </a>
+  </div>
+
+  <p class="text-xs text-gray-400 font-mono" lang="en">No commitment. No jargon. Just a friendly chat.</p>
+  <p class="text-xs text-gray-400 font-mono" lang="zh">無需承諾。無技術術語。輕鬆傾談。</p>
+
+  <div class="scroll-line mt-14"></div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PAIN SECTION
+══════════════════════════════════════════ -->
+<section class="bg-gray-50 py-20">
+  <div class="max-w-5xl mx-auto px-5">
+    <div class="eyebrow">
+      <span lang="en">The Problem</span>
+      <span lang="zh">問題所在</span>
+    </div>
+
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4 max-w-2xl leading-tight">
+      <span lang="en">Does any of this sound familiar?</span>
+      <span lang="zh">以下情況聽起來熟悉嗎？</span>
+    </h2>
+    <p class="text-gray-500 mb-10 max-w-lg" lang="en">If you've been in real estate for more than a year, you've probably felt at least a few of these.</p>
+    <p class="text-gray-500 mb-10 max-w-lg" lang="zh">如果你已入行超過一年，以下情況你大概不止經歷過一次。</p>
+
+    <div class="grid sm:grid-cols-2 gap-4">
+
+      <div class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+        <p class="pain-item text-gray-700 leading-relaxed" lang="en"><span>Your brokerage website makes you look like one of 50 agents — same template, same layout, nothing that says this is <em>you</em>.</span></p>
+        <p class="pain-item text-gray-700 leading-relaxed" lang="zh"><span>公司網站讓你看起來像50個代理中的其中一個——相同模板、相同排版，沒有任何東西代表<em>你</em>。</span></p>
+      </div>
+
+      <div class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+        <p class="pain-item text-gray-700 leading-relaxed" lang="en"><span>A client Googled your name and found either nothing, or a page buried 3 clicks deep inside your brokerage's site.</span></p>
+        <p class="pain-item text-gray-700 leading-relaxed" lang="zh"><span>客人 Google 你的名字，不是什麼都沒有，就是一個埋藏在公司網站三層深處的頁面。</span></p>
+      </div>
+
+      <div class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+        <p class="pain-item text-gray-700 leading-relaxed" lang="en"><span>You're spending on social media or WeChat ads — but sending people to a page you don't own and can't customise.</span></p>
+        <p class="pain-item text-gray-700 leading-relaxed" lang="zh"><span>你在社交媒體或微信投放廣告，卻把人送到一個你無法控制、無法自訂的頁面。</span></p>
+      </div>
+
+      <div class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+        <p class="pain-item text-gray-700 leading-relaxed" lang="en"><span>Immigrant buyers in Calgary want to work with an agent they trust before the first call — but your current online presence doesn't tell your story.</span></p>
+        <p class="pain-item text-gray-700 leading-relaxed" lang="zh"><span>卡加利的新移民買家在打電話前希望先了解代理——但你現在的網上形象根本說不出你的故事。</span></p>
+      </div>
+
+      <div class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+        <p class="pain-item text-gray-700 leading-relaxed" lang="en"><span>If you ever switch brokerages, your online presence disappears overnight — along with every review and listing you ever had there.</span></p>
+        <p class="pain-item text-gray-700 leading-relaxed" lang="zh"><span>一旦轉換公司，你所有的網上資料一夜消失——包括每一則評價和每一個成交記錄。</span></p>
+      </div>
+
+      <div class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+        <p class="pain-item text-gray-700 leading-relaxed" lang="en"><span>Other agents in your market have polished personal sites and a recognisable brand. Yours is still just a headshot and a phone number.</span></p>
+        <p class="pain-item text-gray-700 leading-relaxed" lang="zh"><span>你的競爭對手有精美的個人網站和獨特的品牌形象。而你的仍然只是一張頭像和一個電話號碼。</span></p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TRUST STRIP
+══════════════════════════════════════════ -->
+<section class="py-14 border-y border-gray-100">
+  <div class="max-w-5xl mx-auto px-5">
+    <div class="grid sm:grid-cols-3 gap-8 text-center">
+      <div>
+        <div class="text-4xl font-extrabold text-sky-500 mb-1">3–7</div>
+        <p class="text-sm font-bold text-gray-800 mb-1" lang="en">Days to go live</p>
+        <p class="text-sm font-bold text-gray-800 mb-1" lang="zh">天內上線</p>
+        <p class="text-xs text-gray-400 font-mono" lang="en">From first chat to a live website</p>
+        <p class="text-xs text-gray-400 font-mono" lang="zh">從第一次對話到網站上線</p>
+      </div>
+      <div>
+        <div class="text-4xl font-extrabold text-sky-500 mb-1">$0</div>
+        <p class="text-sm font-bold text-gray-800 mb-1" lang="en">Monthly platform fees. Ever.</p>
+        <p class="text-sm font-bold text-gray-800 mb-1" lang="zh">每月平台費。永遠。</p>
+        <p class="text-xs text-gray-400 font-mono" lang="en">One-time build cost. No subscriptions.</p>
+        <p class="text-xs text-gray-400 font-mono" lang="zh">一次性費用。無訂閱。</p>
+      </div>
+      <div>
+        <div class="text-4xl font-extrabold text-sky-500 mb-1">100%</div>
+        <p class="text-sm font-bold text-gray-800 mb-1" lang="en">Yours to keep</p>
+        <p class="text-sm font-bold text-gray-800 mb-1" lang="zh">完全屬於你</p>
+        <p class="text-xs text-gray-400 font-mono" lang="en">You own the code. Switch brokerages. It stays yours.</p>
+        <p class="text-xs text-gray-400 font-mono" lang="zh">代碼歸你所有。換公司也帶得走。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SOLUTION
+══════════════════════════════════════════ -->
+<section class="py-20">
+  <div class="max-w-5xl mx-auto px-5">
+    <div class="eyebrow">
+      <span lang="en">The Solution</span>
+      <span lang="zh">解決方案</span>
+    </div>
+
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4 max-w-2xl leading-tight">
+      <span lang="en">A personal website that works as hard as you do.</span>
+      <span lang="zh">一個跟你一樣努力工作的個人網站。</span>
+    </h2>
+    <p class="text-gray-500 mb-3 max-w-xl leading-relaxed" lang="en">
+      Think of it as your best listing presentation — except it's available 24/7, it never forgets your talking points, and it reaches every potential client who searches for you online. Your sold properties. Your story. Your specialties. All in one place, under your name and your domain.
+    </p>
+    <p class="text-gray-500 mb-10 max-w-xl leading-relaxed" lang="zh">
+      把它想成你最好的推介資料——只不過它24/7全天候運作，永遠不會忘記你的賣點，而且能接觸到每個在網上搜尋你的潛在客戶。你的成交記錄、你的故事、你的專長，全部集中在一個地方，屬於你的名字，你的網域。
+    </p>
+
+    <!-- Feature walk-through cards -->
+    <div class="grid sm:grid-cols-4 gap-3">
+      <div class="bg-gray-50 rounded-xl p-4 text-center">
+        <div class="text-2xl mb-2">🏆</div>
+        <p class="font-semibold text-sm text-gray-800" lang="en">Your brand, front and centre</p>
+        <p class="font-semibold text-sm text-gray-800" lang="zh">你的品牌，置於核心</p>
+        <p class="text-xs text-gray-500 mt-1" lang="en">Custom design that reflects your personality and market</p>
+        <p class="text-xs text-gray-500 mt-1" lang="zh">彰顯你個人風格與市場定位的設計</p>
+      </div>
+      <div class="bg-gray-50 rounded-xl p-4 text-center">
+        <div class="text-2xl mb-2">🏠</div>
+        <p class="font-semibold text-sm text-gray-800" lang="en">Sold properties showcase</p>
+        <p class="font-semibold text-sm text-gray-800" lang="zh">成交記錄展示</p>
+        <p class="text-xs text-gray-500 mt-1" lang="en">Proof of track record — not just promises</p>
+        <p class="text-xs text-gray-500 mt-1" lang="zh">用成交說話，而非空口承諾</p>
+      </div>
+      <div class="bg-gray-50 rounded-xl p-4 text-center">
+        <div class="text-2xl mb-2">⭐</div>
+        <p class="font-semibold text-sm text-gray-800" lang="en">Client testimonials</p>
+        <p class="font-semibold text-sm text-gray-800" lang="zh">客戶評價</p>
+        <p class="text-xs text-gray-500 mt-1" lang="en">Social proof that turns visitors into clients</p>
+        <p class="text-xs text-gray-500 mt-1" lang="zh">讓訪客變成客戶的社交認證</p>
+      </div>
+      <div class="bg-gray-50 rounded-xl p-4 text-center">
+        <div class="text-2xl mb-2">📬</div>
+        <p class="font-semibold text-sm text-gray-800" lang="en">Direct lead capture</p>
+        <p class="font-semibold text-sm text-gray-800" lang="zh">直接接收潛在客戶</p>
+        <p class="text-xs text-gray-500 mt-1" lang="en">Buyer & seller inquiry forms straight to your inbox</p>
+        <p class="text-xs text-gray-500 mt-1" lang="zh">買家賣家查詢直接送到你的信箱</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     BENEFITS
+══════════════════════════════════════════ -->
+<section class="bg-gray-50 py-20">
+  <div class="max-w-5xl mx-auto px-5">
+    <div class="eyebrow">
+      <span lang="en">What You Get</span>
+      <span lang="zh">你將獲得</span>
+    </div>
+
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-10 max-w-xl leading-tight">
+      <span lang="en">Everything a client needs to choose you over the competition.</span>
+      <span lang="zh">讓客人選擇你而不是對手所需的一切。</span>
+    </h2>
+
+    <div class="bg-sky-50 border border-sky-100 rounded-2xl p-5 mb-8">
+      <p class="text-sky-800 font-semibold leading-relaxed" lang="en">Think about it: two agents reach the same buyer. One sends them to a generic brokerage profile. The other sends them to a polished personal site with sold properties, real testimonials, and a clear story. Who gets the call back?</p>
+      <p class="text-sky-800 font-semibold leading-relaxed" lang="zh">想想看：兩個代理同時接觸同一個買家。一個把人送到千篇一律的公司員工頁面，另一個送去一個有成交記錄、真實評價和清晰故事的個人網站。誰會收到回電？</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-x-12 gap-y-5">
+
+      <div class="benefit-item gap-2 text-gray-700" lang="en">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">Professional bio & personal story</strong> — clients get to know and trust you before the first call</span>
+      </div>
+      <div class="benefit-item gap-2 text-gray-700" lang="zh">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">專業個人介紹及故事</strong>——讓客人在致電前已對你建立信任</span>
+      </div>
+
+      <div class="benefit-item gap-2 text-gray-700" lang="en">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">Sold properties showcase</strong> — your track record visible at a glance, with photos and addresses</span>
+      </div>
+      <div class="benefit-item gap-2 text-gray-700" lang="zh">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">成交記錄展示</strong>——附圖片及地址，讓你的實績一目了然</span>
+      </div>
+
+      <div class="benefit-item gap-2 text-gray-700" lang="en">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">Client testimonials section</strong> — real words from real clients, displayed where they matter most</span>
+      </div>
+      <div class="benefit-item gap-2 text-gray-700" lang="zh">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">客戶評價版塊</strong>——真實客戶的真實評語，放在最有力的位置</span>
+      </div>
+
+      <div class="benefit-item gap-2 text-gray-700" lang="en">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">Buyer & seller inquiry forms</strong> — direct leads straight to your inbox, no middleman</span>
+      </div>
+      <div class="benefit-item gap-2 text-gray-700" lang="zh">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">買家及賣家查詢表格</strong>——潛在客戶直接聯繫你，無需中間人</span>
+      </div>
+
+      <div class="benefit-item gap-2 text-gray-700" lang="en">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">Bilingual (English + Chinese)</strong> — reach Calgary's growing Chinese-speaking buyer market with confidence</span>
+      </div>
+      <div class="benefit-item gap-2 text-gray-700" lang="zh">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">英中雙語</strong>——自信地接觸卡加利持續增長的中文買家市場</span>
+      </div>
+
+      <div class="benefit-item gap-2 text-gray-700" lang="en">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">Links to your active listings</strong> — always pointing clients to where they can see your current inventory</span>
+      </div>
+      <div class="benefit-item gap-2 text-gray-700" lang="zh">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">連結至你的現有盤源</strong>——讓客人隨時查看你在售的物業</span>
+      </div>
+
+      <div class="benefit-item gap-2 text-gray-700" lang="en">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">Mobile-first design</strong> — over 70% of buyers browse on their phone; your site looks perfect on every device</span>
+      </div>
+      <div class="benefit-item gap-2 text-gray-700" lang="zh">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">手機優先設計</strong>——超過70%的買家用手機瀏覽，在每部裝置上都完美顯示</span>
+      </div>
+
+      <div class="benefit-item gap-2 text-gray-700" lang="en">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">Fully independent from your brokerage</strong> — switch companies, retire, or rebrand without losing a single piece of your online presence</span>
+      </div>
+      <div class="benefit-item gap-2 text-gray-700" lang="zh">
+        <span class="text-emerald-500 font-bold text-lg flex-shrink-0">✓</span>
+        <span><strong class="text-gray-900">完全獨立於你的公司</strong>——轉換公司、退休或改品牌，都不會失去任何網上資產</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     NO TECH SKILLS
+══════════════════════════════════════════ -->
+<section class="py-20">
+  <div class="max-w-5xl mx-auto px-5">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="eyebrow">
+          <span lang="en">No Tech Skills Needed</span>
+          <span lang="zh">無需技術知識</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-5 leading-tight">
+          <span lang="en">I handle everything. You just tell me about yourself.</span>
+          <span lang="zh">我負責所有事情。你只需告訴我你的故事。</span>
+        </h2>
+        <p class="text-gray-500 leading-relaxed mb-5" lang="en">
+          You don't need to know anything about websites, code, or any of that. Your job is to close deals — mine is to make sure the right clients find you and feel confident enough to reach out.
+        </p>
+        <p class="text-gray-500 leading-relaxed mb-5" lang="zh">
+          你不需要懂任何關於網站、代碼或技術的知識。你的工作是促成交易——我的工作是確保對的客人找到你，並且有足夠的信心主動聯絡。
+        </p>
+        <p class="text-gray-500 leading-relaxed" lang="en">
+          After we launch, if you want to update your headshot, add a new sold property, or tweak your bio — just send me a message. I'll take care of it.
+        </p>
+        <p class="text-gray-500 leading-relaxed" lang="zh">
+          上線後，如果你想更換頭像、新增成交記錄或修改個人介紹——只需傳訊息給我，我會處理好。
+        </p>
+      </div>
+      <div class="space-y-4">
+        <div class="flex items-start gap-4 bg-gray-50 rounded-xl p-5">
+          <div class="w-10 h-10 rounded-full bg-sky-100 text-sky-600 flex items-center justify-center text-lg flex-shrink-0">🚫</div>
+          <div>
+            <p class="font-semibold text-gray-800 mb-0.5" lang="en">No platforms to learn or manage</p>
+            <p class="font-semibold text-gray-800 mb-0.5" lang="zh">無需學習或管理任何平台</p>
+            <p class="text-sm text-gray-500" lang="en">I build it from scratch, customised for you. You never need to touch a single setting.</p>
+            <p class="text-sm text-gray-500" lang="zh">我從頭為你打造，完全按你需求客製。你永遠不需要碰任何設定。</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 bg-gray-50 rounded-xl p-5">
+          <div class="w-10 h-10 rounded-full bg-sky-100 text-sky-600 flex items-center justify-center text-lg flex-shrink-0">🔒</div>
+          <div>
+            <p class="font-semibold text-gray-800 mb-0.5" lang="en">Your site stays yours, no matter what</p>
+            <p class="font-semibold text-gray-800 mb-0.5" lang="zh">你的網站永遠屬於你</p>
+            <p class="text-sm text-gray-500" lang="en">Change brokerages, rebrand, or hand the files to another developer — the choice is always yours.</p>
+            <p class="text-sm text-gray-500" lang="zh">換公司、改品牌，或把檔案交給另一個開發者——選擇權永遠在你手上。</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 bg-gray-50 rounded-xl p-5">
+          <div class="w-10 h-10 rounded-full bg-sky-100 text-sky-600 flex items-center justify-center text-lg flex-shrink-0">💬</div>
+          <div>
+            <p class="font-semibold text-gray-800 mb-0.5" lang="en">Updates are just a message away</p>
+            <p class="font-semibold text-gray-800 mb-0.5" lang="zh">更新只需傳訊息</p>
+            <p class="text-sm text-gray-500" lang="en">New sold property? New headshot? Just send it over — updates done within 48 hours. Or join the optional Monthly Care Plan and I'll keep your site fresh on a regular schedule, so you never have to think about it.</p>
+            <p class="text-sm text-gray-500" lang="zh">新成交？新頭像？傳給我就可以——48小時內完成更新。或加入可選的 Monthly Care Plan，讓我定期為你保持網站最新狀態，你完全不用操心。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PROCESS
+══════════════════════════════════════════ -->
+<section class="bg-gray-50 py-20">
+  <div class="max-w-5xl mx-auto px-5">
+    <div class="eyebrow">
+      <span lang="en">How It Works</span>
+      <span lang="zh">合作流程</span>
+    </div>
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-12 max-w-xl leading-tight">
+      <span lang="en">From first chat to live website in 4 steps.</span>
+      <span lang="zh">從第一次對話到網站上線，只需 4 個步驟。</span>
+    </h2>
+
+    <div class="max-w-lg space-y-0">
+
+      <div class="step-item relative flex gap-5 pb-8">
+        <div class="step-line"></div>
+        <div class="relative z-10 w-9 h-9 rounded-full bg-sky-500 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">1</div>
+        <div class="pt-1">
+          <h3 class="font-bold text-gray-900 mb-1" lang="en">We chat (20 minutes)</h3>
+          <h3 class="font-bold text-gray-900 mb-1" lang="zh">我們傾談（20 分鐘）</h3>
+          <p class="text-gray-500 text-sm leading-relaxed" lang="en">Tell me about yourself: your specialties, your target clients, your service areas, and the story you want to tell. No technical questions whatsoever — I just need to understand you and your business.</p>
+          <p class="text-gray-500 text-sm leading-relaxed" lang="zh">告訴我關於你的一切：你的專長、目標客群、服務範圍，以及你想傳達的故事。完全沒有技術問題——我只需要了解你和你的業務。</p>
+        </div>
+      </div>
+
+      <div class="step-item relative flex gap-5 pb-8">
+        <div class="step-line"></div>
+        <div class="relative z-10 w-9 h-9 rounded-full bg-sky-500 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">2</div>
+        <div class="pt-1">
+          <h3 class="font-bold text-gray-900 mb-1" lang="en">I build your site (3–7 days)</h3>
+          <h3 class="font-bold text-gray-900 mb-1" lang="zh">我製作你的網站（3–7 天）</h3>
+          <p class="text-gray-500 text-sm leading-relaxed" lang="en">I design and build a fully custom site around your personal brand — your colours, your photos, your sold properties, your story. You don't lift a finger.</p>
+          <p class="text-gray-500 text-sm leading-relaxed" lang="zh">我按照你的個人品牌設計並製作完全客製化的網站——你的顏色、你的照片、你的成交記錄、你的故事。你完全不用動手。</p>
+        </div>
+      </div>
+
+      <div class="step-item relative flex gap-5 pb-8">
+        <div class="step-line"></div>
+        <div class="relative z-10 w-9 h-9 rounded-full bg-sky-500 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">3</div>
+        <div class="pt-1">
+          <h3 class="font-bold text-gray-900 mb-1" lang="en">We review together</h3>
+          <h3 class="font-bold text-gray-900 mb-1" lang="zh">我們一起審閱</h3>
+          <p class="text-gray-500 text-sm leading-relaxed" lang="en">I share a private preview link. You click through it, tell me what you'd like to adjust, and we refine together until it looks exactly right. Usually one or two quick rounds.</p>
+          <p class="text-gray-500 text-sm leading-relaxed" lang="zh">我分享私人預覽連結。你點擊瀏覽，告訴我想修改什麼，我們一起調整直到效果完全符合你的期望。通常一至兩輪即可。</p>
+        </div>
+      </div>
+
+      <div class="step-item relative flex gap-5">
+        <div class="relative z-10 w-9 h-9 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">✓</div>
+        <div class="pt-1">
+          <h3 class="font-bold text-gray-900 mb-1" lang="en">Go live — start winning clients</h3>
+          <h3 class="font-bold text-gray-900 mb-1" lang="zh">正式上線——開始贏得客戶</h3>
+          <p class="text-gray-500 text-sm leading-relaxed" lang="en">Add it to your email signature, business cards, Instagram bio, WeChat profile, and Google Business listing. From day one, clients can find you and reach out directly.</p>
+          <p class="text-gray-500 text-sm leading-relaxed" lang="zh">加到你的電郵簽名、名片、Instagram 個人資料、微信及 Google Business 頁面。從第一天起，客人就能找到你並直接聯絡。</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PRICING
+══════════════════════════════════════════ -->
+<section id="pricing" class="py-20">
+  <div class="max-w-5xl mx-auto px-5">
+    <div class="eyebrow">
+      <span lang="en">Investment</span>
+      <span lang="zh">費用</span>
+    </div>
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4 max-w-xl leading-tight">
+      <span lang="en">One-time cost. No monthly platform fees.</span>
+      <span lang="zh">一次性費用。無每月平台費。</span>
+    </h2>
+    <p class="text-gray-500 mb-10 max-w-md" lang="en">Unlike Wix, Squarespace, or WordPress page builders — you own the website outright. No subscriptions. No contracts. No surprises.</p>
+    <p class="text-gray-500 mb-10 max-w-md" lang="zh">與 Wix、Squarespace 或 WordPress 網站建構工具不同——你完全擁有這個網站。無訂閱。無合約。無隱藏費用。</p>
+
+    <div class="grid sm:grid-cols-3 gap-6">
+
+      <!-- Starter -->
+      <div class="pricing-card bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+        <p class="text-xs font-mono text-gray-400 uppercase tracking-widest mb-3" lang="en">Starter</p>
+        <p class="text-xs font-mono text-gray-400 uppercase tracking-widest mb-3" lang="zh">入門版</p>
+        <div class="text-3xl font-extrabold text-gray-900 mb-1">
+          <span lang="en">From <span class="text-sky-500">$899</span> <span class="text-base font-normal text-gray-400">CAD</span></span>
+          <span lang="zh">低至 <span class="text-sky-500">$899</span> <span class="text-base font-normal text-gray-400">加幣</span></span>
+        </div>
+        <p class="text-xs text-gray-400 mb-5" lang="en">One-time · No monthly fees</p>
+        <p class="text-xs text-gray-400 mb-5" lang="zh">一次性費用 · 無每月收費</p>
+        <ul class="space-y-2.5 mb-7 text-sm text-gray-600">
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Single-page portfolio website</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 單頁作品集網站</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Professional bio + headshot section</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 專業個人介紹及頭像版塊</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Service areas & specialties</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 服務範圍及專長</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Contact & inquiry form</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 聯絡及查詢表格</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Mobile-friendly</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 手機完美顯示</li>
+        </ul>
+        <a href="mailto:info@jasonlai.work?subject=RE%20Starter%20Package%20Enquiry"
+          class="block text-center border border-gray-200 hover:border-sky-400 hover:text-sky-500 text-gray-600 font-semibold py-2.5 rounded-lg text-sm transition-all">
+          <span lang="en">Get a Quote</span>
+          <span lang="zh">查詢報價</span>
+        </a>
+      </div>
+
+      <!-- Professional — Featured -->
+      <div class="pricing-card bg-sky-500 rounded-2xl p-6 shadow-xl text-white relative overflow-hidden">
+        <div class="absolute top-4 right-4 bg-white/20 text-white text-xs font-bold px-2.5 py-1 rounded-full" lang="en">Most Popular</div>
+        <div class="absolute top-4 right-4 bg-white/20 text-white text-xs font-bold px-2.5 py-1 rounded-full" lang="zh">最受歡迎</div>
+        <p class="text-xs font-mono text-sky-200 uppercase tracking-widest mb-3" lang="en">Professional</p>
+        <p class="text-xs font-mono text-sky-200 uppercase tracking-widest mb-3" lang="zh">專業版</p>
+        <div class="text-3xl font-extrabold mb-1">
+          <span lang="en">From <span class="text-white">$1,699</span> <span class="text-base font-normal text-sky-200">CAD</span></span>
+          <span lang="zh">低至 <span class="text-white">$1,699</span> <span class="text-base font-normal text-sky-200">加幣</span></span>
+        </div>
+        <p class="text-xs text-sky-200 mb-5" lang="en">One-time · No monthly fees</p>
+        <p class="text-xs text-sky-200 mb-5" lang="zh">一次性費用 · 無每月收費</p>
+        <ul class="space-y-2.5 mb-7 text-sm text-sky-50">
+          <li class="flex gap-2" lang="en"><span class="text-white font-bold">✓</span> Everything in Starter</li>
+          <li class="flex gap-2" lang="zh"><span class="text-white font-bold">✓</span> 包含入門版所有功能</li>
+          <li class="flex gap-2" lang="en"><span class="text-white font-bold">✓</span> Multi-page site (Home, About, Listings, Testimonials, Contact)</li>
+          <li class="flex gap-2" lang="zh"><span class="text-white font-bold">✓</span> 多頁面網站（首頁、關於、盤源、評價、聯絡）</li>
+          <li class="flex gap-2" lang="en"><span class="text-white font-bold">✓</span> Sold properties showcase</li>
+          <li class="flex gap-2" lang="zh"><span class="text-white font-bold">✓</span> 成交記錄展示版塊</li>
+          <li class="flex gap-2" lang="en"><span class="text-white font-bold">✓</span> Client testimonials section</li>
+          <li class="flex gap-2" lang="zh"><span class="text-white font-bold">✓</span> 客戶評價版塊</li>
+          <li class="flex gap-2" lang="en"><span class="text-white font-bold">✓</span> Bilingual (English + Chinese)</li>
+          <li class="flex gap-2" lang="zh"><span class="text-white font-bold">✓</span> 英中雙語</li>
+          <li class="flex gap-2" lang="en"><span class="text-white font-bold">✓</span> Google-friendly SEO setup</li>
+          <li class="flex gap-2" lang="zh"><span class="text-white font-bold">✓</span> 有利 Google 搜尋（基本 SEO）</li>
+          <li class="flex gap-2" lang="en"><span class="text-white font-bold">✓</span> 2 rounds of revisions included</li>
+          <li class="flex gap-2" lang="zh"><span class="text-white font-bold">✓</span> 包含 2 輪修改</li>
+        </ul>
+        <a href="mailto:info@jasonlai.work?subject=RE%20Professional%20Package%20Enquiry"
+          class="block text-center bg-white text-sky-600 hover:bg-sky-50 font-bold py-2.5 rounded-lg text-sm transition-colors">
+          <span lang="en">Get a Quote</span>
+          <span lang="zh">查詢報價</span>
+        </a>
+      </div>
+
+      <!-- Custom -->
+      <div class="pricing-card bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+        <p class="text-xs font-mono text-gray-400 uppercase tracking-widest mb-3" lang="en">Custom</p>
+        <p class="text-xs font-mono text-gray-400 uppercase tracking-widest mb-3" lang="zh">客製化版</p>
+        <div class="text-3xl font-extrabold text-gray-900 mb-1">
+          <span lang="en">Let's <span class="text-sky-500">talk</span></span>
+          <span lang="zh">歡迎<span class="text-sky-500">傾談</span></span>
+        </div>
+        <p class="text-xs text-gray-400 mb-5" lang="en">Tailored to your requirements</p>
+        <p class="text-xs text-gray-400 mb-5" lang="zh">按你的需求度身訂造</p>
+        <ul class="space-y-2.5 mb-7 text-sm text-gray-600">
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Everything in Professional</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 包含專業版所有功能</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Live MLS listing feed (IDX integration)</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 即時 MLS 盤源整合（IDX）</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> CRM / lead tracking integration</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> CRM / 潛在客戶追蹤整合</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Team / partner agent profiles</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 團隊 / 合作代理頁面</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Ongoing maintenance package</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 持續維護套餐</li>
+        </ul>
+        <a href="mailto:info@jasonlai.work?subject=RE%20Custom%20Package%20Enquiry"
+          class="block text-center bg-gray-900 hover:bg-gray-700 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors">
+          <span lang="en">Get a Quote</span>
+          <span lang="zh">查詢報價</span>
+        </a>
+      </div>
+
+    </div>
+    <p class="text-center text-xs text-gray-400 mt-6 font-mono" lang="en">Prices are estimates. Final cost depends on scope. Free quote — no obligation.</p>
+    <p class="text-center text-xs text-gray-400 mt-6 font-mono" lang="zh">以上為估算價格，最終費用視乎項目範圍而定。免費報價，無需承諾。</p>
+
+    <div class="mt-8 bg-sky-50 border border-sky-100 rounded-2xl p-6 max-w-2xl mx-auto text-center">
+      <p class="text-base font-bold text-sky-700 mb-2" lang="en">No payment until you approve the design</p>
+      <p class="text-base font-bold text-sky-700 mb-2" lang="zh">設計審批通過後才需要付款</p>
+      <p class="text-sm text-gray-500 font-mono" lang="en">You'll see a full preview before anything is finalised. If it isn't right, we revise together at no charge — until you're genuinely happy with what you see.</p>
+      <p class="text-sm text-gray-500 font-mono" lang="zh">在確定任何事情之前，你會先看到完整預覽。有任何不滿意，我們免費一起修改——直到你真正滿意為止。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     MONTHLY CARE PLAN
+══════════════════════════════════════════ -->
+<section class="py-20 border-t border-gray-100">
+  <div class="max-w-5xl mx-auto px-5">
+    <div class="eyebrow">
+      <span lang="en">Optional Add-On</span>
+      <span lang="zh">可選附加服務</span>
+    </div>
+
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4 max-w-2xl leading-tight">
+      <span lang="en">Already own your site.<br>Want someone to keep it fresh?</span>
+      <span lang="zh">你已擁有自己的網站。<br>想有人幫你持續保持更新嗎？</span>
+    </h2>
+    <p class="text-gray-500 mb-3 max-w-xl leading-relaxed" lang="en">
+      Your website is yours forever — no plan needed to keep it live. But real estate agents are busy. New sold properties, updated headshots, fresh testimonials — these things pile up fast. A Monthly Care Plan means you just send me what changed, and I handle the rest.
+    </p>
+    <p class="text-gray-500 mb-10 max-w-xl leading-relaxed" lang="zh">
+      你的網站永遠屬於你——不需要任何計劃來維持它運作。但地產代理很忙。新的成交記錄、更新頭像、新增評價——這些事情很快就會積累起來。Monthly Care Plan 讓你只需傳來更新內容，其餘的由我處理。
+    </p>
+
+    <div class="grid sm:grid-cols-2 gap-6 max-w-2xl">
+
+      <!-- Basic Care -->
+      <div class="pricing-card bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+        <p class="text-xs font-mono text-gray-400 uppercase tracking-widest mb-3" lang="en">Basic Care</p>
+        <p class="text-xs font-mono text-gray-400 uppercase tracking-widest mb-3" lang="zh">基本維護</p>
+        <div class="text-3xl font-extrabold text-gray-900 mb-1">
+          <span lang="en"><span class="text-sky-500">$49</span> <span class="text-base font-normal text-gray-400">CAD / mo</span></span>
+          <span lang="zh"><span class="text-sky-500">$49</span> <span class="text-base font-normal text-gray-400">加幣 / 月</span></span>
+        </div>
+        <p class="text-xs text-gray-400 mb-5" lang="en">Cancel anytime · No lock-in</p>
+        <p class="text-xs text-gray-400 mb-5" lang="zh">隨時取消 · 無綁定</p>
+        <ul class="space-y-2.5 mb-7 text-sm text-gray-600">
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> 1 hour of updates per month</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 每月 1 小時更新</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Text, photo & content changes</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 文字、相片、內容更換</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> 72-hour turnaround</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 72 小時內完成</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Unused hours roll over (max 1 hr)</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 未用時數轉移（最多 1 小時）</li>
+        </ul>
+        <a href="mailto:info@jasonlai.work?subject=Basic%20Care%20Plan%20Enquiry"
+          class="block text-center border border-gray-200 hover:border-sky-400 hover:text-sky-500 text-gray-600 font-semibold py-2.5 rounded-lg text-sm transition-all">
+          <span lang="en">Ask About This Plan</span>
+          <span lang="zh">查詢此計劃</span>
+        </a>
+      </div>
+
+      <!-- Standard Care -->
+      <div class="pricing-card bg-white border-2 border-sky-400 rounded-2xl p-6 shadow-md relative">
+        <div class="absolute top-4 right-4 bg-sky-500 text-white text-xs font-bold px-2.5 py-1 rounded-full" lang="en">Best Value</div>
+        <div class="absolute top-4 right-4 bg-sky-500 text-white text-xs font-bold px-2.5 py-1 rounded-full" lang="zh">最超值</div>
+        <p class="text-xs font-mono text-sky-500 uppercase tracking-widest mb-3" lang="en">Standard Care</p>
+        <p class="text-xs font-mono text-sky-500 uppercase tracking-widest mb-3" lang="zh">標準維護</p>
+        <div class="text-3xl font-extrabold text-gray-900 mb-1">
+          <span lang="en"><span class="text-sky-500">$99</span> <span class="text-base font-normal text-gray-400">CAD / mo</span></span>
+          <span lang="zh"><span class="text-sky-500">$99</span> <span class="text-base font-normal text-gray-400">加幣 / 月</span></span>
+        </div>
+        <p class="text-xs text-gray-400 mb-5" lang="en">Cancel anytime · No lock-in</p>
+        <p class="text-xs text-gray-400 mb-5" lang="zh">隨時取消 · 無綁定</p>
+        <ul class="space-y-2.5 mb-7 text-sm text-gray-600">
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> 3 hours of updates per month</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 每月 3 小時更新</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Priority 24-hour turnaround</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 優先 24 小時內完成</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Sold listings, testimonials, photos — all handled</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 成交記錄、評價、相片——一切由我處理</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Quarterly site health check</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 每季度網站健康檢查</li>
+          <li class="flex gap-2" lang="en"><span class="text-emerald-500 font-bold">✓</span> Unused hours roll over (max 2 hrs)</li>
+          <li class="flex gap-2" lang="zh"><span class="text-emerald-500 font-bold">✓</span> 未用時數轉移（最多 2 小時）</li>
+        </ul>
+        <a href="mailto:info@jasonlai.work?subject=Standard%20Care%20Plan%20Enquiry"
+          class="block text-center bg-sky-500 hover:bg-sky-600 text-white font-bold py-2.5 rounded-lg text-sm transition-colors">
+          <span lang="en">Ask About This Plan</span>
+          <span lang="zh">查詢此計劃</span>
+        </a>
+      </div>
+
+    </div>
+
+    <p class="text-sm text-gray-400 font-mono mt-6 max-w-2xl" lang="en">
+      ✦ Care Plans are completely optional and separate from your website build. Your site stays live and fully yours whether or not you subscribe — these plans are for your time, not for your website's survival.
+    </p>
+    <p class="text-sm text-gray-400 font-mono mt-6 max-w-2xl" lang="zh">
+      ✦ Care Plan 完全可選，與網站建設費用分開。無論你是否訂閱，你的網站都會正常運作並完全屬於你——這些計劃是為了節省你的時間，而不是維持網站的存活。
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FAQ
+══════════════════════════════════════════ -->
+<section class="bg-gray-50 py-20">
+  <div class="max-w-3xl mx-auto px-5">
+    <div class="eyebrow">
+      <span lang="en">FAQ</span>
+      <span lang="zh">常見問題</span>
+    </div>
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-10 leading-tight">
+      <span lang="en">Questions you probably have.</span>
+      <span lang="zh">你可能想問的問題。</span>
+    </h2>
+
+    <div class="space-y-3" id="faqList">
+
+      <div class="faq-item bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm">
+        <button class="faq-btn w-full text-left px-5 py-4 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-semibold text-gray-800 text-sm" lang="en">Will my brokerage be okay with me having my own website?</span>
+          <span class="font-semibold text-gray-800 text-sm" lang="zh">我的公司會介意我有自己的網站嗎？</span>
+          <svg class="faq-chevron flex-shrink-0 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="px-5 pb-4">
+            <p class="text-sm text-gray-500 leading-relaxed" lang="en">Most brokerages have no issue with personal branding sites — they're common and widely encouraged. Your site promotes you as an individual professional, not a competing brokerage. If you're uncertain, I'm happy to help you review your brokerage's guidelines before we begin. The vast majority of my clients have had zero issues.</p>
+            <p class="text-sm text-gray-500 leading-relaxed" lang="zh">大多數公司對個人品牌網站沒有異議——這非常普遍，而且被廣泛鼓勵。你的網站是推廣你個人作為專業人士，而不是一個競爭性的地產公司。如果你不確定，我很樂意在開始前協助你查閱公司的相關指引。我絕大多數客戶都完全沒有遇到問題。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm">
+        <button class="faq-btn w-full text-left px-5 py-4 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-semibold text-gray-800 text-sm" lang="en">Can I show my active MLS listings on the site?</span>
+          <span class="font-semibold text-gray-800 text-sm" lang="zh">我可以在網站上顯示我的現有 MLS 盤源嗎？</span>
+          <svg class="faq-chevron flex-shrink-0 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="px-5 pb-4">
+            <p class="text-sm text-gray-500 leading-relaxed" lang="en">Yes. The simplest and most common approach is linking directly to your REALTOR.ca or brokerage listing pages — zero maintenance, always up to date. For a live automated feed that pulls listings directly into your site (IDX integration), that's available as a Custom package add-on. Most agents find the link approach more than sufficient.</p>
+            <p class="text-sm text-gray-500 leading-relaxed" lang="zh">可以。最簡單也最常見的方式是直接連結到你的 REALTOR.ca 或公司盤源頁面——無需維護，永遠保持最新。如果你想要一個可以自動抓取盤源並直接顯示在網站上的即時串流（IDX整合），這是客製化套餐的附加選項。大多數代理都覺得連結方式已經完全足夠。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm">
+        <button class="faq-btn w-full text-left px-5 py-4 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-semibold text-gray-800 text-sm" lang="en">What happens if I switch brokerages later?</span>
+          <span class="font-semibold text-gray-800 text-sm" lang="zh">如果之後我換了公司怎麼辦？</span>
+          <svg class="faq-chevron flex-shrink-0 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="px-5 pb-4">
+            <p class="text-sm text-gray-500 leading-relaxed" lang="en">That's actually one of the biggest advantages of having your own site. When you switch, I simply update the brokerage logo, affiliation details, and any relevant links. Your personal bio, sold history, testimonials, and domain all stay exactly where they are. Nothing disappears. This is completely the opposite of relying on a brokerage profile page.</p>
+            <p class="text-sm text-gray-500 leading-relaxed" lang="zh">這實際上是擁有個人網站最大的優點之一。當你換公司時，我只需更新公司標誌、隸屬資料及相關連結。你的個人介紹、成交記錄、客戶評價和網域全部保持不變。什麼都不會消失。這與依賴公司員工頁面完全相反。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm">
+        <button class="faq-btn w-full text-left px-5 py-4 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-semibold text-gray-800 text-sm" lang="en">Do I need to pay monthly fees to keep the site running?</span>
+          <span class="font-semibold text-gray-800 text-sm" lang="zh">我需要每月付費才能讓網站維持運作嗎？</span>
+          <svg class="faq-chevron flex-shrink-0 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="px-5 pb-4">
+            <p class="text-sm text-gray-500 leading-relaxed" lang="en">No monthly fees from me. The only ongoing costs are your domain name (typically ~$15–20 CAD/year) and hosting (around $5–15 CAD/month, or free on certain platforms). I'll recommend the most cost-effective option for your situation. That's it — no platform subscriptions, no per-lead charges, nothing hidden.</p>
+            <p class="text-sm text-gray-500 leading-relaxed" lang="zh">我這邊不收每月費用。唯一的持續費用是你的域名（通常約每年 $15–20 加幣）和主機費（約每月 $5–15 加幣，或在某些平台免費）。我會根據你的情況推薦最具成本效益的方案。就是這樣——沒有平台訂閱費，沒有按線索收費，沒有隱藏費用。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm">
+        <button class="faq-btn w-full text-left px-5 py-4 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-semibold text-gray-800 text-sm" lang="en">Do I own the website after it's built?</span>
+          <span class="font-semibold text-gray-800 text-sm" lang="zh">網站建好後是屬於我的嗎？</span>
+          <svg class="faq-chevron flex-shrink-0 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="px-5 pb-4">
+            <p class="text-sm text-gray-500 leading-relaxed" lang="en">Yes, 100%. The code, design, and all content belong entirely to you. I can hand over the full source files anytime you ask. You're never locked in to working with me — though I hope the quality of the work gives you no reason to look elsewhere.</p>
+            <p class="text-sm text-gray-500 leading-relaxed" lang="zh">是的，完全屬於你。代碼、設計和所有內容都完全歸你所有。你隨時可以要求我交出完整的源文件。你不會被綁定在我這裡——雖然我希望工作質量讓你沒有理由另尋他人。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm">
+        <button class="faq-btn w-full text-left px-5 py-4 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-semibold text-gray-800 text-sm" lang="en">Can you make the site in Chinese for my clients?</span>
+          <span class="font-semibold text-gray-800 text-sm" lang="zh">你可以為我的客人做一個中文版網站嗎？</span>
+          <svg class="faq-chevron flex-shrink-0 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="px-5 pb-4">
+            <p class="text-sm text-gray-500 leading-relaxed" lang="en">Yes — full bilingual (English + Chinese) support is built into the Professional and Custom packages. Visitors can toggle between languages with a single click. Given Calgary's growing Chinese-speaking buyer market, this is one of the most powerful differentiators you can have. It's also available as an add-on for the Starter package.</p>
+            <p class="text-sm text-gray-500 leading-relaxed" lang="zh">可以——完整雙語（英文＋中文）支援已內置於專業版和客製化版套餐中。訪客可以一鍵切換語言。考慮到卡加利持續增長的中文買家市場，這是你能夠擁有的最強大的差異化優勢之一。也可以作為入門版的附加選項。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm">
+        <button class="faq-btn w-full text-left px-5 py-4 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-semibold text-gray-800 text-sm" lang="en">What if I need to update my photos, listings, or testimonials after launch?</span>
+          <span class="font-semibold text-gray-800 text-sm" lang="zh">上線後如果我需要更新相片、盤源或評價怎麼辦？</span>
+          <svg class="faq-chevron flex-shrink-0 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="px-5 pb-4">
+            <p class="text-sm text-gray-500 leading-relaxed" lang="en">Two options. First, you can request ad-hoc updates anytime — just send me a message with what you need and I'll handle it, usually within 48 hours. Minor updates are billed at an hourly rate. Second, if you update your site regularly (new sold properties, testimonials, seasonal photos), the Monthly Care Plan works out better value — you get a set block of hours each month at a fixed cost, with priority turnaround.</p>
+            <p class="text-sm text-gray-500 leading-relaxed" lang="zh">有兩個選擇。第一，你可以隨時提出臨時更新請求——只需傳訊息告訴我你需要什麼，我通常在48小時內處理完畢，按小時收費。第二，如果你經常需要更新網站（新成交記錄、評價、季節性相片），Monthly Care Plan 更划算——每月固定費用獲得固定時數，享有優先處理。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm">
+        <button class="faq-btn w-full text-left px-5 py-4 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-semibold text-gray-800 text-sm" lang="en">Is there an optional monthly support plan?</span>
+          <span class="font-semibold text-gray-800 text-sm" lang="zh">有沒有可選的月費維護計劃？</span>
+          <svg class="faq-chevron flex-shrink-0 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="px-5 pb-4">
+            <p class="text-sm text-gray-500 leading-relaxed" lang="en">Yes — completely optional. The Monthly Care Plan ($49 or $99/month) gives you a regular block of update hours, priority turnaround, and peace of mind that your site always reflects your latest work. But to be clear: it's not required to keep your site running. Your website stays live and fully yours with or without it. Think of it as outsourcing the admin side of your personal brand, not a fee to keep the lights on.</p>
+            <p class="text-sm text-gray-500 leading-relaxed" lang="zh">有——完全可選。Monthly Care Plan（每月 $49 或 $99 加幣）為你提供固定的每月更新時數、優先處理，以及讓你的網站始終反映最新工作成果的安心保障。但要說清楚：這不是維持網站運作的必要條件。你的網站無論是否訂閱都會正常運作並完全屬於你。把它理解為外包個人品牌的日常管理工作，而不是維持運作的費用。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm">
+        <button class="faq-btn w-full text-left px-5 py-4 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-semibold text-gray-800 text-sm" lang="en">How long does the whole process take?</span>
+          <span class="font-semibold text-gray-800 text-sm" lang="zh">整個過程需要多長時間？</span>
+          <svg class="faq-chevron flex-shrink-0 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="px-5 pb-4">
+            <p class="text-sm text-gray-500 leading-relaxed" lang="en">From our first call to going live, typically 1–2 weeks. The speed mostly depends on how quickly you can share your materials — headshot, sold property photos, a bit of text about yourself. I'll give you a simple checklist of exactly what I need. Most agents have everything ready within a day or two.</p>
+            <p class="text-sm text-gray-500 leading-relaxed" lang="zh">從第一次通話到正式上線，通常需要 1–2 週。速度主要取決於你提供材料的速度——頭像、成交物業照片、一些關於你自己的文字。我會給你一份清單，列明我需要的確切內容。大多數代理都能在一兩天內準備好所有東西。</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FINAL CTA
+══════════════════════════════════════════ -->
+<section class="py-24">
+  <div class="max-w-3xl mx-auto px-5 text-center">
+    <div class="eyebrow justify-center">
+      <span lang="en">Ready?</span>
+      <span lang="zh">準備好了嗎？</span>
+    </div>
+    <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-5 leading-tight">
+      <span lang="en">Stop blending in.<br><span class="text-sky-500">Start standing out.</span></span>
+      <span lang="zh">不要再淹沒在人群中。<br><span class="text-sky-500">是時候讓人記住你。</span></span>
+    </h2>
+    <p class="text-gray-500 text-lg leading-relaxed mb-5 max-w-md mx-auto" lang="en">
+      A free 20-minute call. You tell me about your brand and your goals. I'll show you exactly what I can build for you and what it'll cost. No pressure, no jargon.
+    </p>
+    <p class="text-gray-500 text-lg leading-relaxed mb-5 max-w-md mx-auto" lang="zh">
+      免費 20 分鐘通話。你告訴我你的品牌和目標。我告訴你我能為你建立什麼，以及費用多少。無壓力，無技術術語。
+    </p>
+    <p class="text-sm font-mono text-sky-400 mb-7" lang="en">⚡ I take on a limited number of new clients each month — spots fill quickly.</p>
+    <p class="text-sm font-mono text-sky-400 mb-7" lang="zh">⚡ 每月只接受有限數量的新客戶——名額很快就會滿。</p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center mb-6">
+      <a href="mailto:info@jasonlai.work?subject=Real%20Estate%20Website%20Enquiry"
+        class="inline-flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-600 text-white font-bold px-8 py-4 rounded-xl text-base transition-colors shadow-lg shadow-sky-200">
+        <span lang="en">Email Jason →</span>
+        <span lang="zh">電郵 Jason →</span>
+      </a>
+    </div>
+    <p class="text-sm text-gray-400" lang="en">Or reach out directly: <a href="mailto:info@jasonlai.work" class="text-sky-500 hover:underline">info@jasonlai.work</a> · Usually replies within a few hours.</p>
+    <p class="text-sm text-gray-400" lang="zh">或直接聯絡：<a href="mailto:info@jasonlai.work" class="text-sky-500 hover:underline">info@jasonlai.work</a> · 通常在數小時內回覆。</p>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="border-t border-gray-100 py-8">
+  <div class="max-w-5xl mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <p class="font-mono text-xs text-gray-400">© 2026 JasonLai.Work</p>
+    <div class="flex gap-6">
+      <a href="/" class="font-mono text-xs text-gray-400 hover:text-sky-500 transition-colors" lang="en">← Back to Portfolio</a>
+      <a href="/" class="font-mono text-xs text-gray-400 hover:text-sky-500 transition-colors" lang="zh">← 返回作品集</a>
+      <a href="mailto:info@jasonlai.work" class="font-mono text-xs text-gray-400 hover:text-sky-500 transition-colors">info@jasonlai.work</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ── Scripts ── -->
+<script>
+  /* Language toggle */
+  function toggleLang() {
+    var html = document.documentElement;
+    var isZh = html.classList.toggle('lang-zh');
+    var btn = document.getElementById('langBtn');
+    localStorage.setItem('lang', isZh ? 'zh' : 'en');
+    btn.textContent = isZh ? 'EN' : '中文';
+    btn.setAttribute('aria-pressed', isZh);
+  }
+
+  /* FAQ accordion */
+  function toggleFaq(btn) {
+    var body = btn.nextElementSibling;
+    var chevron = btn.querySelector('.faq-chevron');
+    var isOpen = body.classList.contains('open');
+    document.querySelectorAll('.faq-body').forEach(function(b) { b.classList.remove('open'); });
+    document.querySelectorAll('.faq-chevron').forEach(function(c) { c.classList.remove('rot'); });
+    if (!isOpen) {
+      body.classList.add('open');
+      chevron.classList.add('rot');
+    }
+  }
+</script>
+</body>
+</html>
