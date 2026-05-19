@@ -22,10 +22,11 @@
     text-transform: uppercase; margin-bottom: 20px;
 }
 .hero-title {
-    font-family: var(--sans);
+    font-family: var(--serif);
+    font-style: italic;
     font-size: clamp(2.2rem, 8vw, 5rem);
-    font-weight: 700; color: var(--text);
-    line-height: 0.95; letter-spacing: -0.05em;
+    font-weight: 400; color: var(--text);
+    line-height: 0.95; letter-spacing: -0.02em;
     margin-bottom: 20px;
 }
 .hero-tagline {
@@ -61,10 +62,10 @@
     text-transform: uppercase; margin-bottom: 18px;
 }
 .sec-title {
-    font-family: var(--sans);
-    font-size: clamp(1.1rem, 2.8vw, 1.5rem); font-weight: 700;
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2.8vw, 1.5rem); font-weight: 400;
     color: var(--text); line-height: 1.2;
-    letter-spacing: -0.05em; margin-bottom: 20px;
+    letter-spacing: -0.02em; margin-bottom: 20px;
 }
 .sec-body {
     font-size: 15px; color: var(--muted);

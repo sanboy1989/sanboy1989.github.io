@@ -8,14 +8,19 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <script>
     if (localStorage.getItem('lang') === 'zh') document.documentElement.classList.add('lang-zh');
   </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif; }
+    body { font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif; background: #F8F6F2; }
+    h2 { font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; letter-spacing: -0.02em; }
+    ::selection { background: rgba(56,189,248,0.18); color: #0369a1; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #F8F6F2; }
+    ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
 
     /* ── Bilingual toggle ── */
     /* Use html:not(.lang-zh) to get specificity 0-2-1, beating any class-based display rules */
@@ -102,21 +107,21 @@
     .scroll-line { height: 48px; width: 1px; background: linear-gradient(to bottom, #38BDF8, transparent); margin: 0 auto; }
   </style>
 </head>
-<body class="bg-white text-gray-900 antialiased">
+<body class="text-[#111] antialiased">
 
 <!-- ── Nav ── -->
-<nav class="sticky top-0 z-50 bg-white/90 nav-blur border-b border-gray-100">
+<nav class="sticky top-0 z-50 nav-blur border-b" style="background: rgba(248,246,242,0.92); border-color: rgba(0,0,0,0.06); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);">
   <div class="max-w-5xl mx-auto px-5 h-14 flex items-center justify-between gap-4">
-    <a href="/" class="font-mono text-xs text-gray-400 hover:text-sky-500 transition-colors tracking-tight">
-      ← Portfolio
+    <a href="/" class="hover:opacity-70 transition-opacity">
+      <img src="images/icon.webp" alt="Jason Lai" class="h-7 w-auto" />
     </a>
     <div class="flex items-center gap-3">
       <button
         id="langBtn"
         onclick="toggleLang()"
-        class="font-mono text-xs text-gray-400 border border-gray-200 px-3 py-1.5 rounded-md hover:border-sky-400 hover:text-sky-500 transition-all">中文</button>
+        class="text-xs font-medium text-[#777] border border-[#ddd] px-3 py-1.5 rounded-full hover:border-[#38BDF8] hover:text-[#38BDF8] transition-all">中文</button>
       <a href="mailto:info@jasonlai.work?subject=Booking%20Website%20Enquiry"
-        class="text-xs font-semibold bg-sky-500 hover:bg-sky-600 text-white px-4 py-1.5 rounded-md transition-colors hidden sm:inline-flex items-center gap-1">
+        class="text-xs font-semibold bg-[#111] hover:bg-[#38BDF8] hover:text-[#0c0c0c] text-white px-4 py-2 rounded-full transition-all hidden sm:inline-flex items-center gap-1">
         <span lang="en">Free Consultation</span>
         <span lang="zh">免費諮詢</span>
       </a>
