@@ -3,24 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jason Lai — Freelance Web Developer</title>
-  <meta name="description" content="Freelance web developer in Calgary. I build landing pages, booking systems, and PWAs that convert visitors into paying customers." />
+  <title>Jason Lai — Web Developer · Calgary</title>
+  <meta name="description" content="Freelance web developer in Calgary. I build landing pages, booking systems, and portfolio sites that convert visitors into paying customers." />
   <link rel="icon" href="images/icon.webp" type="image/webp" />
 
-  <!-- Fonts -->
+  <!--
+    DESIGN SYSTEM
+    ─────────────────────────────────────────────────────
+    Fonts  : DM Serif Display (editorial headlines — brings the
+             u-d-l.jp sophistication without going full minimal-Japanese)
+             Space Grotesk  (UI, body, mono labels — brand consistency)
+
+    Palette: #F8F6F2  warm canvas    (not sterile pure-white)
+             #111111  near-black ink
+             #666666  secondary text
+             #38BDF8  sky-blue accent (brand colour, used sparingly)
+             rgba(0,0,0,0.07) subtle borders
+
+    Motion : IntersectionObserver scroll-reveals; no JS libraries.
+             Reveal baseline: opacity 0 + translateY 20px → visible.
+             Staggered via delay classes.
+
+    Nav    : Transparent → frosted on scroll.
+    Cards  : Lift on hover (translateY -4px).
+  -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Space Grotesk', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-            mono: ['Space Grotesk', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            serif: ['DM Serif Display', 'Georgia', 'serif'],
+            sans:  ['Space Grotesk', 'ui-sans-serif', 'system-ui', 'sans-serif'],
           },
         },
       },
@@ -28,590 +47,645 @@
   </script>
 
   <style>
-    /* ── Bilingual system ── */
-    html:not(.lang-zh) [lang="zh"] { display: none; }
-    .lang-zh [lang="en"] { display: none; }
+    /* ── Bilingual toggle ── */
+    html:not(.lang-zh) [lang="zh"]         { display: none; }
+    .lang-zh [lang="en"]                   { display: none; }
+    /* Preserve inline elements in ZH mode */
+    .lang-zh span[lang="zh"],
+    .lang-zh em[lang="zh"],
+    .lang-zh strong[lang="zh"]             { display: inline; }
 
-    /* ── Scrollbar ── */
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: #F4F4F5; }
-    ::-webkit-scrollbar-thumb { background: #D4D4D8; border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #38BDF8; }
+    /* ── Canvas & base ── */
+    body { background: #F8F6F2; }
+    ::selection { background: rgba(56,189,248,0.18); color: #0369a1; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #F8F6F2; }
+    ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
 
-    /* ── Selection ── */
-    ::selection { background: rgba(56,189,248,0.15); color: #38BDF8; }
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 1.1s cubic-bezier(0.22,1,0.36,1),
+                  transform 1.1s cubic-bezier(0.22,1,0.36,1);
+    }
+    .reveal.visible          { opacity: 1; transform: translateY(0); }
+    .reveal-d1               { transition-delay: 0.15s; }
+    .reveal-d2               { transition-delay: 0.30s; }
+    .reveal-d3               { transition-delay: 0.45s; }
+    .reveal-d4               { transition-delay: 0.60s; }
 
-    /* ── Gradient text ── */
-    .gradient-text {
-      background: linear-gradient(135deg, #38BDF8 0%, #818CF8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    /* ── Nav scroll transition ── */
+    #site-nav {
+      transition: background 0.35s ease, box-shadow 0.35s ease;
+    }
+    #site-nav.scrolled {
+      background: rgba(248,246,242,0.92);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
-    /* ── Project card image zoom ── */
-    .project-card:hover .project-img { transform: scale(1.04); }
+    /* ── Serif italic helper ── */
+    .serif         { font-family: 'DM Serif Display', Georgia, serif; }
+    .serif-italic  { font-family: 'DM Serif Display', Georgia, serif; font-style: italic; }
 
-    /* ── Nav active link ── */
-    .nav-link.active { color: #38BDF8; }
+    /* ── Underline-grow hover link ── */
+    .ul-grow { position: relative; }
+    .ul-grow::after {
+      content: ''; position: absolute;
+      bottom: -2px; left: 0; right: 0;
+      height: 1px; background: currentColor;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .ul-grow:hover::after { transform: scaleX(1); }
 
-    /* ── Mobile menu transition ── */
-    #mobile-menu {
-      max-height: 0;
-      overflow: hidden;
+    /* ── Project card hover ── */
+    .p-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .p-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.09); }
+    .p-thumb { transition: transform 0.55s ease; }
+    .p-card:hover .p-thumb { transform: scale(1.04); }
+
+    /* ── Divider dot ── */
+    .dot-divider::before {
+      content: '·'; margin: 0 0.5rem; color: #bbb;
+    }
+
+    /* ── Step connector (desktop) ── */
+    @media (min-width: 768px) {
+      .step-connector::after {
+        content: '';
+        position: absolute; top: 20px; left: calc(100% + 1px); right: auto;
+        width: 100%; height: 1px;
+        background: rgba(0,0,0,0.12);
+      }
+      .step-connector:last-child::after { display: none; }
+    }
+
+    /* ── Mobile menu ── */
+    #mobile-nav {
+      max-height: 0; overflow: hidden;
       transition: max-height 0.3s ease;
     }
-    #mobile-menu.open { max-height: 400px; }
+    #mobile-nav.open { max-height: 360px; }
 
-    /* ── Subtle grid bg on hero ── */
-    .hero-grid {
-      background-image:
-        linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-
-    /* ── Glow on accent elements ── */
-    .accent-glow { box-shadow: 0 0 20px rgba(56,189,248,0.15); }
-
-    /* ── Base background ── */
-    body { background: #FAFAFA; }
-
-    /* ── Hero headline split animation ── */
-    @keyframes heroSlideUp {
-      from { transform: translateY(110%); opacity: 0; }
-      to   { transform: translateY(0);    opacity: 1; }
-    }
-    @keyframes heroSlideDown {
-      from { transform: translateY(-110%); opacity: 0; }
-      to   { transform: translateY(0);     opacity: 1; }
-    }
-    @keyframes heroFadeIn {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    /* headline: 0.2s delay + 1.5s = finishes at 1.7s */
-    .hero-slide-up   { animation: heroSlideUp   1.5s cubic-bezier(0.22,1,0.36,1) 0.2s both; }
-    .hero-slide-down { animation: heroSlideDown 1.5s cubic-bezier(0.22,1,0.36,1) 0.2s both; }
-    /* sub-content fades in after headline finishes */
-    .hero-fade-in    { animation: heroFadeIn    0.8s ease 1.8s both; }
-
-    /* ── Matrix canvas ── */
-    #matrix-bg {
-      position: fixed;
-      inset: 0;
-      width: 100%; height: 100%;
-      z-index: 0;
+    /* ── Guarantee card big number ── */
+    .g-num {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: clamp(4rem, 8vw, 6rem);
+      line-height: 1;
+      color: #38BDF8;
+      opacity: 0.18;
       pointer-events: none;
+      user-select: none;
     }
-
-    /* ── Canvas toggle ── */
-    #canvas-toggle {
-      position: fixed;
-      bottom: 20px; right: 40px;
-      background: rgba(255,255,255,0.92);
-      border: 1px solid #E4E4E7;
-      color: #71717A;
-      padding: 6px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-      font-size: 11px;
-      z-index: 200;
-      transition: all 0.2s;
-      backdrop-filter: blur(10px);
-      letter-spacing: -0.01em;
-    }
-    #canvas-toggle:hover { border-color: #38BDF8; color: #38BDF8; }
-    @media (max-width: 767px) { #canvas-toggle { display: none; } }
   </style>
 </head>
 
-<body class="text-zinc-900 font-sans antialiased">
+<body class="text-[#111] font-sans antialiased">
 
-<canvas id="matrix-bg" aria-hidden="true"></canvas>
-
-<!-- ════════════════════════════════════════════════
+<!-- ════════════════════════════════════════════
      NAV
-════════════════════════════════════════════════ -->
-<nav class="fixed top-0 left-0 right-0 z-50 border-b border-zinc-200 backdrop-blur-md bg-white/90">
+════════════════════════════════════════════ -->
+<nav id="site-nav" class="fixed top-0 left-0 right-0 z-50">
   <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
-    <!-- Logo -->
-    <a href="#hero" class="block hover:opacity-75 transition-opacity shrink-0">
-      <img src="images/icon.webp" alt="Jason Lai" class="h-8 w-auto block" />
+    <a href="#hero" class="hover:opacity-70 transition-opacity">
+      <img src="images/icon.webp" alt="Jason Lai" class="h-7 w-auto" />
     </a>
 
     <!-- Desktop links -->
-    <div class="hidden md:flex items-center gap-8">
-      <a href="#services" class="nav-link font-mono text-xs text-zinc-600 hover:text-zinc-800 transition-colors tracking-wide">
-        <span lang="en">Services</span><span lang="zh">服務</span>
-      </a>
-      <a href="#work" class="nav-link font-mono text-xs text-zinc-600 hover:text-zinc-800 transition-colors tracking-wide">
-        <span lang="en">Work</span><span lang="zh">作品</span>
-      </a>
-      <a href="#about" class="nav-link font-mono text-xs text-zinc-600 hover:text-zinc-800 transition-colors tracking-wide">
-        <span lang="en">About</span><span lang="zh">關於</span>
-      </a>
-      <a href="#contact" class="nav-link font-mono text-xs text-zinc-600 hover:text-zinc-800 transition-colors tracking-wide">
-        <span lang="en">Contact</span><span lang="zh">聯絡</span>
-      </a>
-      <button onclick="toggleLang()" class="font-mono text-xs text-zinc-600 hover:text-zinc-800 border border-zinc-300 hover:border-zinc-500 px-3 py-1.5 rounded-md transition-colors">
-        <span lang="en">中文</span><span lang="zh">EN</span>
-      </button>
-      <a href="#contact" class="font-mono text-xs bg-[#38BDF8] text-[#09090B] font-semibold px-4 py-2 rounded-lg hover:bg-sky-300 transition-colors accent-glow">
-        <span lang="en">Hire me →</span><span lang="zh">聯絡我 →</span>
-      </a>
+    <div class="hidden md:flex items-center gap-7 text-xs font-medium text-[#555] tracking-wide">
+      <a href="#services" class="ul-grow hover:text-[#111] transition-colors"><span lang="en">Services</span><span lang="zh">服務</span></a>
+      <a href="#work"     class="ul-grow hover:text-[#111] transition-colors"><span lang="en">Work</span><span lang="zh">作品</span></a>
+      <a href="#about"    class="ul-grow hover:text-[#111] transition-colors"><span lang="en">About</span><span lang="zh">關於</span></a>
+      <a href="#contact"  class="ul-grow hover:text-[#111] transition-colors"><span lang="en">Contact</span><span lang="zh">聯絡</span></a>
     </div>
 
-    <!-- Mobile: lang + hamburger -->
-    <div class="md:hidden flex items-center gap-3">
-      <button onclick="toggleLang()" class="font-mono text-xs text-zinc-600 border border-zinc-200 px-2.5 py-1 rounded-md">
+    <div class="flex items-center gap-3">
+      <button onclick="toggleLang()" class="text-xs font-medium text-[#777] border border-[#ddd] hover:border-[#38BDF8] hover:text-[#38BDF8] px-3 py-1.5 rounded-full transition-all">
         <span lang="en">中文</span><span lang="zh">EN</span>
       </button>
-      <button id="hamburger-btn" onclick="toggleMobileMenu()" class="text-zinc-600 hover:text-zinc-800 transition-colors p-1" aria-label="Menu">
-        <svg id="icon-menu" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-        <svg id="icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
+      <a href="#contact" class="hidden sm:inline-flex items-center text-xs font-semibold bg-[#111] text-white hover:bg-[#38BDF8] hover:text-[#0c0c0c] px-4 py-2 rounded-full transition-all">
+        <span lang="en">Free consultation</span><span lang="zh">免費諮詢</span>
+      </a>
+      <!-- Mobile hamburger -->
+      <button id="hamburger" onclick="toggleMobileNav()" class="md:hidden text-[#555] p-1" aria-label="Menu">
+        <svg id="icon-open"  class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
     </div>
   </div>
 
-  <!-- Mobile menu dropdown -->
-  <div id="mobile-menu" class="md:hidden border-t border-zinc-200 bg-white">
-    <div class="px-6 py-5 flex flex-col gap-5">
-      <a href="#services" onclick="closeMobileMenu()" class="font-mono text-sm text-zinc-600 hover:text-zinc-800 transition-colors">
-        <span lang="en">Services</span><span lang="zh">服務</span>
-      </a>
-      <a href="#work" onclick="closeMobileMenu()" class="font-mono text-sm text-zinc-600 hover:text-zinc-800 transition-colors">
-        <span lang="en">Work</span><span lang="zh">作品</span>
-      </a>
-      <a href="#about" onclick="closeMobileMenu()" class="font-mono text-sm text-zinc-600 hover:text-zinc-800 transition-colors">
-        <span lang="en">About</span><span lang="zh">關於</span>
-      </a>
-      <a href="#contact" onclick="closeMobileMenu()" class="font-mono text-sm text-zinc-600 hover:text-zinc-800 transition-colors">
-        <span lang="en">Contact</span><span lang="zh">聯絡</span>
-      </a>
-      <a href="#contact" onclick="closeMobileMenu()" class="font-mono text-sm bg-[#38BDF8] text-[#09090B] font-semibold px-4 py-2.5 rounded-lg text-center">
-        <span lang="en">Hire me →</span><span lang="zh">聯絡我 →</span>
+  <!-- Mobile dropdown -->
+  <div id="mobile-nav" class="md:hidden border-t border-[rgba(0,0,0,0.07)] bg-[#F8F6F2]/95 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-6 py-5 flex flex-col gap-5">
+      <a href="#services" onclick="closeMobileNav()" class="text-sm font-medium text-[#444]"><span lang="en">Services</span><span lang="zh">服務</span></a>
+      <a href="#work"     onclick="closeMobileNav()" class="text-sm font-medium text-[#444]"><span lang="en">Work</span><span lang="zh">作品</span></a>
+      <a href="#about"    onclick="closeMobileNav()" class="text-sm font-medium text-[#444]"><span lang="en">About</span><span lang="zh">關於</span></a>
+      <a href="#contact"  onclick="closeMobileNav()" class="text-sm font-medium text-[#444]"><span lang="en">Contact</span><span lang="zh">聯絡</span></a>
+      <a href="#contact"  onclick="closeMobileNav()" class="inline-flex justify-center bg-[#38BDF8] text-[#0c0c0c] font-semibold text-sm px-5 py-3 rounded-full">
+        <span lang="en">Free consultation →</span><span lang="zh">免費諮詢 →</span>
       </a>
     </div>
   </div>
 </nav>
 
 
-<!-- ════════════════════════════════════════════════
+<!-- ════════════════════════════════════════════
      HERO
-════════════════════════════════════════════════ -->
-<section id="hero" class="min-h-screen flex flex-col items-center justify-center px-6 pt-16">
-  <div class="max-w-4xl mx-auto text-center pt-10 pb-10">
+════════════════════════════════════════════ -->
+<section id="hero" class="min-h-screen flex flex-col justify-center px-6 pt-16 pb-20">
+  <div class="max-w-6xl mx-auto w-full">
 
     <!-- Eyebrow -->
-    <div class="inline-flex items-center gap-2 font-mono text-xs text-[#38BDF8] tracking-widest uppercase mb-8 border border-[#38BDF8]/20 bg-[#38BDF8]/5 px-4 py-2 rounded-full">
-      <span class="w-1.5 h-1.5 rounded-full bg-[#38BDF8] animate-pulse inline-block"></span>
-      <span lang="en">Freelance Web Developer — Calgary, AB</span>
-      <span lang="zh">自由接案網頁開發者 — 卡爾加里</span>
+    <div class="reveal flex items-center gap-3 mb-10">
+      <span class="w-1.5 h-1.5 rounded-full bg-[#38BDF8] animate-pulse shrink-0"></span>
+      <span class="text-xs font-medium tracking-widest uppercase text-[#888]">
+        <span lang="en">Freelance Web Developer &nbsp;·&nbsp; Calgary, AB</span>
+        <span lang="zh">自由接案網頁開發者 &nbsp;·&nbsp; 卡加利</span>
+      </span>
     </div>
 
-    <!-- Headline -->
-    <h1 class="font-bold tracking-tight mb-6">
-      <span lang="en">
-        <span class="block text-3xl sm:text-4xl md:text-5xl leading-snug overflow-hidden">
-          <span class="block hero-slide-up">Websites that</span>
+    <!--
+      Headline: contrast between a lightweight "label" line (sans)
+      and the large serif-italic "impact" lines below it.
+      Mimics u-d-l.jp's typographic tension — refined but assertive.
+    -->
+    <div class="reveal reveal-d1 mb-8">
+      <h1 class="leading-none tracking-tight">
+        <span class="block font-sans font-light text-[clamp(1.1rem,3vw,1.75rem)] text-[#999] mb-3" lang="en">Websites that</span>
+        <span class="block font-sans font-light text-[clamp(1.1rem,3vw,1.75rem)] text-[#999] mb-3" lang="zh">為你的業務</span>
+
+        <span class="block serif-italic text-[clamp(3rem,8.5vw,6.5rem)] text-[#111] leading-[0.95]" lang="en">
+          actually bring<br>you clients.
         </span>
-        <span class="block text-7xl sm:text-8xl md:text-9xl leading-none overflow-hidden">
-          <span class="block gradient-text hero-slide-down">win clients.</span>
+        <span class="block serif-italic text-[clamp(3rem,8.5vw,6.5rem)] text-[#111] leading-[0.95]" lang="zh">
+          帶來真正的客戶。
         </span>
-      </span>
-      <span lang="zh">
-        <span class="block text-3xl sm:text-4xl md:text-5xl leading-snug overflow-hidden">
-          <span class="block hero-slide-up">讓你的網站</span>
-        </span>
-        <span class="block text-7xl sm:text-8xl md:text-9xl leading-none overflow-hidden">
-          <span class="block gradient-text hero-slide-down">真正帶來生意。</span>
-        </span>
-      </span>
-    </h1>
+      </h1>
+    </div>
 
     <!-- Sub -->
-    <p class="hero-fade-in text-lg md:text-xl text-zinc-600 max-w-2xl mx-auto mb-10 leading-relaxed">
-      <span lang="en">I build landing pages, booking systems, and PWAs that convert visitors into paying customers — for local businesses and startups.</span>
-      <span lang="zh">我為本地商家和初創公司打造登陸頁面、預約系統和 PWA——讓訪客變成付費客戶。</span>
-    </p>
-
-    <!-- Tech pills -->
-    <div class="hero-fade-in flex flex-wrap justify-center gap-2 mb-12">
-      <span class="font-mono text-xs text-zinc-500 border border-zinc-200 bg-zinc-100 px-3 py-1.5 rounded-full">React</span>
-      <span class="font-mono text-xs text-zinc-500 border border-zinc-200 bg-zinc-100 px-3 py-1.5 rounded-full">Vue.js</span>
-      <span class="font-mono text-xs text-zinc-500 border border-zinc-200 bg-zinc-100 px-3 py-1.5 rounded-full">Next.js</span>
-      <span class="font-mono text-xs text-zinc-500 border border-zinc-200 bg-zinc-100 px-3 py-1.5 rounded-full">Node.js</span>
-      <span class="font-mono text-xs text-zinc-500 border border-zinc-200 bg-zinc-100 px-3 py-1.5 rounded-full">PWA</span>
-      <span class="font-mono text-xs text-zinc-500 border border-zinc-200 bg-zinc-100 px-3 py-1.5 rounded-full">Tailwind CSS</span>
+    <div class="reveal reveal-d2 max-w-lg mb-10">
+      <p class="text-[15px] text-[#666] leading-relaxed" lang="en">
+        I build landing pages, booking systems, and portfolio sites for local businesses in Calgary and across North America — every site engineered around the one thing that matters: getting you more customers.
+      </p>
+      <p class="text-[15px] text-[#666] leading-relaxed" lang="zh">
+        我為卡加利及北美各地的本地商家打造登陸頁面、預約系統和作品集網站——每一個設計都以最重要的目標為核心：為你帶來更多客戶。
+      </p>
     </div>
 
     <!-- CTAs -->
-    <div class="hero-fade-in flex flex-col sm:flex-row items-center justify-center gap-4">
-      <a href="#work" class="w-full sm:w-auto font-mono text-sm bg-[#38BDF8] text-[#09090B] font-semibold px-8 py-3.5 rounded-lg hover:bg-sky-300 transition-colors accent-glow">
-        <span lang="en">See my work ↓</span>
-        <span lang="zh">查看作品 ↓</span>
-      </a>
-      <a href="#contact" class="w-full sm:w-auto font-mono text-sm border border-zinc-300 text-zinc-700 px-8 py-3.5 rounded-lg hover:border-[#38BDF8] hover:text-[#38BDF8] transition-colors">
+    <div class="reveal reveal-d3 flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-16">
+      <a href="#contact" class="inline-flex items-center gap-2 bg-[#38BDF8] hover:bg-[#0EA5E9] text-[#0a0a0a] font-semibold text-sm px-7 py-3.5 rounded-full transition-all">
         <span lang="en">Get a free quote →</span>
         <span lang="zh">免費諮詢 →</span>
       </a>
+      <a href="#work" class="inline-flex items-center gap-2 border border-[rgba(0,0,0,0.18)] text-[#111] hover:border-[#38BDF8] hover:text-[#38BDF8] font-medium text-sm px-7 py-3.5 rounded-full transition-all">
+        <span lang="en">See my work ↓</span>
+        <span lang="zh">查看作品 ↓</span>
+      </a>
     </div>
 
-    <!-- Scroll indicator -->
-    <div class="hero-fade-in mt-20 flex justify-center">
-      <div class="w-px h-14 bg-gradient-to-b from-zinc-700 to-transparent"></div>
+    <!-- Trust micro-strip -->
+    <div class="reveal reveal-d4 pt-8 border-t border-[rgba(0,0,0,0.07)]">
+      <div class="flex flex-wrap gap-x-6 gap-y-2">
+        <span class="text-xs text-[#888] font-medium" lang="en">✓ Delivered in 3–7 days</span>
+        <span class="text-xs text-[#888] font-medium" lang="zh">✓ 3–7 天內完成</span>
+        <span class="text-xs text-[#888] font-medium" lang="en">✓ Design approved before you pay a cent</span>
+        <span class="text-xs text-[#888] font-medium" lang="zh">✓ 設計確認後先付款</span>
+        <span class="text-xs text-[#888] font-medium" lang="en">✓ No monthly fees — you own it outright</span>
+        <span class="text-xs text-[#888] font-medium" lang="zh">✓ 無月費，網站完全屬於你</span>
+      </div>
     </div>
   </div>
 </section>
 
 
-<!-- ════════════════════════════════════════════════
+<!-- ════════════════════════════════════════════
      SERVICES
-════════════════════════════════════════════════ -->
-<section id="services" class="py-28 px-6 border-t border-zinc-200">
+════════════════════════════════════════════ -->
+<section id="services" class="py-28 px-6 border-t border-[rgba(0,0,0,0.07)]">
   <div class="max-w-6xl mx-auto">
 
-    <!-- Header -->
-    <div class="mb-16">
-      <p class="font-mono text-xs text-[#38BDF8] mb-3 tracking-widest uppercase">
-        <span lang="en">What I build</span>
-        <span lang="zh">服務項目</span>
+    <!-- Section header -->
+    <div class="reveal flex items-end justify-between flex-wrap gap-6 mb-16">
+      <div>
+        <p class="text-xs font-medium tracking-widest uppercase text-[#38BDF8] mb-4">
+          <span lang="en">01 — Services</span>
+          <span lang="zh">01 — 服務</span>
+        </p>
+        <h2 class="serif text-[clamp(2rem,5vw,3.5rem)] leading-tight text-[#111]">
+          <span lang="en">What I build<br>for your business.</span>
+          <span lang="zh">我能為你<br>打造什麼。</span>
+        </h2>
+      </div>
+      <p class="text-sm text-[#888] max-w-xs leading-relaxed" lang="en">
+        Every type of site I build has one purpose: turn your visitors into paying customers, not just admirers.
       </p>
-      <h2 class="text-3xl md:text-4xl font-bold">
-        <span lang="en">The right tool for your business.</span>
-        <span lang="zh">為你的業務選對工具。</span>
-      </h2>
+      <p class="text-sm text-[#888] max-w-xs leading-relaxed" lang="zh">
+        我打造的每一種網站都有同一個目的：讓訪客成為付費客戶，而不只是欣賞者。
+      </p>
     </div>
 
-    <!-- Cards -->
-    <div class="grid md:grid-cols-3 gap-6">
+    <!-- Service cards -->
+    <div class="grid md:grid-cols-3 gap-5">
 
       <!-- 01 Landing Pages -->
-      <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-8 hover:border-zinc-400 transition-all duration-300 flex flex-col">
-        <div class="font-mono text-xs text-[#38BDF8] mb-6">01</div>
-        <h3 class="text-xl font-bold mb-3">
+      <div class="reveal reveal-d1 flex flex-col bg-white border border-[rgba(0,0,0,0.07)] rounded-2xl p-7 hover:shadow-lg hover:border-[rgba(56,189,248,0.3)] transition-all duration-300">
+        <div class="mb-6 text-[#38BDF8]">
+          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="16" rx="2"/>
+            <path d="M3 8h18"/>
+            <path d="M7 12h7"/>
+            <path d="M7 16h4"/>
+            <path d="M16 15l2 2 3-4"/>
+          </svg>
+        </div>
+        <h3 class="font-semibold text-lg mb-2">
           <span lang="en">Landing Pages</span>
           <span lang="zh">登陸頁面</span>
         </h3>
-        <p class="text-zinc-600 text-sm leading-relaxed mb-6">
-          <span lang="en">Most websites look nice but convert nobody. I build pages engineered to turn visitors into inquiries — designed around what makes people act.</span>
-          <span lang="zh">很多網站看起來不錯，但根本帶不來生意。我打造以轉化為核心的頁面——讓訪客主動聯絡你。</span>
+        <!-- Outcome statement — benefit, not feature -->
+        <p class="text-sm text-[#38BDF8] font-medium mb-4" lang="en">More inquiries from people who are already sold.</p>
+        <p class="text-sm text-[#38BDF8] font-medium mb-4" lang="zh">讓更多已有意向的訪客直接聯絡你。</p>
+        <p class="text-sm text-[#777] leading-relaxed mb-6 flex-1" lang="en">
+          Most business websites look fine but convert nobody. I build pages engineered around what makes people actually take action — clear messaging, social proof placed at exactly the right moment, and one strong CTA.
         </p>
-        <ul class="space-y-3 mb-8 flex-1">
-          <li class="flex items-start gap-2.5 text-sm">
-            <span class="text-[#38BDF8] mt-0.5 shrink-0">✓</span>
-            <span lang="en" class="text-zinc-700">Conversion-focused copy & layout</span>
-            <span lang="zh" class="text-zinc-700">以轉化為核心的文案與排版</span>
-          </li>
-          <li class="flex items-start gap-2.5 text-sm">
-            <span class="text-[#38BDF8] mt-0.5 shrink-0">✓</span>
-            <span lang="en" class="text-zinc-700">Mobile-first, pixel-perfect design</span>
-            <span lang="zh" class="text-zinc-700">手機優先，視覺精準</span>
-          </li>
-          <li class="flex items-start gap-2.5 text-sm">
-            <span class="text-[#38BDF8] mt-0.5 shrink-0">✓</span>
-            <span lang="en" class="text-zinc-700">Bilingual support (EN / ZH)</span>
-            <span lang="zh" class="text-zinc-700">中英雙語支援</span>
-          </li>
-          <li class="flex items-start gap-2.5 text-sm">
-            <span class="text-[#38BDF8] mt-0.5 shrink-0">✓</span>
-            <span lang="en" class="text-zinc-700">Delivered in 3–7 days</span>
-            <span lang="zh" class="text-zinc-700">3–7 天內完成交付</span>
-          </li>
-        </ul>
-        <a href="realestate-sales.html" class="font-mono text-xs bg-[#38BDF8] text-[#09090B] font-semibold px-4 py-2 rounded-lg hover:bg-sky-300 transition-colors text-center mb-3">
-          <span lang="en">Real estate agent portfolio →</span>
+        <p class="text-sm text-[#777] leading-relaxed mb-6 flex-1" lang="zh">
+          大多數商業網站看起來不錯，卻根本帶不來業務。我打造以轉化為核心的頁面——清晰訊息、在正確時機呈現的客戶見證，以及一個強而有力的行動呼籲。
+        </p>
+        <div class="flex flex-wrap gap-2 mb-6">
+          <span class="text-xs border border-[rgba(0,0,0,0.1)] rounded-full px-3 py-1 text-[#666]" lang="en">Real estate agents</span>
+          <span class="text-xs border border-[rgba(0,0,0,0.1)] rounded-full px-3 py-1 text-[#666]" lang="zh">地產代理</span>
+          <span class="text-xs border border-[rgba(0,0,0,0.1)] rounded-full px-3 py-1 text-[#666]" lang="en">Local services</span>
+          <span class="text-xs border border-[rgba(0,0,0,0.1)] rounded-full px-3 py-1 text-[#666]" lang="zh">本地服務業</span>
+          <span class="text-xs border border-[rgba(0,0,0,0.1)] rounded-full px-3 py-1 text-[#666]" lang="en">Startups</span>
+          <span class="text-xs border border-[rgba(0,0,0,0.1)] rounded-full px-3 py-1 text-[#666]" lang="zh">初創公司</span>
+        </div>
+        <a href="realestate-sales.html" class="ul-grow text-xs font-semibold text-[#38BDF8] hover:text-[#0EA5E9] transition-colors self-start">
+          <span lang="en">Real estate portfolio site →</span>
           <span lang="zh">地產代理個人網站 →</span>
-        </a>
-        <a href="project-business.html" class="font-mono text-xs text-zinc-400 hover:text-[#38BDF8] transition-colors mt-auto">
-          <span lang="en">See an example →</span>
-          <span lang="zh">查看示例 →</span>
         </a>
       </div>
 
       <!-- 02 Booking Systems -->
-      <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-8 hover:border-zinc-400 transition-all duration-300 flex flex-col">
-        <div class="font-mono text-xs text-[#38BDF8] mb-6">02</div>
-        <h3 class="text-xl font-bold mb-3">
+      <div class="reveal reveal-d2 flex flex-col bg-white border border-[rgba(0,0,0,0.07)] rounded-2xl p-7 hover:shadow-lg hover:border-[rgba(56,189,248,0.3)] transition-all duration-300">
+        <div class="mb-6 text-[#38BDF8]">
+          <svg class="w-8 h-8"
+               viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               stroke-width="1.8"
+               stroke-linecap="round"
+               stroke-linejoin="round">
+            <rect x="3" y="5" width="18" height="16" rx="2"/>
+            <path d="M3 9h18"/>
+            <path d="M8 3v4"/>
+            <path d="M16 3v4"/>
+            <path d="M9 14l2 2 4-4"/>
+          </svg>
+        </div>
+        <h3 class="font-semibold text-lg mb-2">
           <span lang="en">Booking Systems</span>
           <span lang="zh">預約系統</span>
         </h3>
-        <p class="text-zinc-600 text-sm leading-relaxed mb-6">
-          <span lang="en">Every missed call is a booking your competitor just took. Let clients schedule you 24/7 — no phone tag, no monthly platform fees.</span>
-          <span lang="zh">每個漏接的電話，都是對手搶走的一個預約。讓客人隨時可以預約你——不用等你接電話，零月費平台。</span>
+        <p class="text-sm text-[#38BDF8] font-medium mb-4" lang="en">Stop missing jobs because you didn't pick up the phone.</p>
+        <p class="text-sm text-[#38BDF8] font-medium mb-4" lang="zh">不再因為漏接電話而錯失客戶。</p>
+        <p class="text-sm text-[#777] leading-relaxed mb-6 flex-1" lang="en">
+          Your clients want to book at 9pm on a Sunday. A custom booking site lets them — with your services, your pricing, your team — so you wake up to confirmed appointments instead of missed calls.
         </p>
-        <ul class="space-y-3 mb-8 flex-1">
-          <li class="flex items-start gap-2.5 text-sm">
-            <span class="text-[#38BDF8] mt-0.5 shrink-0">✓</span>
-            <span lang="en" class="text-zinc-700">Real-time availability calendar</span>
-            <span lang="zh" class="text-zinc-700">即時可用時段日曆</span>
-          </li>
-          <li class="flex items-start gap-2.5 text-sm">
-            <span class="text-[#38BDF8] mt-0.5 shrink-0">✓</span>
-            <span lang="en" class="text-zinc-700">Automated email/SMS reminders</span>
-            <span lang="zh" class="text-zinc-700">自動電郵／短訊提醒</span>
-          </li>
-          <li class="flex items-start gap-2.5 text-sm">
-            <span class="text-[#38BDF8] mt-0.5 shrink-0">✓</span>
-            <span lang="en" class="text-zinc-700">$0 monthly platform fees</span>
-            <span lang="zh" class="text-zinc-700">零月費，完全歸你所有</span>
-          </li>
-          <li class="flex items-start gap-2.5 text-sm">
-            <span class="text-[#38BDF8] mt-0.5 shrink-0">✓</span>
-            <span lang="en" class="text-zinc-700">Fully branded to your business</span>
-            <span lang="zh" class="text-zinc-700">完全符合你的品牌形象</span>
-          </li>
-        </ul>
-        <div class="flex gap-4 mt-auto">
-          <a href="project-probook.html" class="font-mono text-xs text-[#38BDF8] hover:text-zinc-900 transition-colors">
-            <span lang="en">See an example →</span>
-            <span lang="zh">查看示例 →</span>
-          </a>
-          <a href="probook-sales.html" class="font-mono text-xs text-zinc-500 hover:text-zinc-700 transition-colors">
-            <span lang="en">Sales page →</span>
-            <span lang="zh">銷售頁面 →</span>
-          </a>
+        <p class="text-sm text-[#777] leading-relaxed mb-6 flex-1" lang="zh">
+          你的客人想在週日晚上 9 點預約。客製化預約網站讓他們可以——按你的服務、你的收費、你的團隊——讓你早上醒來看到的是已確認的預約，而不是漏接的電話。
+        </p>
+        <div class="flex flex-wrap gap-2 mb-6">
+          <span class="text-xs border border-[rgba(0,0,0,0.1)] rounded-full px-3 py-1 text-[#666]" lang="en">Cleaning services</span>
+          <span class="text-xs border border-[rgba(0,0,0,0.1)] rounded-full px-3 py-1 text-[#666]" lang="zh">家居清潔</span>
+          <span class="text-xs border border-[rgba(0,0,0,0.1)] rounded-full px-3 py-1 text-[#666]" lang="en">Trades & repairs</span>
+          <span class="text-xs border border-[rgba(0,0,0,0.1)] rounded-full px-3 py-1 text-[#666]" lang="zh">維修服務</span>
+          <span class="text-xs border border-[rgba(0,0,0,0.1)] rounded-full px-3 py-1 text-[#666]" lang="en">Salons & wellness</span>
+          <span class="text-xs border border-[rgba(0,0,0,0.1)] rounded-full px-3 py-1 text-[#666]" lang="zh">美容健康</span>
         </div>
+        <a href="probook-sales.html" class="ul-grow text-xs font-semibold text-[#38BDF8] hover:text-[#0EA5E9] transition-colors self-start">
+          <span lang="en">Online booking site →</span>
+          <span lang="zh">網上預約系統 →</span>
+        </a>
       </div>
 
-      <!-- 03 PWA -->
-      <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-8 hover:border-zinc-400 transition-all duration-300 flex flex-col">
-        <div class="font-mono text-xs text-[#38BDF8] mb-6">03</div>
-        <h3 class="text-xl font-bold mb-3">
-          <span lang="en">Progressive Web Apps</span>
-          <span lang="zh">漸進式網頁應用</span>
+      <!-- 03 PWAs & Custom -->
+      <div class="reveal reveal-d3 flex flex-col bg-white border border-[rgba(0,0,0,0.07)] rounded-2xl p-7 hover:shadow-lg hover:border-[rgba(56,189,248,0.3)] transition-all duration-300">
+        <div class="mb-6 text-[#38BDF8]">
+          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="18" height="13" rx="2" stroke-dasharray="1.5 2.5"/>
+            <path d="M2 7h18" stroke-dasharray="1.5 2.5"/>
+            <rect x="14" y="9" width="8" height="14" rx="1.5"/>
+            <path d="M17 19h2"/>
+          </svg>
+        </div>
+        <h3 class="font-semibold text-lg mb-2">
+          <span lang="en">PWAs & Custom Builds</span>
+          <span lang="zh">PWA 及客製化開發</span>
         </h3>
-        <p class="text-zinc-600 text-sm leading-relaxed mb-6">
-          <span lang="en">You need an app experience but don't want to maintain iOS and Android separately. One codebase, every device, a fraction of the cost.</span>
-          <span lang="zh">你需要應用程式體驗，但不想同時維護 iOS 和 Android。一套程式碼，覆蓋所有裝置，成本大幅降低。</span>
+        <p class="text-sm text-[#38BDF8] font-medium mb-4" lang="en">An app-quality experience — without the app store.</p>
+        <p class="text-sm text-[#38BDF8] font-medium mb-4" lang="zh">應用程式級別的體驗——不需要下載安裝。</p>
+        <p class="text-sm text-[#777] leading-relaxed mb-6 flex-1" lang="en">
+          When your clients need something more than a brochure site — a dashboard, a member portal, a tool that saves them time — I build Progressive Web Apps that work on every device and load instantly.
         </p>
-        <ul class="space-y-3 mb-8 flex-1">
-          <li class="flex items-start gap-2.5 text-sm">
-            <span class="text-[#38BDF8] mt-0.5 shrink-0">✓</span>
-            <span lang="en" class="text-zinc-700">Installs like a native app</span>
-            <span lang="zh" class="text-zinc-700">安裝體驗如原生應用</span>
-          </li>
-          <li class="flex items-start gap-2.5 text-sm">
-            <span class="text-[#38BDF8] mt-0.5 shrink-0">✓</span>
-            <span lang="en" class="text-zinc-700">Works offline (service worker)</span>
-            <span lang="zh" class="text-zinc-700">離線可用（Service Worker）</span>
-          </li>
-          <li class="flex items-start gap-2.5 text-sm">
-            <span class="text-[#38BDF8] mt-0.5 shrink-0">✓</span>
-            <span lang="en" class="text-zinc-700">Push notifications</span>
-            <span lang="zh" class="text-zinc-700">推送通知</span>
-          </li>
-          <li class="flex items-start gap-2.5 text-sm">
-            <span class="text-[#38BDF8] mt-0.5 shrink-0">✓</span>
-            <span lang="en" class="text-zinc-700">React, Vue, or Next.js</span>
-            <span lang="zh" class="text-zinc-700">React、Vue 或 Next.js</span>
-          </li>
-        </ul>
-        <a href="project-travel.html" class="font-mono text-xs text-[#38BDF8] hover:text-zinc-900 transition-colors mt-auto">
-          <span lang="en">See an example →</span>
-          <span lang="zh">查看示例 →</span>
+        <p class="text-sm text-[#777] leading-relaxed mb-6 flex-1" lang="zh">
+          當你的客戶需要的不只是宣傳網站——後台系統、會員入口、節省時間的工具——我打造可在任何裝置上運作、即時載入的漸進式網頁應用程式。
+        </p>
+        <div class="flex flex-wrap gap-2 mb-6">
+          <span class="text-xs border border-[rgba(0,0,0,0.1)] rounded-full px-3 py-1 text-[#666]" lang="en">Startups</span>
+          <span class="text-xs border border-[rgba(0,0,0,0.1)] rounded-full px-3 py-1 text-[#666]" lang="zh">初創公司</span>
+          <span class="text-xs border border-[rgba(0,0,0,0.1)] rounded-full px-3 py-1 text-[#666]" lang="en">SaaS tools</span>
+          <span class="text-xs border border-[rgba(0,0,0,0.1)] rounded-full px-3 py-1 text-[#666]" lang="zh">SaaS 工具</span>
+          <span class="text-xs border border-[rgba(0,0,0,0.1)] rounded-full px-3 py-1 text-[#666]" lang="en">Custom portals</span>
+          <span class="text-xs border border-[rgba(0,0,0,0.1)] rounded-full px-3 py-1 text-[#666]" lang="zh">客製化系統</span>
+        </div>
+        <a href="#contact" class="ul-grow text-xs font-semibold text-[#38BDF8] hover:text-[#0EA5E9] transition-colors self-start">
+          <span lang="en">Tell me about your project →</span>
+          <span lang="zh">告訴我你的項目 →</span>
         </a>
       </div>
 
     </div>
-
-    <!-- Services footer CTA -->
-    <div class="mt-12 text-center">
-      <p class="text-zinc-500 text-sm mb-3">
-        <span lang="en">Not sure which fits your project? Let's figure it out together.</span>
-        <span lang="zh">不確定哪種適合你的項目？我們可以一起研究。</span>
-      </p>
-      <a href="#contact" class="font-mono text-xs text-[#38BDF8] hover:text-zinc-900 transition-colors">
-        <span lang="en">Get a free consultation →</span>
-        <span lang="zh">免費諮詢 →</span>
-      </a>
-    </div>
-
   </div>
 </section>
 
 
-<!-- ════════════════════════════════════════════════
-     WORK
-════════════════════════════════════════════════ -->
-<section id="work" class="py-28 px-6 border-t border-zinc-200">
+<!-- ════════════════════════════════════════════
+     PROCESS
+════════════════════════════════════════════ -->
+<section class="py-28 px-6 bg-white border-t border-[rgba(0,0,0,0.07)]">
   <div class="max-w-6xl mx-auto">
 
-    <!-- Header -->
-    <div class="mb-16">
-      <p class="font-mono text-xs text-[#38BDF8] mb-3 tracking-widest uppercase">
-        <span lang="en">Selected work</span>
-        <span lang="zh">精選作品</span>
+    <div class="reveal mb-16">
+      <p class="text-xs font-medium tracking-widest uppercase text-[#38BDF8] mb-4">
+        <span lang="en">02 — How it works</span>
+        <span lang="zh">02 — 合作流程</span>
       </p>
-      <h2 class="text-3xl md:text-4xl font-bold">
-        <span lang="en">Projects that solve real problems.</span>
-        <span lang="zh">解決真實問題的作品。</span>
+      <h2 class="serif text-[clamp(2rem,5vw,3.5rem)] leading-tight text-[#111]">
+        <span lang="en">From first message<br>to live website.</span>
+        <span lang="zh">從第一條訊息<br>到網站上線。</span>
       </h2>
     </div>
 
-    <!-- Projects -->
-    <div class="space-y-6">
+    <!-- 4-step horizontal process -->
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 relative">
 
-      <!-- ── Row 1: Aria Chen + PrairiePro ── -->
-      <div class="grid md:grid-cols-2 gap-6">
+      <div class="reveal reveal-d1 relative md:pr-8 step-connector">
+        <div class="w-10 h-10 rounded-full bg-[#38BDF8] text-[#0a0a0a] flex items-center justify-center font-bold text-sm mb-5 shrink-0">1</div>
+        <h3 class="font-semibold text-[15px] mb-2">
+          <span lang="en">Free 20-min chat</span>
+          <span lang="zh">免費 20 分鐘通話</span>
+        </h3>
+        <p class="text-sm text-[#777] leading-relaxed" lang="en">Tell me about your business, your clients, and what you need. No tech questions — I just need to understand your goals.</p>
+        <p class="text-sm text-[#777] leading-relaxed" lang="zh">告訴我你的業務、你的客戶和你的需求。完全沒有技術問題——我只需要了解你的目標。</p>
+      </div>
+
+      <div class="reveal reveal-d2 relative md:px-8 step-connector">
+        <div class="w-10 h-10 rounded-full bg-[#38BDF8] text-[#0a0a0a] flex items-center justify-center font-bold text-sm mb-5 shrink-0">2</div>
+        <h3 class="font-semibold text-[15px] mb-2">
+          <span lang="en">I build in 3–7 days</span>
+          <span lang="zh">3–7 天內完成</span>
+        </h3>
+        <p class="text-sm text-[#777] leading-relaxed" lang="en">I design and build your site from scratch — your brand, your colours, your content. You don't touch a thing.</p>
+        <p class="text-sm text-[#777] leading-relaxed" lang="zh">我從頭設計並打造你的網站——你的品牌、你的顏色、你的內容。你完全不用動手。</p>
+      </div>
+
+      <div class="reveal reveal-d3 relative md:px-8 step-connector">
+        <div class="w-10 h-10 rounded-full bg-[#38BDF8] text-[#0a0a0a] flex items-center justify-center font-bold text-sm mb-5 shrink-0">3</div>
+        <h3 class="font-semibold text-[15px] mb-2">
+          <span lang="en">You review & approve</span>
+          <span lang="zh">你審閱確認</span>
+        </h3>
+        <p class="text-sm text-[#777] leading-relaxed" lang="en">I share a preview link. We refine together — no extra charge — until it looks exactly right. Then and only then do you pay.</p>
+        <p class="text-sm text-[#777] leading-relaxed" lang="zh">我分享預覽連結。我們免費一起修改，直到完全符合你的期望。確認後才需要付款。</p>
+      </div>
+
+      <div class="reveal reveal-d4 relative md:pl-8">
+        <div class="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm mb-5 shrink-0">✓</div>
+        <h3 class="font-semibold text-[15px] mb-2">
+          <span lang="en">Go live — start winning clients</span>
+          <span lang="zh">上線，開始贏得客戶</span>
+        </h3>
+        <p class="text-sm text-[#777] leading-relaxed" lang="en">Your site goes live on your domain. Share the link everywhere — and watch it work for you around the clock.</p>
+        <p class="text-sm text-[#777] leading-relaxed" lang="zh">你的網站在你的域名上線。到處分享連結——讓它全天候為你工作。</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     SELECTED WORK
+════════════════════════════════════════════ -->
+<section id="work" class="py-28 px-6 border-t border-[rgba(0,0,0,0.07)]">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="reveal flex items-end flex-wrap gap-6 justify-between mb-5">
+      <div>
+        <p class="text-xs font-medium tracking-widest uppercase text-[#38BDF8] mb-4">
+          <span lang="en">03 — Selected work</span>
+          <span lang="zh">03 — 精選作品</span>
+        </p>
+        <h2 class="serif text-[clamp(2rem,5vw,3.5rem)] leading-tight text-[#111]">
+          <span lang="en">The kind of sites<br>I build for clients.</span>
+          <span lang="zh">我為客戶<br>打造的網站。</span>
+        </h2>
+      </div>
+    </div>
+
+    <!--
+      Reframe note: position demos as capability proof, not "client work."
+      This is honest and confident — a senior approach to showing work-in-progress.
+    -->
+    <p class="reveal text-sm text-[#888] max-w-xl leading-relaxed mb-16" lang="en">
+      Each project below is a fully working demo — built to show what your business could look like online. Every detail, every interaction, every word is intentional. This is the standard of work I bring to every client project.
+    </p>
+    <p class="reveal text-sm text-[#888] max-w-xl leading-relaxed mb-16" lang="zh">
+      以下每個項目都是完整可運作的示範——用來展示你的業務在網上可以呈現的效果。每個細節、每個互動、每個文字都經過深思熟慮。這是我帶到每一個客戶項目的標準。
+    </p>
+
+    <!-- Projects grid -->
+    <div class="space-y-5">
+
+      <!-- Row 1: 2 cards -->
+      <div class="grid md:grid-cols-2 gap-5">
 
         <!-- Aria Chen Real Estate -->
-        <div class="project-card bg-zinc-50 border border-zinc-200 rounded-2xl overflow-hidden hover:border-zinc-400 transition-all duration-300 flex flex-col">
-          <div class="overflow-hidden h-48 bg-zinc-200 shrink-0">
+        <div class="reveal p-card bg-white border border-[rgba(0,0,0,0.07)] rounded-2xl overflow-hidden flex flex-col">
+          <div class="overflow-hidden h-52 bg-[#e8e5e0] shrink-0">
             <img src="images/screencapture-Demo-RealEstate.webp"
-                 alt="Aria Chen Real Estate — landing page screenshot"
-                 class="project-img w-full h-full object-cover object-top transition-transform duration-500" />
+                 alt="Aria Chen Real Estate — conversion landing page demo"
+                 class="p-thumb w-full h-full object-cover object-top" />
           </div>
           <div class="p-7 flex flex-col flex-1">
             <div class="flex items-center gap-2 mb-4">
-              <span class="font-mono text-xs text-zinc-500 border border-zinc-200 px-2 py-0.5 rounded">
-                <span lang="en">Business Demo</span><span lang="zh">商業示範</span>
+              <span class="text-xs font-medium text-[#38BDF8] border border-[rgba(56,189,248,0.3)] bg-[rgba(56,189,248,0.06)] rounded-full px-3 py-0.5">
+                <span lang="en">Real Estate</span><span lang="zh">地產</span>
               </span>
-              <span class="font-mono text-xs text-zinc-600">HTML / CSS / JS</span>
+              <span class="text-xs text-[#999]">HTML · CSS · JS</span>
             </div>
-            <h3 class="text-lg font-bold mb-2">
+            <h3 class="font-semibold text-[17px] mb-2">
               <span lang="en">Aria Chen Real Estate</span>
               <span lang="zh">陳小姐地產</span>
             </h3>
-            <p class="text-zinc-600 text-sm leading-relaxed mb-5 flex-1">
-              <span lang="en">A luxury real estate agent needed a site that pre-qualified leads before the first call. Built a conversion-focused landing page with a multi-step home valuation tool that captures contact info at exactly the right moment.</span>
-              <span lang="zh">高端地產代理需要在首次通話前預先篩選客戶。打造了以轉化為核心的登陸頁面，配備多步驟估價工具，在最關鍵的時機取得客戶聯絡資料。</span>
+            <!-- Outcome framing — not "what I built" but "what it achieves" -->
+            <p class="text-xs font-medium text-emerald-600 mb-3" lang="en">
+              ↗ Pre-qualifies leads before the first call
             </p>
-            <a href="project-business.html" class="font-mono text-xs text-[#38BDF8] hover:text-zinc-900 transition-colors">
-              <span lang="en">Case study →</span>
-              <span lang="zh">案例詳情 →</span>
+            <p class="text-xs font-medium text-emerald-600 mb-3" lang="zh">
+              ↗ 在首次通話前預先篩選潛在客戶
+            </p>
+            <p class="text-sm text-[#777] leading-relaxed mb-6 flex-1" lang="en">
+              A luxury real estate agent's landing page with a multi-step home valuation tool that captures buyer and seller contact info at the moment of highest intent — before they click away.
+            </p>
+            <p class="text-sm text-[#777] leading-relaxed mb-6 flex-1" lang="zh">
+              為高端地產代理打造的登陸頁面，配備多步驟估價工具，在訪客意向最強的時刻取得聯絡資料——在他們離開之前。
+            </p>
+            <a href="project-business.html" class="ul-grow text-xs font-semibold text-[#38BDF8] self-start">
+              <span lang="en">View demo →</span>
+              <span lang="zh">查看示範 →</span>
             </a>
           </div>
         </div>
 
         <!-- PrairiePro Book -->
-        <div class="project-card bg-zinc-50 border border-zinc-200 rounded-2xl overflow-hidden hover:border-zinc-400 transition-all duration-300 flex flex-col">
-          <div class="overflow-hidden h-48 bg-zinc-200 shrink-0">
+        <div class="reveal reveal-d1 p-card bg-white border border-[rgba(0,0,0,0.07)] rounded-2xl overflow-hidden flex flex-col">
+          <div class="overflow-hidden h-52 bg-[#e8e5e0] shrink-0">
             <img src="images/screencapture-Probook.webp"
-                 alt="PrairiePro Book — booking platform screenshot"
-                 class="project-img w-full h-full object-cover object-top transition-transform duration-500" />
+                 alt="PrairiePro Book — online booking system demo"
+                 class="p-thumb w-full h-full object-cover object-top" />
           </div>
           <div class="p-7 flex flex-col flex-1">
             <div class="flex items-center gap-2 mb-4">
-              <span class="font-mono text-xs text-zinc-500 border border-zinc-200 px-2 py-0.5 rounded">
-                <span lang="en">Business Demo</span><span lang="zh">商業示範</span>
+              <span class="text-xs font-medium text-[#38BDF8] border border-[rgba(56,189,248,0.3)] bg-[rgba(56,189,248,0.06)] rounded-full px-3 py-0.5">
+                <span lang="en">Home Services</span><span lang="zh">家居服務</span>
               </span>
-              <span class="font-mono text-xs text-zinc-600">HTML / CSS / JS</span>
+              <span class="text-xs text-[#999]">HTML · CSS · JS</span>
             </div>
-            <h3 class="text-lg font-bold mb-2">PrairiePro Book</h3>
-            <p class="text-zinc-600 text-sm leading-relaxed mb-5 flex-1">
-              <span lang="en">Home service businesses in Calgary were losing bookings to competitors who were easier to reach after hours. Built a booking platform with real-time availability and transparent pricing — no phone tag required.</span>
-              <span lang="zh">卡爾加里的家居服務商因為非辦公時間難以聯繫而流失預約。打造了即時預約平台，帶透明報價——客人不用再等電話回覆。</span>
+            <h3 class="font-semibold text-[17px] mb-2">PrairiePro Book</h3>
+            <p class="text-xs font-medium text-emerald-600 mb-3" lang="en">
+              ↗ Captures bookings 24/7 — no phone tag
             </p>
-            <div class="flex gap-4">
-              <a href="project-probook.html" class="font-mono text-xs text-[#38BDF8] hover:text-zinc-900 transition-colors">
-                <span lang="en">Case study →</span>
-                <span lang="zh">案例詳情 →</span>
+            <p class="text-xs font-medium text-emerald-600 mb-3" lang="zh">
+              ↗ 全天候接受預約，無需電話來回
+            </p>
+            <p class="text-sm text-[#777] leading-relaxed mb-6 flex-1" lang="en">
+              A complete booking platform for a Calgary home services company — with real-time availability, transparent pricing, and instant booking confirmation. Clients self-book; the owner wakes up to a full schedule.
+            </p>
+            <p class="text-sm text-[#777] leading-relaxed mb-6 flex-1" lang="zh">
+              為卡加利家居服務公司打造的完整預約平台——即時查看可用時段、清晰透明的收費、即時確認預約。客人自助預約，業主早上醒來已有滿滿的工作排程。
+            </p>
+            <div class="flex gap-5">
+              <a href="project-probook.html" class="ul-grow text-xs font-semibold text-[#38BDF8] self-start">
+                <span lang="en">View demo →</span>
+                <span lang="zh">查看示範 →</span>
               </a>
-              <a href="projects/probook/demo/" class="font-mono text-xs text-zinc-500 hover:text-zinc-700 transition-colors">
-                <span lang="en">Live demo →</span>
-                <span lang="zh">現場示範 →</span>
+              <a href="projects/probook/demo/" target="_blank" rel="noopener" class="ul-grow text-xs text-[#999] hover:text-[#555] transition-colors self-start">
+                <span lang="en">Live version →</span>
+                <span lang="zh">互動版本 →</span>
               </a>
             </div>
           </div>
         </div>
-
       </div>
 
-      <!-- ── Row 2: Horizon Travel (wide) ── -->
-      <div class="project-card bg-zinc-50 border border-zinc-200 rounded-2xl overflow-hidden hover:border-zinc-400 transition-all duration-300">
+      <!-- Row 2: Wide card -->
+      <div class="reveal p-card bg-white border border-[rgba(0,0,0,0.07)] rounded-2xl overflow-hidden">
         <div class="md:flex">
-          <div class="overflow-hidden md:w-1/2 h-52 md:h-64 bg-zinc-200 shrink-0">
+          <div class="overflow-hidden md:w-[45%] h-56 md:h-auto bg-[#e8e5e0] shrink-0">
             <img src="images/screencapture-demo-travel-agency.webp"
-                 alt="Horizon Travel — PWA screenshot"
-                 class="project-img w-full h-full object-cover object-top transition-transform duration-500" />
+                 alt="Horizon Travel — PWA demo"
+                 class="p-thumb w-full h-full object-cover object-top" />
           </div>
-          <div class="p-7 md:flex md:flex-col md:justify-center">
+          <div class="p-8 md:flex md:flex-col md:justify-center">
             <div class="flex items-center gap-2 mb-4">
-              <span class="font-mono text-xs text-zinc-500 border border-zinc-200 px-2 py-0.5 rounded">PWA</span>
-              <span class="font-mono text-xs text-zinc-600">Next.js</span>
+              <span class="text-xs font-medium text-[#38BDF8] border border-[rgba(56,189,248,0.3)] bg-[rgba(56,189,248,0.06)] rounded-full px-3 py-0.5">
+                PWA
+              </span>
+              <span class="text-xs text-[#999]">Next.js · React</span>
             </div>
-            <h3 class="text-xl font-bold mb-2">
+            <h3 class="font-semibold text-[17px] mb-2">
               <span lang="en">Horizon Travel</span>
               <span lang="zh">Horizon 旅遊平台</span>
             </h3>
-            <p class="text-zinc-600 text-sm leading-relaxed mb-5 max-w-lg">
-              <span lang="en">Frequent travellers were juggling multiple apps for bookings, calendar sync, and flight alerts. Built a travel workspace PWA that centralises everything — installs to your home screen, works offline, and sends push alerts before you even think to check.</span>
-              <span lang="zh">頻繁旅客需要同時使用多個應用管理行程、日曆和航班提醒。打造了整合一切的 PWA 旅遊工作台——可安裝到主畫面，離線可用，並在你需要前主動發出推送提醒。</span>
+            <p class="text-xs font-medium text-emerald-600 mb-3" lang="en">
+              ↗ App-quality experience — installs to your home screen, works offline
             </p>
-            <a href="project-travel.html" class="font-mono text-xs text-[#38BDF8] hover:text-zinc-900 transition-colors">
-              <span lang="en">Case study →</span>
-              <span lang="zh">案例詳情 →</span>
+            <p class="text-xs font-medium text-emerald-600 mb-3" lang="zh">
+              ↗ 應用程式級別體驗——可安裝到主畫面，離線可用
+            </p>
+            <p class="text-sm text-[#777] leading-relaxed mb-6 max-w-lg" lang="en">
+              A Progressive Web App for a travel brand — with itinerary management, real-time flight alerts, and calendar sync. Works on any device without an app store. Demonstrates the full-stack capability I bring to startup and SaaS projects.
+            </p>
+            <p class="text-sm text-[#777] leading-relaxed mb-6 max-w-lg" lang="zh">
+              為旅遊品牌打造的漸進式網頁應用程式——行程管理、即時航班提醒、日曆同步。無需透過應用商店，在任何裝置上皆可使用。展示我為初創公司和 SaaS 項目帶來的全端開發能力。
+            </p>
+            <a href="project-travel.html" class="ul-grow text-xs font-semibold text-[#38BDF8] self-start">
+              <span lang="en">View demo →</span>
+              <span lang="zh">查看示範 →</span>
             </a>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
 
-      <!-- ── Row 3: On the Way Hero + Langimon ── -->
-      <div class="grid md:grid-cols-2 gap-6">
 
-        <!-- On the Way Hero -->
-        <div class="project-card bg-zinc-50 border border-zinc-200 rounded-2xl overflow-hidden hover:border-zinc-400 transition-all duration-300 flex flex-col">
-          <div class="h-48 bg-gradient-to-br from-violet-100 via-zinc-50 to-indigo-100 flex items-center justify-center shrink-0">
-            <div class="text-center">
-              <div class="text-5xl mb-2">→</div>
-              <div class="font-mono text-xs text-zinc-500">Vue.js PWA</div>
-            </div>
-          </div>
-          <div class="p-7 flex flex-col flex-1">
-            <div class="flex items-center gap-2 mb-4">
-              <span class="font-mono text-xs text-zinc-500 border border-zinc-200 px-2 py-0.5 rounded">PWA</span>
-              <span class="font-mono text-xs text-zinc-600">Vue.js</span>
-            </div>
-            <h3 class="text-lg font-bold mb-2">
-              <span lang="en">On the Way Hero</span>
-              <span lang="zh">順路幫手</span>
-            </h3>
-            <p class="text-zinc-600 text-sm leading-relaxed mb-5 flex-1">
-              <span lang="en">People needed small errands done but couldn't justify full delivery fees. Built a community PWA that matches requests with neighbours already heading in that direction — turns a commute into a favour.</span>
-              <span lang="zh">人們需要跑小差事，但不值得付全額快遞費。打造了社區 PWA，將需求與同路鄰居配對——把日常通勤變成互助行動。</span>
-            </p>
-            <a href="project-hero.html" class="font-mono text-xs text-[#38BDF8] hover:text-zinc-900 transition-colors">
-              <span lang="en">Case study →</span>
-              <span lang="zh">案例詳情 →</span>
-            </a>
-          </div>
-        </div>
+<!-- ════════════════════════════════════════════
+     GUARANTEES
+     Design decision: 3 bold guarantees displayed
+     as oversized serif numbers + short copy.
+     Builds trust fast — answers the "why risk it"
+     objection before it's voiced.
+════════════════════════════════════════════ -->
+<section class="py-28 px-6 bg-white border-t border-[rgba(0,0,0,0.07)]">
+  <div class="max-w-6xl mx-auto">
 
-        <!-- Langimon -->
-        <div class="project-card bg-zinc-50 border border-zinc-200 rounded-2xl overflow-hidden hover:border-zinc-400 transition-all duration-300 flex flex-col">
-          <div class="h-48 bg-gradient-to-br from-emerald-100 via-zinc-50 to-teal-100 flex items-center justify-center shrink-0">
-            <div class="text-center">
-              <div class="text-5xl mb-2">◆</div>
-              <div class="font-mono text-xs text-zinc-500">React Native</div>
-            </div>
-          </div>
-          <div class="p-7 flex flex-col flex-1">
-            <div class="flex items-center gap-2 mb-4">
-              <span class="font-mono text-xs text-zinc-500 border border-zinc-200 px-2 py-0.5 rounded">
-                <span lang="en">App</span><span lang="zh">應用</span>
-              </span>
-              <span class="font-mono text-xs text-zinc-600">React Native</span>
-            </div>
-            <h3 class="text-lg font-bold mb-2">Langimon</h3>
-            <p class="text-zinc-600 text-sm leading-relaxed mb-5 flex-1">
-              <span lang="en">Vocabulary apps are boring and retention is terrible. Turned language study into a monster-raising adventure — the more you study, the stronger your monster gets. Engagement over obligation.</span>
-              <span lang="zh">背單詞的應用既無聊又難以堅持。將語言學習變成養怪獸冒險——你學得越多，你的怪獸就越強大。以參與感取代義務感。</span>
-            </p>
-            <a href="project-langimon.html" class="font-mono text-xs text-[#38BDF8] hover:text-zinc-900 transition-colors">
-              <span lang="en">Case study →</span>
-              <span lang="zh">案例詳情 →</span>
-            </a>
-          </div>
-        </div>
+    <div class="reveal mb-16">
+      <p class="text-xs font-medium tracking-widest uppercase text-[#38BDF8] mb-4">
+        <span lang="en">My guarantees</span>
+        <span lang="zh">我的承諾</span>
+      </p>
+      <h2 class="serif text-[clamp(2rem,5vw,3.5rem)] leading-tight text-[#111]">
+        <span lang="en">You take zero risk.<br>I take all of it.</span>
+        <span lang="zh">你承擔零風險。<br>風險由我來承擔。</span>
+      </h2>
+    </div>
 
+    <div class="grid sm:grid-cols-3 gap-8">
+
+      <div class="reveal reveal-d1">
+        <div class="g-num mb-3">01</div>
+        <h3 class="font-semibold text-base mb-2" lang="en">Design approved before you pay a cent</h3>
+        <h3 class="font-semibold text-base mb-2" lang="zh">設計確認後才付款</h3>
+        <p class="text-sm text-[#777] leading-relaxed" lang="en">I build a full preview first. If it isn't right, we revise together at no charge — until you're genuinely happy with what you see. Payment only happens when you say so.</p>
+        <p class="text-sm text-[#777] leading-relaxed" lang="zh">我先建立完整預覽。如果不滿意，我們免費一起修改——直到你真正滿意為止。只有在你同意後才需要付款。</p>
+      </div>
+
+      <div class="reveal reveal-d2">
+        <div class="g-num mb-3">02</div>
+        <h3 class="font-semibold text-base mb-2" lang="en">Delivered in 3–7 days</h3>
+        <h3 class="font-semibold text-base mb-2" lang="zh">3–7 天內交付</h3>
+        <p class="text-sm text-[#777] leading-relaxed" lang="en">No six-week agency timelines. You have a working site in days, not months. And if my life happens to get in the way, I'll tell you upfront — not after the deadline.</p>
+        <p class="text-sm text-[#777] leading-relaxed" lang="zh">不是代理公司的六週時間表。你在幾天內就能看到可用的網站，而不是幾個月後。如果有任何延誤，我會提前告知你——而不是在截止日後。</p>
+      </div>
+
+      <div class="reveal reveal-d3">
+        <div class="g-num mb-3">03</div>
+        <h3 class="font-semibold text-base mb-2" lang="en">It's yours — no strings attached</h3>
+        <h3 class="font-semibold text-base mb-2" lang="zh">完全屬於你，沒有任何附帶條件</h3>
+        <p class="text-sm text-[#777] leading-relaxed" lang="en">You own the code, the domain, and everything on it. No platform lock-in, no monthly fees to keep it alive, no permission needed to take it elsewhere. It's your asset.</p>
+        <p class="text-sm text-[#777] leading-relaxed" lang="zh">你擁有代碼、域名和上面的一切。沒有平台綁定，沒有每月費用來維持運作，不需要任何人的許可就可以轉移。這是你的資產。</p>
       </div>
 
     </div>
@@ -619,355 +693,218 @@
 </section>
 
 
-<!-- ════════════════════════════════════════════════
+<!-- ════════════════════════════════════════════
      ABOUT
-════════════════════════════════════════════════ -->
-<section id="about" class="py-28 px-6 border-t border-zinc-200">
+════════════════════════════════════════════ -->
+<section id="about" class="py-28 px-6 border-t border-[rgba(0,0,0,0.07)]">
   <div class="max-w-6xl mx-auto">
+
+    <div class="reveal mb-4">
+      <p class="text-xs font-medium tracking-widest uppercase text-[#38BDF8] mb-4">
+        <span lang="en">04 — About</span>
+        <span lang="zh">04 — 關於</span>
+      </p>
+    </div>
+
     <div class="grid md:grid-cols-2 gap-16 items-start">
 
-      <!-- Bio -->
-      <div>
-        <p class="font-mono text-xs text-[#38BDF8] mb-3 tracking-widest uppercase">
-          <span lang="en">About</span>
-          <span lang="zh">關於我</span>
-        </p>
-        <h2 class="text-3xl md:text-4xl font-bold mb-8">
-          <span lang="en">Hi, I'm Jason.</span>
-          <span lang="zh">你好，我是 Jason。</span>
+      <div class="reveal">
+        <h2 class="serif text-[clamp(2rem,5vw,3.25rem)] leading-tight text-[#111] mb-8">
+          <span lang="en">Hi — I'm Jason.<br>I build websites that<br><em>work.</em></span>
+          <span lang="zh">你好，我是 Jason。<br>我打造真正<br><em>有效</em>的網站。</span>
         </h2>
-        <div class="space-y-5 text-zinc-600 leading-relaxed text-sm md:text-base">
-          <p lang="en">I'm a freelance web developer based in Calgary, AB. I help local businesses and startups build websites that actually bring in clients — not just look good.</p>
-          <p lang="zh">我是一位駐紮在卡爾加里的自由接案網頁開發者。我幫助本地商家和初創公司建立真正能帶來客戶的網站——而不只是好看。</p>
-          <p lang="en">Before I write a single line of code, I want to understand what success looks like for you. Because I care about the business outcome, not just the build.</p>
-          <p lang="zh">在動手之前，我想先了解對你來說什麼才算成功。因為我在乎的是商業成果，不只是完成一個作品。</p>
-          <p lang="en">Outside of work, I'm passionate about language learning — which is why bilingual builds are second nature to me.</p>
-          <p lang="zh">工作之外，我對語言學習充滿熱情——這也是為什麼雙語開發對我來說是自然而然的事。</p>
+        <div class="space-y-4 text-[15px] text-[#666] leading-relaxed">
+          <p lang="en">I'm a freelance web developer based in Calgary, AB. I specialise in building websites for local service businesses, real estate professionals, and startups — places where a good website actually changes how much business you do.</p>
+          <p lang="zh">我是一位駐紮在卡加利的自由網頁開發者，專門為本地服務業、地產專業人士和初創公司打造網站——這些地方，一個好的網站能真正改變你的業務量。</p>
+          <p lang="en">I'm not a big agency. You work directly with me — which means faster turnaround, honest communication, and a site that genuinely reflects your business rather than a template with your name swapped in.</p>
+          <p lang="zh">我不是大型代理公司。你直接與我合作——這意味著更快的交付速度、直接誠實的溝通，以及一個真正反映你業務的網站，而不是只換了名字的模板。</p>
+          <p lang="en">Every demo project on this site was built to the same standard I'd deliver for a paying client. You can click through them, interact with them, and judge for yourself whether this is the kind of work your business deserves.</p>
+          <p lang="zh">這個網站上的每一個示範項目，都是按照我為付費客戶交付的同等標準建立的。你可以點擊、互動，自己判斷這是否是你的業務值得擁有的工作水準。</p>
         </div>
       </div>
 
-      <!-- Stack -->
-      <div>
-        <p class="font-mono text-xs text-zinc-500 mb-8 tracking-widest uppercase">
-          <span lang="en">Tech stack</span>
-          <span lang="zh">技術棧</span>
-        </p>
-        <div class="space-y-8">
+      <div class="reveal reveal-d1 space-y-6">
 
-          <div>
-            <p class="font-mono text-xs text-zinc-600 mb-3 uppercase tracking-wider">
-              <span lang="en">Frontend</span>
-              <span lang="zh">前端</span>
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="font-mono text-xs bg-zinc-100 border border-zinc-200 text-zinc-700 px-3 py-1.5 rounded-lg">React</span>
-              <span class="font-mono text-xs bg-zinc-100 border border-zinc-200 text-zinc-700 px-3 py-1.5 rounded-lg">Vue.js</span>
-              <span class="font-mono text-xs bg-zinc-100 border border-zinc-200 text-zinc-700 px-3 py-1.5 rounded-lg">Next.js</span>
-              <span class="font-mono text-xs bg-zinc-100 border border-zinc-200 text-zinc-700 px-3 py-1.5 rounded-lg">Tailwind CSS</span>
-              <span class="font-mono text-xs bg-zinc-100 border border-zinc-200 text-zinc-700 px-3 py-1.5 rounded-lg">TypeScript</span>
-            </div>
-          </div>
-
-          <div>
-            <p class="font-mono text-xs text-zinc-600 mb-3 uppercase tracking-wider">
-              <span lang="en">Backend</span>
-              <span lang="zh">後端</span>
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="font-mono text-xs bg-zinc-100 border border-zinc-200 text-zinc-700 px-3 py-1.5 rounded-lg">Node.js</span>
-              <span class="font-mono text-xs bg-zinc-100 border border-zinc-200 text-zinc-700 px-3 py-1.5 rounded-lg">Express</span>
-              <span class="font-mono text-xs bg-zinc-100 border border-zinc-200 text-zinc-700 px-3 py-1.5 rounded-lg">REST APIs</span>
-              <span class="font-mono text-xs bg-zinc-100 border border-zinc-200 text-zinc-700 px-3 py-1.5 rounded-lg">Firebase</span>
-            </div>
-          </div>
-
-          <div>
-            <p class="font-mono text-xs text-zinc-600 mb-3 uppercase tracking-wider">
-              <span lang="en">Specialties</span>
-              <span lang="zh">專長</span>
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="font-mono text-xs bg-zinc-100 border border-zinc-200 text-zinc-700 px-3 py-1.5 rounded-lg">PWA</span>
-              <span class="font-mono text-xs bg-zinc-100 border border-zinc-200 text-zinc-700 px-3 py-1.5 rounded-lg">React Native</span>
-              <span class="font-mono text-xs bg-zinc-100 border border-zinc-200 text-zinc-700 px-3 py-1.5 rounded-lg">
-                <span lang="en">Bilingual (EN/ZH)</span>
-                <span lang="zh">中英雙語</span>
-              </span>
-              <span class="font-mono text-xs bg-zinc-100 border border-zinc-200 text-zinc-700 px-3 py-1.5 rounded-lg">
-                <span lang="en">Performance</span>
-                <span lang="zh">效能優化</span>
-              </span>
-              <span class="font-mono text-xs bg-zinc-100 border border-zinc-200 text-zinc-700 px-3 py-1.5 rounded-lg">SEO</span>
-            </div>
-          </div>
-
+        <!-- Local advantage -->
+        <div class="bg-white border border-[rgba(0,0,0,0.07)] rounded-2xl p-6">
+          <div class="text-2xl mb-3">📍</div>
+          <h3 class="font-semibold text-[15px] mb-2" lang="en">Based in Calgary — serving North America</h3>
+          <h3 class="font-semibold text-[15px] mb-2" lang="zh">駐紮卡加利——服務北美</h3>
+          <p class="text-sm text-[#777] leading-relaxed" lang="en">I know the Calgary market — the industries, the clients, the competition. I can meet locally when helpful, and I work across time zones for clients elsewhere in Canada and the US.</p>
+          <p class="text-sm text-[#777] leading-relaxed" lang="zh">我了解卡加利市場——行業、客戶、競爭環境。如有需要可以在本地見面，也為加拿大和美國其他地區的客戶遠程合作。</p>
         </div>
-      </div>
 
+        <!-- Bilingual advantage -->
+        <div class="bg-white border border-[rgba(0,0,0,0.07)] rounded-2xl p-6">
+          <div class="text-2xl mb-3">🌐</div>
+          <h3 class="font-semibold text-[15px] mb-2" lang="en">English & Chinese — natively</h3>
+          <h3 class="font-semibold text-[15px] mb-2" lang="zh">英中雙語——原生流利</h3>
+          <p class="text-sm text-[#777] leading-relaxed" lang="en">I build bilingual sites as a standard offering — not a translation afterthought. For businesses targeting Calgary's Chinese-speaking community, this is a significant competitive advantage.</p>
+          <p class="text-sm text-[#777] leading-relaxed" lang="zh">我將雙語網站作為標準功能提供——而不是事後翻譯的附加品。對於面向卡加利中文社群的商家，這是一個顯著的競爭優勢。</p>
+        </div>
+
+        <!-- Tech -->
+        <div class="bg-white border border-[rgba(0,0,0,0.07)] rounded-2xl p-6">
+          <div class="text-2xl mb-3">🛠</div>
+          <h3 class="font-semibold text-[15px] mb-2" lang="en">Real code, not a page builder</h3>
+          <h3 class="font-semibold text-[15px] mb-2" lang="zh">真正的代碼，而不是網站建構工具</h3>
+          <p class="text-sm text-[#777] leading-relaxed" lang="en">I write clean HTML, CSS, JavaScript, React, and Next.js — no Wix, no WordPress bloat. Your site loads fast, ranks better, and can be extended in any direction your business needs.</p>
+          <p class="text-sm text-[#777] leading-relaxed" lang="zh">我撰寫乾淨的 HTML、CSS、JavaScript、React 和 Next.js——沒有 Wix，沒有 WordPress 的臃腫。你的網站載入快速、搜尋排名更佳，並可以按業務需求自由擴展。</p>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
 
 
-<!-- ════════════════════════════════════════════════
+<!-- ════════════════════════════════════════════
      CONTACT
-════════════════════════════════════════════════ -->
-<section id="contact" class="py-28 px-6 border-t border-zinc-200">
-  <div class="max-w-2xl mx-auto text-center">
+════════════════════════════════════════════ -->
+<section id="contact" class="py-28 px-6 bg-white border-t border-[rgba(0,0,0,0.07)]">
+  <div class="max-w-6xl mx-auto">
 
-    <p class="font-mono text-xs text-[#38BDF8] mb-3 tracking-widest uppercase">
-      <span lang="en">Let's work together</span>
-      <span lang="zh">開始合作</span>
-    </p>
-    <h2 class="text-3xl md:text-4xl font-bold mb-4">
-      <span lang="en">Ready to start a project?</span>
-      <span lang="zh">準備好開始了嗎？</span>
-    </h2>
-    <p class="text-zinc-600 leading-relaxed mb-10 text-sm md:text-base">
-      <span lang="en">I take on a limited number of new clients each month. Tell me about your project and I'll get back to you within 24 hours.</span>
-      <span lang="zh">我每個月只接有限數量的新客戶。告訴我你的項目，我會在 24 小時內回覆你。</span>
-    </p>
+    <div class="grid md:grid-cols-2 gap-16 items-start">
 
-    <!-- Contact card -->
-    <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-10 mb-8 hover:border-zinc-400 transition-colors">
-      <p class="font-mono text-xs text-zinc-500 mb-5 uppercase tracking-widest">
-        <span lang="en">Best way to reach me</span>
-        <span lang="zh">最佳聯絡方式</span>
-      </p>
-      <a href="mailto:info@jasonlai.work"
-         class="font-mono text-xl md:text-2xl text-[#38BDF8] hover:text-zinc-900 transition-colors font-semibold break-all">
-        info@jasonlai.work
-      </a>
-      <p class="font-mono text-xs text-zinc-700 mt-5">
-        <span lang="en">↑ Click to open your email client</span>
-        <span lang="zh">↑ 點擊開啟電郵程式</span>
-      </p>
+      <!-- Left: copy -->
+      <div class="reveal">
+        <p class="text-xs font-medium tracking-widest uppercase text-[#38BDF8] mb-4">
+          <span lang="en">05 — Let's talk</span>
+          <span lang="zh">05 — 開始對話</span>
+        </p>
+        <h2 class="serif text-[clamp(2rem,5vw,3.25rem)] leading-tight text-[#111] mb-6">
+          <span lang="en">Your next client<br>could find you<br>next week.</span>
+          <span lang="zh">你的下一個客戶<br>可以在下週<br>找到你。</span>
+        </h2>
+        <div class="space-y-4 text-[15px] text-[#666] leading-relaxed mb-8">
+          <p lang="en">A free 20-minute call. You tell me about your business and what you need. I'll tell you exactly what I can build for you, how long it takes, and what it costs. No obligation, no jargon.</p>
+          <p lang="zh">免費 20 分鐘通話。你告訴我你的業務和需求。我告訴你我能為你打造什麼、需要多長時間，以及費用多少。無需承諾，無技術術語。</p>
+        </div>
+        <div class="space-y-3 text-sm text-[#666]">
+          <div class="flex items-center gap-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#38BDF8] shrink-0"></span>
+            <span lang="en">Usually responds within a few hours (business days)</span>
+            <span lang="zh">通常在數小時內回覆（工作日）</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#38BDF8] shrink-0"></span>
+            <span lang="en">Limited new client spots per month</span>
+            <span lang="zh">每月接受有限數量的新客戶</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#38BDF8] shrink-0"></span>
+            <span lang="en">English and Chinese both welcome</span>
+            <span lang="zh">歡迎以英文或中文溝通</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: CTA cards -->
+      <div class="reveal reveal-d1 space-y-4">
+
+        <a href="mailto:info@jasonlai.work?subject=Web%20Project%20Enquiry"
+          class="flex items-center justify-between gap-4 bg-[#38BDF8] hover:bg-[#0EA5E9] text-[#0a0a0a] rounded-2xl p-6 transition-all group">
+          <div>
+            <p class="font-semibold text-[15px] mb-0.5" lang="en">Email Jason directly</p>
+            <p class="font-semibold text-[15px] mb-0.5" lang="zh">直接電郵 Jason</p>
+            <p class="text-xs opacity-70">info@jasonlai.work</p>
+          </div>
+          <span class="text-xl group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+
+        <div class="bg-[#F8F6F2] border border-[rgba(0,0,0,0.08)] rounded-2xl p-6">
+          <p class="font-semibold text-[15px] mb-1" lang="en">What to include in your message</p>
+          <p class="font-semibold text-[15px] mb-1" lang="zh">訊息可以包含什麼</p>
+          <ul class="mt-3 space-y-2 text-sm text-[#777]">
+            <li class="flex gap-2"><span class="text-[#38BDF8]">·</span><span lang="en">What your business does and who your clients are</span><span lang="zh">你的業務和目標客戶</span></li>
+            <li class="flex gap-2"><span class="text-[#38BDF8]">·</span><span lang="en">What kind of site you're looking for</span><span lang="zh">你想要哪種類型的網站</span></li>
+            <li class="flex gap-2"><span class="text-[#38BDF8]">·</span><span lang="en">Your rough timeline (if any)</span><span lang="zh">大概的時間要求（如有）</span></li>
+          </ul>
+          <p class="text-xs text-[#aaa] mt-3 font-medium" lang="en">That's it — I'll take it from there.</p>
+          <p class="text-xs text-[#aaa] mt-3 font-medium" lang="zh">就這樣——其餘的由我來處理。</p>
+        </div>
+
+        <div class="border border-[rgba(0,0,0,0.08)] rounded-2xl p-5 flex items-center gap-4">
+          <div class="w-10 h-10 rounded-full bg-[rgba(56,189,248,0.1)] flex items-center justify-center text-[#38BDF8] font-bold text-sm shrink-0">?</div>
+          <div>
+            <p class="text-sm font-medium text-[#444]" lang="en">Not sure what you need yet?</p>
+            <p class="text-sm font-medium text-[#444]" lang="zh">還不確定你需要什麼？</p>
+            <p class="text-xs text-[#888] mt-0.5" lang="en">Just say hi — even a brief description of your situation is enough to start.</p>
+            <p class="text-xs text-[#888] mt-0.5" lang="zh">只需打個招呼——即使只是簡單描述你的情況也足夠了。</p>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <!-- Trust signals -->
-    <div class="flex flex-wrap justify-center gap-x-8 gap-y-3">
-      <span class="font-mono text-xs text-zinc-500">
-        <span lang="en">✓ Reply within 24h</span>
-        <span lang="zh">✓ 24 小時內回覆</span>
-      </span>
-      <span class="font-mono text-xs text-zinc-500">
-        <span lang="en">✓ Free initial consultation</span>
-        <span lang="zh">✓ 免費初步諮詢</span>
-      </span>
-      <span class="font-mono text-xs text-zinc-500">
-        <span lang="en">✓ No payment until design is approved</span>
-        <span lang="zh">✓ 設計審批後才付款</span>
-      </span>
-    </div>
-
   </div>
 </section>
 
 
-<!-- ════════════════════════════════════════════════
+<!-- ════════════════════════════════════════════
      FOOTER
-════════════════════════════════════════════════ -->
-<footer class="border-t border-zinc-200 py-8 px-6">
-  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-    <p class="font-mono text-xs text-zinc-700">
-      © 2025 Jason Lai · jasonlai.work
-    </p>
-    <a href="#hero" class="font-mono text-xs text-zinc-600 hover:text-[#38BDF8] transition-colors">
-      <span lang="en">↑ Back to top</span>
-      <span lang="zh">↑ 返回頂部</span>
-    </a>
+════════════════════════════════════════════ -->
+<footer class="border-t border-[rgba(0,0,0,0.07)] py-10 px-6">
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-5">
+    <div class="flex items-center gap-3">
+      <img src="images/icon.webp" alt="Jason Lai" class="h-6 w-auto opacity-60" />
+      <span class="text-xs text-[#aaa]">© 2026 Jason Lai · jasonlai.work</span>
+    </div>
+    <div class="flex items-center gap-6 text-xs text-[#aaa]">
+      <a href="#services" class="hover:text-[#38BDF8] transition-colors"><span lang="en">Services</span><span lang="zh">服務</span></a>
+      <a href="#work"     class="hover:text-[#38BDF8] transition-colors"><span lang="en">Work</span><span lang="zh">作品</span></a>
+      <a href="#about"    class="hover:text-[#38BDF8] transition-colors"><span lang="en">About</span><span lang="zh">關於</span></a>
+      <a href="mailto:info@jasonlai.work" class="hover:text-[#38BDF8] transition-colors">info@jasonlai.work</a>
+    </div>
   </div>
 </footer>
 
 
-<button
-  id="canvas-toggle"
-  onclick="toggleCanvas()"
-  aria-pressed="true"
-  aria-label="Toggle matrix background animation">⏸ Matrix</button>
-
-<!-- ════════════════════════════════════════════════
+<!-- ════════════════════════════════════════════
      SCRIPTS
-════════════════════════════════════════════════ -->
+════════════════════════════════════════════ -->
 <script>
-  // ── Matrix particle system (ported from index.html) ──
-  (function () {
-    const canvas = document.getElementById('matrix-bg');
-    const ctx    = canvas.getContext('2d');
-    const ACCENT = '#000000';
-    const R      = 200;
-
-    const mouse = { x: -999, y: -999, on: false };
-    let pts = [], W, H, rafId = null;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.innerWidth < 768 || !window.matchMedia('(pointer: fine)').matches;
-    let running = !prefersReducedMotion && !isMobile;
-
-    function mkPt(randY) {
-      const baseVy = 0.5 + Math.random() * 1.2;
-      return {
-        x: Math.random() * (W || innerWidth),
-        y: randY ? Math.random() * (H || innerHeight) : -16,
-        vx: 0, vy: baseVy, baseVy,
-        char: Math.random() > 0.5 ? '1' : '0',
-        alpha: 0.02 + Math.random() * 0.03,
-        size:  11 + Math.floor(Math.random() * 5),
-        t: 0, ti: 20 + Math.floor(Math.random() * 40)
-      };
-    }
-
-    function resize() {
-      W = canvas.width  = innerWidth;
-      H = canvas.height = innerHeight;
-      ctx.clearRect(0, 0, W, H);
-      const n = W < 768 ? 60 : 200;
-      pts = Array.from({ length: n }, (_, i) => mkPt(i < n));
-    }
-
-    function tick() {
-      ctx.clearRect(0, 0, W, H);
-      ctx.fillStyle = ACCENT;
-      ctx.textAlign = 'left';
-
-      for (const p of pts) {
-        if (++p.t >= p.ti) { p.char = Math.random() > 0.5 ? '1' : '0'; p.t = 0; }
-
-        const dx = mouse.x - p.x;
-        const dy = mouse.y - p.y;
-        const d  = Math.sqrt(dx * dx + dy * dy) || 0.01;
-        const near = mouse.on && d < R;
-
-        if (near) {
-          const s = 1 - d / R;
-          if (d < 68) { p.vx -= (dx / d) * s * 2.4; p.vy -= (dy / d) * s * 2.4; }
-          else        { p.vx += (dx / d) * s * 1.1;  p.vy += (dy / d) * s * 1.1; }
-          p.vx += (-dy / d) * s * 0.45;
-          p.vy += ( dx / d) * s * 0.45;
-        }
-
-        p.vx *= 0.88;
-        const tVy = near ? p.baseVy * 0.08 : p.baseVy;
-        p.vy += (tVy - p.vy) * 0.04;
-        p.vy  = Math.min(Math.max(p.vy, -4), 6);
-
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.y > H + 20) Object.assign(p, mkPt(false));
-        if (p.x < -30)    p.x = W + 10;
-        if (p.x > W + 30) p.x = -10;
-
-        const glow = near ? (1 - d / R) : 0;
-        ctx.globalAlpha = near ? Math.min(0.06 + 0.08 * glow, 0.14) : p.alpha;
-        ctx.font = `${p.size}px "IBM Plex Mono", monospace`;
-        ctx.fillText(p.char, p.x, p.y);
-      }
-
-      ctx.globalAlpha = 1;
-      rafId = requestAnimationFrame(tick);
-    }
-
-    function syncBtn() {
-      const btn = document.getElementById('canvas-toggle');
-      if (!btn) return;
-      btn.textContent = running ? '⏸ Matrix' : '▶ Matrix';
-      btn.setAttribute('aria-pressed', String(running));
-    }
-
-    function startCanvas() {
-      if (rafId) return;
-      running = true;
-      rafId = requestAnimationFrame(tick);
-      syncBtn();
-    }
-
-    function stopCanvas() {
-      if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
-      ctx.clearRect(0, 0, W, H);
-      running = false;
-      syncBtn();
-    }
-
-    document.addEventListener('visibilitychange', function () {
-      if (document.hidden && rafId) { cancelAnimationFrame(rafId); rafId = null; }
-      else if (!document.hidden && running && !rafId) { rafId = requestAnimationFrame(tick); }
-    });
-
-    window.toggleCanvas = function () { running ? stopCanvas() : startCanvas(); };
-
-    window.addEventListener('resize', resize);
-
-    if (window.matchMedia('(pointer: fine)').matches) {
-      document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.on = true; });
-      document.addEventListener('mouseleave', () => { mouse.on = false; });
-    }
-
-    resize();
-    if (running) rafId = requestAnimationFrame(tick);
-    syncBtn();
-  })();
-
-  // ── Language toggle ──
+  /* ── Language toggle ── */
   function toggleLang() {
     const html = document.documentElement;
     const toZh = !html.classList.contains('lang-zh');
     html.classList.toggle('lang-zh', toZh);
     localStorage.setItem('lang', toZh ? 'zh' : 'en');
-    // Headline replays naturally (display none→block re-triggers CSS animation).
-    // Sub-content is always visible so needs a manual restart to stay in sync.
-    document.querySelectorAll('.hero-fade-in').forEach(el => {
-      el.style.animation = 'none';
-      el.style.opacity = '';
-      el.style.transform = '';
-      void el.offsetHeight; // force reflow so browser registers the reset
-      el.style.animation = '';
-    });
   }
-
-  // Restore saved preference
   if (localStorage.getItem('lang') === 'zh') {
     document.documentElement.classList.add('lang-zh');
   }
 
-  // ── Mobile menu ──
-  let menuOpen = false;
+  /* ── Nav frost on scroll ── */
+  const nav = document.getElementById('site-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
 
-  function toggleMobileMenu() {
-    menuOpen = !menuOpen;
-    const menu = document.getElementById('mobile-menu');
-    const iconMenu = document.getElementById('icon-menu');
-    const iconClose = document.getElementById('icon-close');
-    menu.classList.toggle('open', menuOpen);
-    iconMenu.classList.toggle('hidden', menuOpen);
-    iconClose.classList.toggle('hidden', !menuOpen);
+  /* ── Mobile nav ── */
+  let mobileOpen = false;
+  function toggleMobileNav() {
+    mobileOpen = !mobileOpen;
+    document.getElementById('mobile-nav').classList.toggle('open', mobileOpen);
+    document.getElementById('icon-open').classList.toggle('hidden', mobileOpen);
+    document.getElementById('icon-close').classList.toggle('hidden', !mobileOpen);
   }
-
-  function closeMobileMenu() {
-    menuOpen = false;
-    document.getElementById('mobile-menu').classList.remove('open');
-    document.getElementById('icon-menu').classList.remove('hidden');
+  function closeMobileNav() {
+    mobileOpen = false;
+    document.getElementById('mobile-nav').classList.remove('open');
+    document.getElementById('icon-open').classList.remove('hidden');
     document.getElementById('icon-close').classList.add('hidden');
   }
 
-  // ── Active nav via IntersectionObserver ──
-  const navLinks = document.querySelectorAll('nav a.nav-link');
-
+  /* ── Scroll reveal via IntersectionObserver ── */
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        navLinks.forEach(link => {
-          link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
-        });
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
       }
     });
-  }, {
-    rootMargin: '-45% 0px -45% 0px',
-    threshold: 0,
-  });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-  document.querySelectorAll('section[id]').forEach(s => observer.observe(s));
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
-
 </body>
 </html>
