@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5 Reasons Your Calgary Business Website Isn't Getting Calls | Jason Lai</title>
+  <meta name="description" content="Is your Calgary business website getting traffic but no calls? Here are the 5 most common reasons — and exactly how to fix each one." />
+  <link rel="icon" href="../images/logo.png" type="image/png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "5 Reasons Your Calgary Business Website Isn't Getting Calls",
+    "description": "Is your Calgary business website getting traffic but no calls? Here are the 5 most common reasons — and exactly how to fix each one.",
+    "url": "https://jasonlai.work/insights/calgary-business-website-not-getting-calls.html",
+    "datePublished": "2026-05-19",
+    "dateModified": "2026-05-19",
+    "author": {
+      "@type": "Person",
+      "name": "Jason Lai",
+      "url": "https://jasonlai.work",
+      "@id": "https://jasonlai.work/#jason"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Jason Lai",
+      "url": "https://jasonlai.work"
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['DM Serif Display', 'Georgia', 'serif'],
+            sans:  ['Space Grotesk', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    /* ── Canvas & base ── */
+    body {
+      background-color: #F8F6F2;
+      background-image:
+        linear-gradient(rgba(248,246,242,0.75), rgba(248,246,242,0.75)),
+        url('../images/background.png');
+      background-attachment: fixed, fixed;
+      background-repeat: no-repeat, no-repeat;
+      background-position: right center, right center;
+      background-size: 100%, auto 80%;
+      padding-bottom: 5rem;
+    }
+
+    @media (max-width: 767px) {
+      body {
+        background-position: center center, center center;
+        background-size: 100%, 90% auto;
+      }
+    }
+
+    ::selection { background: rgba(56,189,248,0.18); color: #0369a1; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #F8F6F2; }
+    ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.9s cubic-bezier(0.22,1,0.36,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Nav ── */
+    #site-nav { transition: background 0.35s ease, box-shadow 0.35s ease; }
+    #site-nav.scrolled {
+      background: rgba(248,246,242,0.92);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    /* ── Helpers ── */
+    .serif { font-family: 'DM Serif Display', Georgia, serif; }
+    .ul-grow { position: relative; }
+    .ul-grow::after {
+      content: ''; position: absolute;
+      bottom: -2px; left: 0; right: 0;
+      height: 1px; background: currentColor;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .ul-grow:hover::after { transform: scaleX(1); }
+
+    /* ── Mobile nav ── */
+    #mobile-nav { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    #mobile-nav.open { max-height: 400px; }
+
+    /* ── Fixed footer ── */
+    footer {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 40;
+      background: rgba(248,246,242,0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    /* ── Article prose ── */
+    .prose h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+      color: #111;
+      margin-top: 3rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+    .prose p {
+      color: #555;
+      line-height: 1.85;
+      margin-bottom: 1.25rem;
+      font-size: 1rem;
+    }
+    .prose ul {
+      margin-bottom: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .prose ul li {
+      color: #555;
+      line-height: 1.8;
+      padding-left: 1.25rem;
+      position: relative;
+      font-size: 1rem;
+    }
+    .prose ul li::before {
+      content: '·';
+      color: #38BDF8;
+      font-weight: 700;
+      position: absolute;
+      left: 0;
+    }
+    .prose strong { color: #111; font-weight: 600; }
+    .prose em { font-style: italic; color: #444; }
+
+    /* ── Fix callout box ── */
+    .fix-box {
+      background: rgba(56,189,248,0.06);
+      border-left: 3px solid #38BDF8;
+      border-radius: 0 10px 10px 0;
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0 2rem;
+    }
+    .fix-box p {
+      margin-bottom: 0 !important;
+      color: #444 !important;
+      font-size: 0.9rem !important;
+    }
+    .fix-box strong { color: #0369a1 !important; }
+
+    /* ── Reason number ── */
+    .reason-num {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 3.5rem;
+      line-height: 1;
+      color: #38BDF8;
+      opacity: 0.2;
+      user-select: none;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body class="text-[#111] font-sans antialiased">
+
+<!-- ════════════════════════════════════════════
+     NAV
+════════════════════════════════════════════ -->
+<nav id="site-nav" class="fixed top-0 left-0 right-0 z-50">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+
+    <a href="../index.html" class="hover:opacity-70 transition-opacity">
+      <img src="../images/icon.webp" alt="Jason Lai" class="h-7 w-auto" />
+    </a>
+
+    <div class="hidden md:flex items-center gap-7 text-xs font-medium text-[#555] tracking-wide">
+      <a href="../index.html#services" class="ul-grow hover:text-[#111] transition-colors">Services</a>
+      <a href="../index.html#work"     class="ul-grow hover:text-[#111] transition-colors">Work</a>
+      <a href="../insights.html"       class="ul-grow hover:text-[#111] transition-colors">Insights</a>
+      <a href="../index.html#about"    class="ul-grow hover:text-[#111] transition-colors">About</a>
+      <a href="../index.html#contact"  class="ul-grow hover:text-[#111] transition-colors">Contact</a>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <a href="../index.html#contact" class="hidden sm:inline-flex items-center text-xs font-semibold bg-[#111] text-white hover:bg-[#38BDF8] hover:text-[#0c0c0c] px-4 py-2 rounded-full transition-all">
+        Free consultation
+      </a>
+      <button id="hamburger" onclick="toggleMobileNav()" class="md:hidden text-[#555] p-1" aria-label="Menu">
+        <svg id="icon-open"  class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="md:hidden border-t border-[rgba(0,0,0,0.07)] bg-[#F8F6F2]/95 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-6 py-5 flex flex-col gap-5">
+      <a href="../index.html#services" onclick="closeMobileNav()" class="text-sm font-medium text-[#444]">Services</a>
+      <a href="../index.html#work"     onclick="closeMobileNav()" class="text-sm font-medium text-[#444]">Work</a>
+      <a href="../insights.html"       onclick="closeMobileNav()" class="text-sm font-medium text-[#444]">Insights</a>
+      <a href="../index.html#about"    onclick="closeMobileNav()" class="text-sm font-medium text-[#444]">About</a>
+      <a href="../index.html#contact"  onclick="closeMobileNav()" class="text-sm font-medium text-[#444]">Contact</a>
+      <a href="../index.html#contact"  onclick="closeMobileNav()" class="inline-flex justify-center bg-[#38BDF8] text-[#0c0c0c] font-semibold text-sm px-5 py-3 rounded-full">
+        Free consultation →
+      </a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ════════════════════════════════════════════
+     ARTICLE HEADER
+════════════════════════════════════════════ -->
+<article>
+<header class="pt-36 pb-12 px-6 border-b border-[rgba(0,0,0,0.07)]">
+  <div class="max-w-2xl mx-auto">
+
+    <!-- Breadcrumb -->
+    <div class="reveal flex items-center gap-2 text-xs text-[#aaa] mb-8">
+      <a href="../insights.html" class="hover:text-[#38BDF8] transition-colors">Insights</a>
+      <span>›</span>
+      <span>SEO Tips</span>
+    </div>
+
+    <!-- Tag + read time -->
+    <div class="reveal flex items-center gap-3 mb-6">
+      <span class="text-xs font-medium text-[#38BDF8] border border-[rgba(56,189,248,0.3)] bg-[rgba(56,189,248,0.06)] rounded-full px-3 py-0.5">SEO Tips</span>
+      <span class="text-xs text-[#aaa]">5 min read</span>
+      <span class="text-xs text-[#aaa]">·</span>
+      <span class="text-xs text-[#aaa]">May 2026</span>
+    </div>
+
+    <!-- H1 -->
+    <h1 class="reveal serif text-[clamp(2rem,5vw,3rem)] leading-tight text-[#111] mb-6">
+      5 Reasons Your Calgary Business Website Isn't Getting Calls
+    </h1>
+
+    <!-- Intro -->
+    <p class="reveal text-[15px] text-[#666] leading-relaxed max-w-xl">
+      You have a website. Maybe you paid someone to build it, or set it up yourself on Wix or Squarespace. Either way, it's live — and the phone still isn't ringing. Here's why.
+    </p>
+
+  </div>
+</header>
+
+
+<!-- ════════════════════════════════════════════
+     ARTICLE BODY
+════════════════════════════════════════════ -->
+<section class="py-16 px-6">
+  <div class="max-w-2xl mx-auto prose">
+
+    <p>
+      This is one of the most common situations I hear from Calgary small business owners. Your website exists, it looks decent, maybe it even shows up in Google — but it's not converting visitors into actual calls or enquiries.
+    </p>
+    <p>
+      The problem is almost never the design. It's usually one (or more) of these five things.
+    </p>
+
+    <!-- Reason 1 -->
+    <div class="reveal">
+      <div class="reason-num">01</div>
+      <h2>No clear call-to-action above the fold</h2>
+      <p>
+        "Above the fold" means everything a visitor sees before they scroll. If your primary call-to-action — Book Now, Call Us, Get a Quote — isn't visible the moment the page loads, most visitors won't go looking for it.
+      </p>
+      <p>
+        Calgary clients are busy. They're often searching on their phone between jobs, during lunch, or after hours. If the next step isn't obvious in the first three seconds, they'll go back and click the next result.
+      </p>
+      <div class="fix-box">
+        <p><strong>Fix:</strong> Put one clear action button in the top section of your page — visible without scrolling on both desktop and mobile. One action. Not three, not five. One.</p>
+      </div>
+    </div>
+
+    <!-- Reason 2 -->
+    <div class="reveal">
+      <div class="reason-num">02</div>
+      <h2>Your phone number is hard to find</h2>
+      <p>
+        This sounds obvious, but you'd be surprised. On many Calgary business websites, the phone number is buried in the footer, or only on the Contact page — two clicks away from wherever the visitor landed.
+      </p>
+      <p>
+        By the time someone decides they want to call you, they shouldn't have to hunt for the number. That friction costs you calls.
+      </p>
+      <div class="fix-box">
+        <p><strong>Fix:</strong> Display your phone number prominently in the header on every page. Make it a clickable <strong>tel: link</strong> so mobile users can tap to call instantly — no copying, no typing.</p>
+      </div>
+    </div>
+
+    <!-- Reason 3 -->
+    <div class="reveal">
+      <div class="reason-num">03</div>
+      <h2>The page loads too slowly on mobile</h2>
+      <p>
+        More than 60% of web traffic now comes from mobile devices — and Google's data shows that 53% of mobile visitors leave a page that takes more than 3 seconds to load. That's more than half your potential clients, gone before they've seen a word about your business.
+      </p>
+      <p>
+        Page builders like Wix, Squarespace, and WordPress are convenient, but they load a significant amount of code that your visitors' phones have to process before anything appears on screen. On a slow connection — or an older phone — that delay is fatal.
+      </p>
+      <div class="fix-box">
+        <p><strong>Fix:</strong> Test your site at <strong>PageSpeed Insights</strong> (search it on Google — it's free). If your mobile score is below 70, performance is hurting you. A site built with clean, lean code will consistently outperform a page builder on mobile load speed.</p>
+      </div>
+    </div>
+
+    <!-- Reason 4 -->
+    <div class="reveal">
+      <div class="reason-num">04</div>
+      <h2>There's no social proof where it counts</h2>
+      <p>
+        Calgary clients trust reviews and testimonials — but most business websites either have no social proof, or they bury it at the bottom of the page where almost no one scrolls.
+      </p>
+      <p>
+        Social proof works best when it's placed near your call-to-action, right at the moment of decision. A short testimonial next to your "Book Now" button is far more powerful than a dedicated testimonials page that visitors have to navigate to.
+      </p>
+      <div class="fix-box">
+        <p><strong>Fix:</strong> Add 2–3 short client quotes near the top of your page, next to your primary CTA. Even a Google review excerpt — name, star rating, one or two sentences — makes a measurable difference in conversion rate.</p>
+      </div>
+    </div>
+
+    <!-- Reason 5 -->
+    <div class="reveal">
+      <div class="reason-num">05</div>
+      <h2>Your messaging is about you, not your client</h2>
+      <p>
+        This is the biggest one — and the hardest to see on your own site, because it feels natural to talk about your business.
+      </p>
+      <p>Most Calgary business websites open with something like:</p>
+      <ul>
+        <li>"We've been proudly serving Calgary since 2008."</li>
+        <li>"Our team of experienced professionals offers a wide range of services."</li>
+        <li>"We are committed to quality and customer satisfaction."</li>
+      </ul>
+      <p>
+        None of that answers the only question your visitor is actually asking: <em>"Can you solve my problem?"</em>
+      </p>
+      <p>
+        When someone lands on your website, they're not looking for your history or your values. They have a problem — a leaking pipe, a property to sell, a restaurant that needs a website — and they want to know, immediately, that you're the right person to fix it.
+      </p>
+      <div class="fix-box">
+        <p><strong>Fix:</strong> Rewrite your headline to lead with the outcome your client gets — not what you do. Instead of <em>"We offer cleaning services in Calgary,"</em> try <em>"Come home to a clean house — we handle the rest."</em> Same service, completely different first impression.</p>
+      </div>
+    </div>
+
+    <!-- Closing -->
+    <div class="reveal">
+      <h2>What to do next</h2>
+      <p>
+        If you recognised two or more of these on your own website, your site is actively costing you business. The good news: these are all fixable — and you don't necessarily need to rebuild your entire site to address them.
+      </p>
+      <p>
+        Start with whichever one feels most urgent. If your page is slow, fix performance first — that affects every visitor. If your messaging is vague, rewrite the headline before anything else.
+      </p>
+      <p>
+        And if you'd rather have someone look at your specific site and tell you exactly what to fix — I offer a free 20-minute call where I'll do exactly that. No pitch, no obligation. Just a straight answer about what's holding your site back.
+      </p>
+    </div>
+
+  </div>
+</section>
+</article>
+
+
+<!-- ════════════════════════════════════════════
+     END CTA
+════════════════════════════════════════════ -->
+<section class="py-16 px-6 bg-white border-t border-[rgba(0,0,0,0.07)]">
+  <div class="max-w-2xl mx-auto reveal">
+    <p class="text-xs font-medium tracking-widest uppercase text-[#38BDF8] mb-4">Ready to fix it?</p>
+    <h2 class="serif text-[clamp(1.75rem,4vw,2.5rem)] leading-tight text-[#111] mb-4">
+      Find out exactly what's holding your site back.
+    </h2>
+    <p class="text-[15px] text-[#666] leading-relaxed mb-8 max-w-lg">
+      Book a free 20-minute call. I'll look at your Calgary business website and tell you specifically what to change — no jargon, no sales pitch.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-3">
+      <a href="../index.html#contact" class="inline-flex items-center gap-2 bg-[#38BDF8] hover:bg-[#0EA5E9] text-[#0a0a0a] font-semibold text-sm px-7 py-3.5 rounded-full transition-all">
+        Book a free call →
+      </a>
+      <a href="../insights.html" class="inline-flex items-center gap-2 border border-[rgba(0,0,0,0.15)] text-[#555] hover:border-[#38BDF8] hover:text-[#38BDF8] font-medium text-sm px-7 py-3.5 rounded-full transition-all">
+        ← Back to Insights
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+<footer class="border-t border-[rgba(0,0,0,0.07)] py-10 px-6">
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-5">
+    <div class="flex items-center gap-3">
+      <img src="../images/icon.webp" alt="Jason Lai" class="h-6 w-auto opacity-60" />
+      <span class="text-xs text-[#aaa]">© 2026 Jason Lai · jasonlai.work · Calgary, Alberta, Canada</span>
+    </div>
+    <div class="flex items-center gap-6 text-xs text-[#aaa]">
+      <a href="../index.html#services" class="hover:text-[#38BDF8] transition-colors">Services</a>
+      <a href="../index.html#work"     class="hover:text-[#38BDF8] transition-colors">Work</a>
+      <a href="../insights.html"       class="hover:text-[#38BDF8] transition-colors">Insights</a>
+      <a href="mailto:info@jasonlai.work" class="hover:text-[#38BDF8] transition-colors">info@jasonlai.work</a>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ════════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════ -->
+<script>
+  const nav = document.getElementById('site-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  let mobileOpen = false;
+  function toggleMobileNav() {
+    mobileOpen = !mobileOpen;
+    document.getElementById('mobile-nav').classList.toggle('open', mobileOpen);
+    document.getElementById('icon-open').classList.toggle('hidden', mobileOpen);
+    document.getElementById('icon-close').classList.toggle('hidden', !mobileOpen);
+  }
+  function closeMobileNav() {
+    mobileOpen = false;
+    document.getElementById('mobile-nav').classList.remove('open');
+    document.getElementById('icon-open').classList.remove('hidden');
+    document.getElementById('icon-close').classList.add('hidden');
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
