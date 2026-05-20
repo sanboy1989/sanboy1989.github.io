@@ -3,9 +3,107 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jason Lai — Web Developer · Calgary</title>
-  <meta name="description" content="Freelance web developer in Calgary. I build landing pages, booking systems, and portfolio sites that convert visitors into paying customers." />
-  <link rel="icon" href="images/icon.webp" type="image/webp" />
+  <title>Freelance Web Developer in Calgary, AB | Jason Lai</title>
+  <meta name="description" content="Freelance web developer in Calgary, AB — landing pages, booking systems & PWAs built to convert. Bilingual EN/中文. Free quote. Live in 3–7 days." />
+  <link rel="icon" href="images/logo.png" type="image/png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["LocalBusiness", "ProfessionalService"],
+        "@id": "https://jasonlai.work/#business",
+        "name": "Jason Lai — Freelance Web Developer",
+        "alternateName": "Jason Lai Web Development",
+        "url": "https://jasonlai.work",
+        "email": "info@jasonlai.work",
+        "description": "Freelance web developer in Calgary, Alberta specializing in conversion-focused landing pages, online booking systems, and Progressive Web Apps for local businesses across Calgary and North America.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Calgary",
+          "addressRegion": "Alberta",
+          "addressCountry": "CA"
+        },
+        "areaServed": [
+          { "@type": "City",                "name": "Calgary" },
+          { "@type": "AdministrativeArea",  "name": "Alberta" },
+          { "@type": "Country",             "name": "Canada" },
+          { "@type": "Country",             "name": "United States" }
+        ],
+        "knowsLanguage": [
+          { "@type": "Language", "name": "English",             "alternateName": "en" },
+          { "@type": "Language", "name": "Chinese (Traditional)", "alternateName": "zh-Hant" }
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Web Development Services",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Landing Page Design",
+                "description": "Conversion-focused landing pages for Calgary local service businesses, real estate agents, and startups. Engineered to turn visitors into paying customers.",
+                "provider": { "@id": "https://jasonlai.work/#business" }
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Online Booking System Development",
+                "description": "Custom online booking systems for Calgary home services, trades, salons, and wellness businesses. 24/7 client self-booking with real-time availability.",
+                "provider": { "@id": "https://jasonlai.work/#business" }
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Progressive Web App (PWA) Development",
+                "description": "App-quality Progressive Web Apps for Calgary startups and SMBs. Works on every device without an app store — dashboards, member portals, and custom tools.",
+                "provider": { "@id": "https://jasonlai.work/#business" }
+              }
+            }
+          ]
+        },
+        "founder": { "@id": "https://jasonlai.work/#jason" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://jasonlai.work/#jason",
+        "name": "Jason Lai",
+        "givenName": "Jason",
+        "familyName": "Lai",
+        "jobTitle": "Freelance Web Developer",
+        "url": "https://jasonlai.work",
+        "email": "info@jasonlai.work",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Calgary",
+          "addressRegion": "Alberta",
+          "addressCountry": "CA"
+        },
+        "worksFor": { "@id": "https://jasonlai.work/#business" },
+        "knowsLanguage": [
+          { "@type": "Language", "name": "English",               "alternateName": "en" },
+          { "@type": "Language", "name": "Chinese (Traditional)", "alternateName": "zh-Hant" }
+        ],
+        "knowsAbout": [
+          "Web Development",
+          "Website Design",
+          "Landing Page Design",
+          "Progressive Web App Development",
+          "Online Booking Systems",
+          "Bilingual Website Development",
+          "React",
+          "Next.js"
+        ]
+      }
+    ]
+  }
+  </script>
 
   <!--
     DESIGN SYSTEM
@@ -30,7 +128,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&family=Poppins:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -50,13 +148,32 @@
     /* ── Bilingual toggle ── */
     html:not(.lang-zh) [lang="zh"]         { display: none; }
     .lang-zh [lang="en"]                   { display: none; }
+
+    /* ── Chinese Gothic font ── */
+    [lang="zh"] { font-family: 'Noto Sans TC', sans-serif !important; }
     /* Preserve inline elements in ZH mode */
     .lang-zh span[lang="zh"],
     .lang-zh em[lang="zh"],
     .lang-zh strong[lang="zh"]             { display: inline; }
 
     /* ── Canvas & base ── */
-    body { background: #F8F6F2; }
+    body {
+      background-color: #F8F6F2;
+      background-image:
+        linear-gradient(rgba(248,246,242,0.75), rgba(248,246,242,0.75)),
+        url('images/background.png');
+      background-attachment: fixed, fixed;
+      background-repeat: no-repeat, no-repeat;
+      background-position: right center, right center;
+      background-size: 100%, auto 80%;
+    }
+    @media (max-width: 767px) {
+      body {
+        background-position: center center, center center;
+        background-size: 100%, 90% auto;
+      }
+    }
+
     ::selection { background: rgba(56,189,248,0.18); color: #0369a1; }
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: #F8F6F2; }
@@ -141,6 +258,19 @@
       pointer-events: none;
       user-select: none;
     }
+
+    /* ── Fixed footer ── */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      background: rgba(248,246,242,0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    body { padding-bottom: 5rem; }
   </style>
 </head>
 
@@ -158,10 +288,11 @@
 
     <!-- Desktop links -->
     <div class="hidden md:flex items-center gap-7 text-xs font-medium text-[#555] tracking-wide">
-      <a href="#services" class="ul-grow hover:text-[#111] transition-colors"><span lang="en">Services</span><span lang="zh">服務</span></a>
-      <a href="#work"     class="ul-grow hover:text-[#111] transition-colors"><span lang="en">Work</span><span lang="zh">作品</span></a>
-      <a href="#about"    class="ul-grow hover:text-[#111] transition-colors"><span lang="en">About</span><span lang="zh">關於</span></a>
-      <a href="#contact"  class="ul-grow hover:text-[#111] transition-colors"><span lang="en">Contact</span><span lang="zh">聯絡</span></a>
+      <a href="#services"      class="ul-grow hover:text-[#111] transition-colors"><span lang="en">Services</span><span lang="zh">服務</span></a>
+      <a href="#work"          class="ul-grow hover:text-[#111] transition-colors"><span lang="en">Work</span><span lang="zh">作品</span></a>
+      <a href="insights.html"  class="ul-grow hover:text-[#111] transition-colors"><span lang="en">Insights</span><span lang="zh">文章</span></a>
+      <a href="#about"         class="ul-grow hover:text-[#111] transition-colors"><span lang="en">About</span><span lang="zh">關於</span></a>
+      <a href="#contact"       class="ul-grow hover:text-[#111] transition-colors"><span lang="en">Contact</span><span lang="zh">聯絡</span></a>
     </div>
 
     <div class="flex items-center gap-3">
@@ -182,10 +313,11 @@
   <!-- Mobile dropdown -->
   <div id="mobile-nav" class="md:hidden border-t border-[rgba(0,0,0,0.07)] bg-[#F8F6F2]/95 backdrop-blur-md">
     <div class="max-w-6xl mx-auto px-6 py-5 flex flex-col gap-5">
-      <a href="#services" onclick="closeMobileNav()" class="text-sm font-medium text-[#444]"><span lang="en">Services</span><span lang="zh">服務</span></a>
-      <a href="#work"     onclick="closeMobileNav()" class="text-sm font-medium text-[#444]"><span lang="en">Work</span><span lang="zh">作品</span></a>
-      <a href="#about"    onclick="closeMobileNav()" class="text-sm font-medium text-[#444]"><span lang="en">About</span><span lang="zh">關於</span></a>
-      <a href="#contact"  onclick="closeMobileNav()" class="text-sm font-medium text-[#444]"><span lang="en">Contact</span><span lang="zh">聯絡</span></a>
+      <a href="#services"     onclick="closeMobileNav()" class="text-sm font-medium text-[#444]"><span lang="en">Services</span><span lang="zh">服務</span></a>
+      <a href="#work"         onclick="closeMobileNav()" class="text-sm font-medium text-[#444]"><span lang="en">Work</span><span lang="zh">作品</span></a>
+      <a href="insights.html" onclick="closeMobileNav()" class="text-sm font-medium text-[#444]"><span lang="en">Insights</span><span lang="zh">文章</span></a>
+      <a href="#about"        onclick="closeMobileNav()" class="text-sm font-medium text-[#444]"><span lang="en">About</span><span lang="zh">關於</span></a>
+      <a href="#contact"      onclick="closeMobileNav()" class="text-sm font-medium text-[#444]"><span lang="en">Contact</span><span lang="zh">聯絡</span></a>
       <a href="#contact"  onclick="closeMobileNav()" class="inline-flex justify-center bg-[#38BDF8] text-[#0c0c0c] font-semibold text-sm px-5 py-3 rounded-full">
         <span lang="en">Free consultation →</span><span lang="zh">免費諮詢 →</span>
       </a>
@@ -216,14 +348,14 @@
     -->
     <div class="reveal reveal-d1 mb-8">
       <h1 class="leading-none tracking-tight">
-        <span class="block font-sans font-light text-[clamp(1.1rem,3vw,1.75rem)] text-[#999] mb-3" lang="en">Websites that</span>
-        <span class="block font-sans font-light text-[clamp(1.1rem,3vw,1.75rem)] text-[#999] mb-3" lang="zh">為你的業務</span>
+        <span class="block font-normal text-[clamp(1.1rem,3vw,1.75rem)] text-[#999] mb-3" style="font-family:'Poppins',sans-serif" lang="en">Does your website</span>
+        <span class="block font-normal text-[clamp(1.1rem,3vw,1.75rem)] text-[#999] mb-3" style="font-family:'Poppins',sans-serif" lang="zh">你的網站</span>
 
-        <span class="block serif-italic text-[clamp(3rem,8.5vw,6.5rem)] text-[#111] leading-[0.95]" lang="en">
-          actually bring<br>you clients.
+        <span class="block font-bold text-[clamp(3rem,8.5vw,6.5rem)] text-[#111] leading-[0.95]" style="font-family:'Poppins',sans-serif" lang="en">
+          actually bring<br>you clients?
         </span>
-        <span class="block serif-italic text-[clamp(3rem,8.5vw,6.5rem)] text-[#111] leading-[0.95]" lang="zh">
-          帶來真正的客戶。
+        <span class="block font-bold text-[clamp(3rem,8.5vw,6.5rem)] text-[#111] leading-[0.95]" style="font-family:'Poppins',sans-serif" lang="zh">
+          真的為你<br>帶來客戶嗎？
         </span>
       </h1>
     </div>
@@ -231,10 +363,10 @@
     <!-- Sub -->
     <div class="reveal reveal-d2 max-w-lg mb-10">
       <p class="text-[15px] text-[#666] leading-relaxed" lang="en">
-        I build landing pages, booking systems, and portfolio sites for local businesses in Calgary and across North America — every site engineered around the one thing that matters: getting you more customers.
+        As a freelance web developer based in Calgary, Alberta, I design and build landing pages, booking systems, and custom websites for local businesses — every project engineered around one goal: turning visitors into paying customers.
       </p>
       <p class="text-[15px] text-[#666] leading-relaxed" lang="zh">
-        我為卡加利及北美各地的本地商家打造登陸頁面、預約系統和作品集網站——每一個設計都以最重要的目標為核心：為你帶來更多客戶。
+        作為卡加利（Alberta）的自由網頁開發者，我為本地商家設計並打造登陸頁面、預約系統和客製化網站——每個項目都以同一個目標為核心：將訪客轉化為付費客戶。
       </p>
     </div>
 
@@ -279,15 +411,15 @@
           <span lang="zh">01 — 服務</span>
         </p>
         <h2 class="serif text-[clamp(2rem,5vw,3.5rem)] leading-tight text-[#111]">
-          <span lang="en">What I build<br>for your business.</span>
-          <span lang="zh">我能為你<br>打造什麼。</span>
+          <span lang="en">What I build<br>for Calgary businesses.</span>
+          <span lang="zh">我為卡加利商家<br>打造什麼。</span>
         </h2>
       </div>
-      <p class="text-sm text-[#888] max-w-xs leading-relaxed" lang="en">
-        Every type of site I build has one purpose: turn your visitors into paying customers, not just admirers.
+      <p class="text-sm text-[#333] max-w-xs leading-relaxed" lang="en">
+        Whether you need website design in Calgary or a custom web application, every project I ship has one purpose: turn visitors into paying customers.
       </p>
-      <p class="text-sm text-[#888] max-w-xs leading-relaxed" lang="zh">
-        我打造的每一種網站都有同一個目的：讓訪客成為付費客戶，而不只是欣賞者。
+      <p class="text-sm text-[#333] max-w-xs leading-relaxed" lang="zh">
+        無論是卡加利網站設計還是客製化網頁應用，我交付的每一個項目都有同一個目的：讓訪客成為付費客戶。
       </p>
     </div>
 
@@ -315,10 +447,10 @@
         <p class="text-sm text-[#38BDF8] font-medium mb-4" lang="en">More inquiries from people who are already sold.</p>
         <p class="text-sm text-[#38BDF8] font-medium mb-4" lang="zh">讓更多已有意向的訪客直接聯絡你。</p>
         <p class="text-sm text-[#777] leading-relaxed mb-6 flex-1" lang="en">
-          Most business websites look fine but convert nobody. I build pages engineered around what makes people actually take action — clear messaging, social proof placed at exactly the right moment, and one strong CTA.
+          Most Calgary businesses have a website. Few have one that actually wins clients. I build conversion-focused landing pages for local service businesses — sharp messaging, social proof at exactly the right moment, and one strong call-to-action.
         </p>
         <p class="text-sm text-[#777] leading-relaxed mb-6 flex-1" lang="zh">
-          大多數商業網站看起來不錯，卻根本帶不來業務。我打造以轉化為核心的頁面——清晰訊息、在正確時機呈現的客戶見證，以及一個強而有力的行動呼籲。
+          大多數卡加利商家都有網站，但真正能帶來業務的寥寥無幾。我為本地服務業打造以轉化為核心的登陸頁面——清晰訊息、在正確時機呈現的客戶見證，以及強而有力的行動呼籲。
         </p>
         <div class="flex flex-wrap gap-2 mb-6">
           <span class="text-xs border border-[rgba(0,0,0,0.1)] rounded-full px-3 py-1 text-[#666]" lang="en">Real estate agents</span>
@@ -358,10 +490,10 @@
         <p class="text-sm text-[#38BDF8] font-medium mb-4" lang="en">Stop missing jobs because you didn't pick up the phone.</p>
         <p class="text-sm text-[#38BDF8] font-medium mb-4" lang="zh">不再因為漏接電話而錯失客戶。</p>
         <p class="text-sm text-[#777] leading-relaxed mb-6 flex-1" lang="en">
-          Your clients want to book at 9pm on a Sunday. A custom booking site lets them — with your services, your pricing, your team — so you wake up to confirmed appointments instead of missed calls.
+          Calgary clients book at 9pm on a Sunday. A custom online booking system lets them — with your services, your pricing, your team — so you wake up to confirmed appointments, not missed calls.
         </p>
         <p class="text-sm text-[#777] leading-relaxed mb-6 flex-1" lang="zh">
-          你的客人想在週日晚上 9 點預約。客製化預約網站讓他們可以——按你的服務、你的收費、你的團隊——讓你早上醒來看到的是已確認的預約，而不是漏接的電話。
+          卡加利的客人想在週日晚上 9 點預約。客製化網上預約系統讓他們可以——按你的服務、收費、團隊——讓你早上醒來看到的是已確認的預約，而不是漏接的電話。
         </p>
         <div class="flex flex-wrap gap-2 mb-6">
           <span class="text-xs border border-[rgba(0,0,0,0.1)] rounded-full px-3 py-1 text-[#666]" lang="en">Cleaning services</span>
@@ -394,10 +526,10 @@
         <p class="text-sm text-[#38BDF8] font-medium mb-4" lang="en">An app-quality experience — without the app store.</p>
         <p class="text-sm text-[#38BDF8] font-medium mb-4" lang="zh">應用程式級別的體驗——不需要下載安裝。</p>
         <p class="text-sm text-[#777] leading-relaxed mb-6 flex-1" lang="en">
-          When your clients need something more than a brochure site — a dashboard, a member portal, a tool that saves them time — I build Progressive Web Apps that work on every device and load instantly.
+          When your Calgary business needs more than a brochure site — a dashboard, a member portal, a tool that saves your team time — I build Progressive Web Apps that run on every device and load instantly.
         </p>
         <p class="text-sm text-[#777] leading-relaxed mb-6 flex-1" lang="zh">
-          當你的客戶需要的不只是宣傳網站——後台系統、會員入口、節省時間的工具——我打造可在任何裝置上運作、即時載入的漸進式網頁應用程式。
+          當你的卡加利業務需要的不只是宣傳網站——後台系統、會員入口、節省團隊時間的工具——我打造可在任何裝置上即時載入的漸進式網頁應用程式。
         </p>
         <div class="flex flex-wrap gap-2 mb-6">
           <span class="text-xs border border-[rgba(0,0,0,0.1)] rounded-full px-3 py-1 text-[#666]" lang="en">Startups</span>
@@ -496,8 +628,8 @@
           <span lang="zh">03 — 精選作品</span>
         </p>
         <h2 class="serif text-[clamp(2rem,5vw,3.5rem)] leading-tight text-[#111]">
-          <span lang="en">The kind of sites<br>I build for clients.</span>
-          <span lang="zh">我為客戶<br>打造的網站。</span>
+          <span lang="en">The kind of sites<br>I build for Calgary clients.</span>
+          <span lang="zh">我為卡加利客戶<br>打造的網站。</span>
         </h2>
       </div>
     </div>
@@ -710,16 +842,16 @@
 
       <div class="reveal">
         <h2 class="serif text-[clamp(2rem,5vw,3.25rem)] leading-tight text-[#111] mb-8">
-          <span lang="en">Hi — I'm Jason.<br>I build websites that<br><em>work.</em></span>
-          <span lang="zh">你好，我是 Jason。<br>我打造真正<br><em>有效</em>的網站。</span>
+          <span lang="en">Hi — I'm Jason,<br>a freelance web developer<br>in Calgary. I build sites that <em>work.</em></span>
+          <span lang="zh">你好，我是 Jason，<br>卡加利的自由<br>網頁開發者。<br>打造真正有效的網站。</span>
         </h2>
         <div class="space-y-4 text-[15px] text-[#666] leading-relaxed">
-          <p lang="en">I'm a freelance web developer based in Calgary, AB. I specialise in building websites for local service businesses, real estate professionals, and startups — places where a good website actually changes how much business you do.</p>
-          <p lang="zh">我是一位駐紮在卡加利的自由網頁開發者，專門為本地服務業、地產專業人士和初創公司打造網站——這些地方，一個好的網站能真正改變你的業務量。</p>
-          <p lang="en">I'm not a big agency. You work directly with me — which means faster turnaround, honest communication, and a site that genuinely reflects your business rather than a template with your name swapped in.</p>
-          <p lang="zh">我不是大型代理公司。你直接與我合作——這意味著更快的交付速度、直接誠實的溝通，以及一個真正反映你業務的網站，而不是只換了名字的模板。</p>
-          <p lang="en">Every demo project on this site was built to the same standard I'd deliver for a paying client. You can click through them, interact with them, and judge for yourself whether this is the kind of work your business deserves.</p>
-          <p lang="zh">這個網站上的每一個示範項目，都是按照我為付費客戶交付的同等標準建立的。你可以點擊、互動，自己判斷這是否是你的業務值得擁有的工作水準。</p>
+          <p lang="en">I'm a freelance web developer based in Calgary, Alberta. I specialise in building websites for local service businesses, real estate professionals, and startups — places where a good website actually changes how much business you do.</p>
+          <p lang="zh">我是一位駐紮在卡加利（Calgary, Alberta）的自由網頁開發者，專門為本地服務業、地產專業人士和初創公司打造網站——這些地方，一個好的網站能真正改變你的業務量。</p>
+          <p lang="en">I'm not a design agency. When you hire me for web development or website design in Calgary, you work directly with the developer — faster turnaround, honest communication, and a site that genuinely reflects your business rather than a template with your name swapped in.</p>
+          <p lang="zh">我不是設計公司。找我做卡加利網站設計或網頁開發，你直接與開發者合作——更快的交付速度、直接誠實的溝通，以及一個真正反映你業務的網站，而不是只換了名字的模板。</p>
+          <p lang="en">Every demo on this site was built to the same standard I deliver for paying clients — Calgary businesses and beyond. Click through, interact, and judge for yourself whether this is the level of work your business deserves.</p>
+          <p lang="zh">這個網站上的每一個示範項目，都是按照我為付費客戶（包括卡加利本地商家）交付的同等標準建立的。點擊互動，自己判斷這是否是你的業務值得擁有的工作水準。</p>
         </div>
       </div>
 
@@ -728,9 +860,9 @@
         <!-- Local advantage -->
         <div class="bg-white border border-[rgba(0,0,0,0.07)] rounded-2xl p-6">
           <div class="text-2xl mb-3">📍</div>
-          <h3 class="font-semibold text-[15px] mb-2" lang="en">Based in Calgary — serving North America</h3>
-          <h3 class="font-semibold text-[15px] mb-2" lang="zh">駐紮卡加利——服務北美</h3>
-          <p class="text-sm text-[#777] leading-relaxed" lang="en">I know the Calgary market — the industries, the clients, the competition. I can meet locally when helpful, and I work across time zones for clients elsewhere in Canada and the US.</p>
+          <h3 class="font-semibold text-[15px] mb-2" lang="en">Based in Calgary, Alberta — serving North America</h3>
+          <h3 class="font-semibold text-[15px] mb-2" lang="zh">駐紮卡加利，亞省——服務北美</h3>
+          <p class="text-sm text-[#777] leading-relaxed" lang="en">I know the Calgary, Alberta market — the industries, the clients, the competition. I can meet locally when helpful, and I work across time zones for clients elsewhere in Canada and the US.</p>
           <p class="text-sm text-[#777] leading-relaxed" lang="zh">我了解卡加利市場——行業、客戶、競爭環境。如有需要可以在本地見面，也為加拿大和美國其他地區的客戶遠程合作。</p>
         </div>
 
@@ -739,8 +871,8 @@
           <div class="text-2xl mb-3">🌐</div>
           <h3 class="font-semibold text-[15px] mb-2" lang="en">English & Chinese — natively</h3>
           <h3 class="font-semibold text-[15px] mb-2" lang="zh">英中雙語——原生流利</h3>
-          <p class="text-sm text-[#777] leading-relaxed" lang="en">I build bilingual sites as a standard offering — not a translation afterthought. For businesses targeting Calgary's Chinese-speaking community, this is a significant competitive advantage.</p>
-          <p class="text-sm text-[#777] leading-relaxed" lang="zh">我將雙語網站作為標準功能提供——而不是事後翻譯的附加品。對於面向卡加利中文社群的商家，這是一個顯著的競爭優勢。</p>
+          <p class="text-sm text-[#777] leading-relaxed" lang="en">I build bilingual (English & Chinese) websites as a standard offering — not a translation afterthought. For Calgary businesses reaching Alberta's Chinese-speaking community, this is a distinct competitive edge most local web developers can't offer.</p>
+          <p class="text-sm text-[#777] leading-relaxed" lang="zh">我將英中雙語網站作為標準功能提供——而不是事後翻譯的附加品。對於面向 Alberta 中文社群的卡加利商家，這是大多數本地網頁開發者無法提供的競爭優勢。</p>
         </div>
 
         <!-- Tech -->
@@ -846,7 +978,7 @@
   <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-5">
     <div class="flex items-center gap-3">
       <img src="images/icon.webp" alt="Jason Lai" class="h-6 w-auto opacity-60" />
-      <span class="text-xs text-[#aaa]">© 2026 Jason Lai · jasonlai.work</span>
+      <span class="text-xs text-[#aaa]">© 2026 Jason Lai · jasonlai.work · Calgary, Alberta, Canada</span>
     </div>
     <div class="flex items-center gap-6 text-xs text-[#aaa]">
       <a href="#services" class="hover:text-[#38BDF8] transition-colors"><span lang="en">Services</span><span lang="zh">服務</span></a>
