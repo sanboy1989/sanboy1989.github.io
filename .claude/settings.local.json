@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "PowerShell(New-Item -ItemType Directory -Force -Path \"c:\\\\vs code\\\\portfolio\\\\images\")",
-      "Bash(dir \"c:\\\\vs code\\\\portfolio\" /b)"
+      "Bash(dir \"c:\\\\vs code\\\\portfolio\" /b)",
+      "Bash(sed -n '355,375p' \"c:/vs code/portfolio/insights/online-booking-vs-phone-calls-calgary.html\")",
+      "Bash(sed -n '445,480p' \"c:/vs code/portfolio/insights/how-much-does-a-website-cost-calgary.html\")",
+      "Bash(sed -n '428,462p' \"c:/vs code/portfolio/insights/bilingual-websites-calgary-chinese-community.html\")",
+      "Bash(sed -n '378,415p' \"c:/vs code/portfolio/insights/calgary-business-website-not-getting-calls.html\")"
     ]
   }
 }

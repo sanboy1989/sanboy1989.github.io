@@ -259,18 +259,8 @@
       user-select: none;
     }
 
-    /* ── Fixed footer ── */
-    footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 40;
-      background: rgba(248,246,242,0.95);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-    }
-    body { padding-bottom: 5rem; }
+    /* ── Page footer ── */
+    footer { background: #F8F6F2; }
   </style>
 </head>
 
@@ -299,8 +289,8 @@
       <button onclick="toggleLang()" class="text-xs font-medium text-[#777] border border-[#ddd] hover:border-[#38BDF8] hover:text-[#38BDF8] px-3 py-1.5 rounded-full transition-all">
         <span lang="en">中文</span><span lang="zh">EN</span>
       </button>
-      <a href="#contact" class="hidden sm:inline-flex items-center text-xs font-semibold bg-[#111] text-white hover:bg-[#38BDF8] hover:text-[#0c0c0c] px-4 py-2 rounded-full transition-all">
-        <span lang="en">Free consultation</span><span lang="zh">免費諮詢</span>
+      <a href="mailto:info@jasonlai.work?subject=Web%20Project%20Enquiry" class="hidden sm:inline-flex items-center text-xs font-semibold bg-[#111] text-white hover:bg-[#38BDF8] hover:text-[#0c0c0c] px-4 py-2 rounded-full transition-all">
+        <span lang="en">Get in touch</span><span lang="zh">電郵聯絡</span>
       </a>
       <!-- Mobile hamburger -->
       <button id="hamburger" onclick="toggleMobileNav()" class="md:hidden text-[#555] p-1" aria-label="Menu">
@@ -318,8 +308,8 @@
       <a href="insights.html" onclick="closeMobileNav()" class="text-sm font-medium text-[#444]"><span lang="en">Insights</span><span lang="zh">文章</span></a>
       <a href="#about"        onclick="closeMobileNav()" class="text-sm font-medium text-[#444]"><span lang="en">About</span><span lang="zh">關於</span></a>
       <a href="#contact"      onclick="closeMobileNav()" class="text-sm font-medium text-[#444]"><span lang="en">Contact</span><span lang="zh">聯絡</span></a>
-      <a href="#contact"  onclick="closeMobileNav()" class="inline-flex justify-center bg-[#38BDF8] text-[#0c0c0c] font-semibold text-sm px-5 py-3 rounded-full">
-        <span lang="en">Free consultation →</span><span lang="zh">免費諮詢 →</span>
+      <a href="mailto:info@jasonlai.work?subject=Web%20Project%20Enquiry" onclick="closeMobileNav()" class="inline-flex justify-center bg-[#38BDF8] text-[#0c0c0c] font-semibold text-sm px-5 py-3 rounded-full">
+        <span lang="en">Email Jason →</span><span lang="zh">電郵 Jason →</span>
       </a>
     </div>
   </div>
@@ -553,7 +543,7 @@
 <!-- ════════════════════════════════════════════
      PROCESS
 ════════════════════════════════════════════ -->
-<section class="py-28 px-6 bg-white border-t border-[rgba(0,0,0,0.07)]">
+<section id="process" class="py-28 px-6 bg-white border-t border-[rgba(0,0,0,0.07)]">
   <div class="max-w-6xl mx-auto">
 
     <div class="reveal mb-16">
@@ -573,11 +563,11 @@
       <div class="reveal reveal-d1 relative md:pr-8 step-connector">
         <div class="w-10 h-10 rounded-full bg-[#38BDF8] text-[#0a0a0a] flex items-center justify-center font-bold text-sm mb-5 shrink-0">1</div>
         <h3 class="font-semibold text-[15px] mb-2">
-          <span lang="en">Free 20-min chat</span>
-          <span lang="zh">免費 20 分鐘通話</span>
+          <span lang="en">Drop me a message</span>
+          <span lang="zh">發訊息給我</span>
         </h3>
-        <p class="text-sm text-[#777] leading-relaxed" lang="en">Tell me about your business, your clients, and what you need. No tech questions — I just need to understand your goals.</p>
-        <p class="text-sm text-[#777] leading-relaxed" lang="zh">告訴我你的業務、你的客戶和你的需求。完全沒有技術問題——我只需要了解你的目標。</p>
+        <p class="text-sm text-[#777] leading-relaxed" lang="en">Tell me about your business and what you need. I reply in English or Chinese — usually within a few hours.</p>
+        <p class="text-sm text-[#777] leading-relaxed" lang="zh">告訴我你的業務和需求。我以英文或中文回覆——通常在數小時內。</p>
       </div>
 
       <div class="reveal reveal-d2 relative md:px-8 step-connector">
@@ -682,10 +672,12 @@
             <p class="text-sm text-[#777] leading-relaxed mb-6 flex-1" lang="zh">
               為高端地產代理打造的登陸頁面，配備多步驟估價工具，在訪客意向最強的時刻取得聯絡資料——在他們離開之前。
             </p>
-            <a href="project-business.html" class="ul-grow text-xs font-semibold text-[#38BDF8] self-start">
-              <span lang="en">View demo →</span>
-              <span lang="zh">查看示範 →</span>
-            </a>
+            <div class="flex items-center gap-5">
+              <a href="project-business.html" class="ul-grow text-xs font-semibold text-[#38BDF8]">
+                <span lang="en">Case study →</span>
+                <span lang="zh">查看案例 →</span>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -703,7 +695,10 @@
               </span>
               <span class="text-xs text-[#999]">HTML · CSS · JS</span>
             </div>
-            <h3 class="font-semibold text-[17px] mb-2">PrairiePro Book</h3>
+            <h3 class="font-semibold text-[17px] mb-2">
+              <span lang="en">PrairiePro Book</span>
+              <span lang="zh">PrairiePro Book</span>
+            </h3>
             <p class="text-xs font-medium text-emerald-600 mb-3" lang="en">
               ↗ Captures bookings 24/7 — no phone tag
             </p>
@@ -716,12 +711,12 @@
             <p class="text-sm text-[#777] leading-relaxed mb-6 flex-1" lang="zh">
               為卡加利家居服務公司打造的完整預約平台——即時查看可用時段、清晰透明的收費、即時確認預約。客人自助預約，業主早上醒來已有滿滿的工作排程。
             </p>
-            <div class="flex gap-5">
-              <a href="project-probook.html" class="ul-grow text-xs font-semibold text-[#38BDF8] self-start">
-                <span lang="en">View demo →</span>
-                <span lang="zh">查看示範 →</span>
+            <div class="flex items-center gap-5">
+              <a href="project-probook.html" class="ul-grow text-xs font-semibold text-[#38BDF8]">
+                <span lang="en">Case study →</span>
+                <span lang="zh">查看案例 →</span>
               </a>
-              <a href="projects/probook/demo/" target="_blank" rel="noopener" class="ul-grow text-xs text-[#999] hover:text-[#555] transition-colors self-start">
+              <a href="projects/probook/demo/" target="_blank" rel="noopener" class="ul-grow text-xs text-[#999] hover:text-[#555] transition-colors">
                 <span lang="en">Live version →</span>
                 <span lang="zh">互動版本 →</span>
               </a>
@@ -761,10 +756,12 @@
             <p class="text-sm text-[#777] leading-relaxed mb-6 max-w-lg" lang="zh">
               為旅遊品牌打造的漸進式網頁應用程式——行程管理、即時航班提醒、日曆同步。無需透過應用商店，在任何裝置上皆可使用。展示我為初創公司和 SaaS 項目帶來的全端開發能力。
             </p>
-            <a href="project-travel.html" class="ul-grow text-xs font-semibold text-[#38BDF8] self-start">
-              <span lang="en">View demo →</span>
-              <span lang="zh">查看示範 →</span>
-            </a>
+            <div class="flex items-center gap-5">
+              <a href="project-travel.html" class="ul-grow text-xs font-semibold text-[#38BDF8]">
+                <span lang="en">Case study →</span>
+                <span lang="zh">查看案例 →</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -909,14 +906,14 @@
           <span lang="zh">你的下一個客戶<br>可以在下週<br>找到你。</span>
         </h2>
         <div class="space-y-4 text-[15px] text-[#666] leading-relaxed mb-8">
-          <p lang="en">A free 20-minute call. You tell me about your business and what you need. I'll tell you exactly what I can build for you, how long it takes, and what it costs. No obligation, no jargon.</p>
-          <p lang="zh">免費 20 分鐘通話。你告訴我你的業務和需求。我告訴你我能為你打造什麼、需要多長時間，以及費用多少。無需承諾，無技術術語。</p>
+          <p lang="en">Send me an email — describe your business and what you need. I'll reply with a clear answer: what I can build, how long it takes, and what it costs. No obligation, no jargon.</p>
+          <p lang="zh">發電郵給我——簡單描述你的業務和需求。我會清楚回覆：能打造什麼、需要多長時間、費用多少。無需承諾，無技術術語。</p>
         </div>
         <div class="space-y-3 text-sm text-[#666]">
           <div class="flex items-center gap-3">
             <span class="w-1.5 h-1.5 rounded-full bg-[#38BDF8] shrink-0"></span>
-            <span lang="en">Usually responds within a few hours (business days)</span>
-            <span lang="zh">通常在數小時內回覆（工作日）</span>
+            <span lang="en">Usually replies within a few hours — in English or Chinese</span>
+            <span lang="zh">通常在數小時內回覆——英文或中文均可</span>
           </div>
           <div class="flex items-center gap-3">
             <span class="w-1.5 h-1.5 rounded-full bg-[#38BDF8] shrink-0"></span>
@@ -925,8 +922,8 @@
           </div>
           <div class="flex items-center gap-3">
             <span class="w-1.5 h-1.5 rounded-full bg-[#38BDF8] shrink-0"></span>
-            <span lang="en">English and Chinese both welcome</span>
-            <span lang="zh">歡迎以英文或中文溝通</span>
+            <span lang="en">No calls needed — just email back and forth at your pace</span>
+            <span lang="zh">無需通話——以電郵按你的節奏溝通即可</span>
           </div>
         </div>
       </div>
@@ -974,18 +971,51 @@
 <!-- ════════════════════════════════════════════
      FOOTER
 ════════════════════════════════════════════ -->
-<footer class="border-t border-[rgba(0,0,0,0.07)] py-10 px-6">
-  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-5">
-    <div class="flex items-center gap-3">
-      <img src="images/icon.webp" alt="Jason Lai" class="h-6 w-auto opacity-60" />
+<footer class="border-t border-[rgba(0,0,0,0.07)] pt-16 pb-10 px-6">
+  <div class="max-w-6xl mx-auto">
+
+    <!-- Top: logo + nav -->
+    <div class="flex flex-col md:flex-row md:items-start justify-between gap-10 mb-12">
+
+      <div>
+        <a href="#hero" class="inline-block mb-4 hover:opacity-70 transition-opacity">
+          <img src="images/icon.webp" alt="Jason Lai" class="h-8 w-auto" />
+        </a>
+        <p class="text-[13px] text-[#aaa] leading-relaxed max-w-[260px]" lang="en">
+          Freelance web developer in Calgary, AB — landing pages, booking systems & PWAs built to convert.
+        </p>
+        <p class="text-[13px] text-[#aaa] leading-relaxed max-w-[260px]" lang="zh">
+          卡加利自由網頁開發者——登陸頁面、預約系統和 PWA，專為轉化而打造。
+        </p>
+      </div>
+
+      <nav class="flex flex-wrap gap-x-8 gap-y-3 md:pt-1">
+        <a href="#services" class="text-sm text-[#555] hover:text-[#38BDF8] transition-colors">
+          <span lang="en">Services</span><span lang="zh">服務</span>
+        </a>
+        <a href="#work" class="text-sm text-[#555] hover:text-[#38BDF8] transition-colors">
+          <span lang="en">Selected Work</span><span lang="zh">精選作品</span>
+        </a>
+        <a href="#process" class="text-sm text-[#555] hover:text-[#38BDF8] transition-colors">
+          <span lang="en">How it Works</span><span lang="zh">合作流程</span>
+        </a>
+        <a href="#about" class="text-sm text-[#555] hover:text-[#38BDF8] transition-colors">
+          <span lang="en">About</span><span lang="zh">關於</span>
+        </a>
+        <a href="#contact" class="text-sm text-[#555] hover:text-[#38BDF8] transition-colors">
+          <span lang="en">Contact</span><span lang="zh">聯絡</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Bottom: copyright + email -->
+    <div class="border-t border-[rgba(0,0,0,0.07)] pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
       <span class="text-xs text-[#aaa]">© 2026 Jason Lai · jasonlai.work · Calgary, Alberta, Canada</span>
+      <a href="mailto:info@jasonlai.work" class="text-xs text-[#aaa] hover:text-[#38BDF8] transition-colors">
+        info@jasonlai.work
+      </a>
     </div>
-    <div class="flex items-center gap-6 text-xs text-[#aaa]">
-      <a href="#services" class="hover:text-[#38BDF8] transition-colors"><span lang="en">Services</span><span lang="zh">服務</span></a>
-      <a href="#work"     class="hover:text-[#38BDF8] transition-colors"><span lang="en">Work</span><span lang="zh">作品</span></a>
-      <a href="#about"    class="hover:text-[#38BDF8] transition-colors"><span lang="en">About</span><span lang="zh">關於</span></a>
-      <a href="mailto:info@jasonlai.work" class="hover:text-[#38BDF8] transition-colors">info@jasonlai.work</a>
-    </div>
+
   </div>
 </footer>
 
