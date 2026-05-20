@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Much Does a Website Cost in Calgary? (Honest Breakdown) | Jason Lai</title>
+  <meta name="description" content="Website prices in Calgary range from $0 to $20,000+. Here's an honest, no-sales-pitch breakdown to help you figure out the right investment for where your business is right now." />
+  <link rel="icon" href="../images/logo.png" type="image/png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How Much Does a Website Cost in Calgary? (Honest Breakdown)",
+    "description": "Website prices in Calgary range from $0 to $20,000+. Here's an honest breakdown to help you figure out the right investment for your business.",
+    "url": "https://jasonlai.work/insights/how-much-does-a-website-cost-calgary.html",
+    "datePublished": "2026-03-10",
+    "dateModified": "2026-03-10",
+    "author": {
+      "@type": "Person",
+      "name": "Jason Lai",
+      "url": "https://jasonlai.work",
+      "@id": "https://jasonlai.work/#jason"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Jason Lai",
+      "url": "https://jasonlai.work"
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['DM Serif Display', 'Georgia', 'serif'],
+            sans:  ['Space Grotesk', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #F8F6F2;
+      background-image:
+        linear-gradient(rgba(248,246,242,0.75), rgba(248,246,242,0.75)),
+        url('../images/background.png');
+      background-attachment: fixed, fixed;
+      background-repeat: no-repeat, no-repeat;
+      background-position: right center, right center;
+      background-size: 100%, auto 80%;
+      padding-bottom: 5rem;
+    }
+
+    @media (max-width: 767px) {
+      body {
+        background-position: center center, center center;
+        background-size: 100%, 90% auto;
+      }
+    }
+
+    ::selection { background: rgba(56,189,248,0.18); color: #0369a1; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #F8F6F2; }
+    ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.9s cubic-bezier(0.22,1,0.36,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    #site-nav { transition: background 0.35s ease, box-shadow 0.35s ease; }
+    #site-nav.scrolled {
+      background: rgba(248,246,242,0.92);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .serif { font-family: 'DM Serif Display', Georgia, serif; }
+    .ul-grow { position: relative; }
+    .ul-grow::after {
+      content: ''; position: absolute;
+      bottom: -2px; left: 0; right: 0;
+      height: 1px; background: currentColor;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .ul-grow:hover::after { transform: scaleX(1); }
+
+    #mobile-nav { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    #mobile-nav.open { max-height: 400px; }
+
+    footer {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 40;
+      background: rgba(248,246,242,0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .prose h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+      color: #111;
+      margin-top: 3rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+    .prose p {
+      color: #555;
+      line-height: 1.85;
+      margin-bottom: 1.25rem;
+      font-size: 1rem;
+    }
+    .prose ul {
+      margin-bottom: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .prose ul li {
+      color: #555;
+      line-height: 1.8;
+      padding-left: 1.25rem;
+      position: relative;
+      font-size: 1rem;
+    }
+    .prose ul li::before {
+      content: '·';
+      color: #38BDF8;
+      font-weight: 700;
+      position: absolute;
+      left: 0;
+    }
+    .prose strong { color: #111; font-weight: 600; }
+    .prose em { font-style: italic; color: #444; }
+
+    .fix-box {
+      background: rgba(56,189,248,0.06);
+      border-left: 3px solid #38BDF8;
+      border-radius: 0 10px 10px 0;
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0 2rem;
+    }
+    .fix-box p {
+      margin-bottom: 0 !important;
+      color: #444 !important;
+      font-size: 0.9rem !important;
+    }
+    .fix-box strong { color: #0369a1 !important; }
+
+    .tier-card {
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      margin: 0.75rem 0;
+      background: #fff;
+    }
+    .tier-card .tier-price {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 1.6rem;
+      color: #111;
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .tier-card .tier-label {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+    .tier-card p {
+      font-size: 0.875rem !important;
+      margin-bottom: 0 !important;
+      color: #666 !important;
+      line-height: 1.7 !important;
+    }
+
+    .reason-num {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 3.5rem;
+      line-height: 1;
+      color: #a855f7;
+      opacity: 0.2;
+      user-select: none;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body class="text-[#111] font-sans antialiased">
+
+<!-- ════════════════════════════════════════════
+     NAV
+════════════════════════════════════════════ -->
+<nav id="site-nav" class="fixed top-0 left-0 right-0 z-50">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+
+    <a href="../index.html" class="hover:opacity-70 transition-opacity">
+      <img src="../images/icon.webp" alt="Jason Lai" class="h-7 w-auto" />
+    </a>
+
+    <div class="hidden md:flex items-center gap-7 text-xs font-medium text-[#555] tracking-wide">
+      <a href="../index.html#services" class="ul-grow hover:text-[#111] transition-colors">Services</a>
+      <a href="../index.html#work"     class="ul-grow hover:text-[#111] transition-colors">Work</a>
+      <a href="../insights.html"       class="ul-grow hover:text-[#111] transition-colors">Insights</a>
+      <a href="../index.html#about"    class="ul-grow hover:text-[#111] transition-colors">About</a>
+      <a href="../index.html#contact"  class="ul-grow hover:text-[#111] transition-colors">Contact</a>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <a href="../index.html#contact" class="hidden sm:inline-flex items-center text-xs font-semibold bg-[#111] text-white hover:bg-[#38BDF8] hover:text-[#0c0c0c] px-4 py-2 rounded-full transition-all">
+        Free consultation
+      </a>
+      <button id="hamburger" onclick="toggleMobileNav()" class="md:hidden text-[#555] p-1" aria-label="Menu">
+        <svg id="icon-open"  class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="md:hidden border-t border-[rgba(0,0,0,0.07)] bg-[#F8F6F2]/95 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-6 py-5 flex flex-col gap-5">
+      <a href="../index.html#services" onclick="closeMobileNav()" class="text-sm font-medium text-[#444]">Services</a>
+      <a href="../index.html#work"     onclick="closeMobileNav()" class="text-sm font-medium text-[#444]">Work</a>
+      <a href="../insights.html"       onclick="closeMobileNav()" class="text-sm font-medium text-[#444]">Insights</a>
+      <a href="../index.html#about"    onclick="closeMobileNav()" class="text-sm font-medium text-[#444]">About</a>
+      <a href="../index.html#contact"  onclick="closeMobileNav()" class="text-sm font-medium text-[#444]">Contact</a>
+      <a href="../index.html#contact"  onclick="closeMobileNav()" class="inline-flex justify-center bg-[#38BDF8] text-[#0c0c0c] font-semibold text-sm px-5 py-3 rounded-full">
+        Free consultation →
+      </a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ════════════════════════════════════════════
+     ARTICLE HEADER
+════════════════════════════════════════════ -->
+<article>
+<header class="pt-36 pb-12 px-6 border-b border-[rgba(0,0,0,0.07)]">
+  <div class="max-w-2xl mx-auto">
+
+    <div class="reveal flex items-center gap-2 text-xs text-[#aaa] mb-8">
+      <a href="../insights.html" class="hover:text-[#38BDF8] transition-colors">Insights</a>
+      <span>›</span>
+      <span>Website Design</span>
+    </div>
+
+    <div class="reveal flex items-center gap-3 mb-6">
+      <span class="text-xs font-medium text-purple-600 border border-purple-200 bg-purple-50 rounded-full px-3 py-0.5">Website Design</span>
+      <span class="text-xs text-[#aaa]">6 min read</span>
+      <span class="text-xs text-[#aaa]">·</span>
+      <span class="text-xs text-[#aaa]">Mar 2026</span>
+    </div>
+
+    <h1 class="reveal serif text-[clamp(2rem,5vw,3rem)] leading-tight text-[#111] mb-6">
+      How Much Does a Website Cost in Calgary? (Honest Breakdown)
+    </h1>
+
+    <p class="reveal text-[15px] text-[#666] leading-relaxed max-w-xl">
+      Prices range from $0 to $20,000+. But the dollar figure matters less than choosing the right level of investment for where your business actually is right now.
+    </p>
+
+  </div>
+</header>
+
+
+<!-- ════════════════════════════════════════════
+     ARTICLE BODY
+════════════════════════════════════════════ -->
+<section class="py-16 px-6">
+  <div class="max-w-2xl mx-auto prose">
+
+    <p>
+      If you've asked Google "how much does a website cost in Calgary," you've probably seen answers that range from "a few hundred dollars" to "it depends." Neither is very useful when you're trying to make a real business decision.
+    </p>
+    <p>
+      So here's an honest breakdown — with actual numbers, real trade-offs, and a clear framework for deciding what's right for your business at this stage. No sales pitch. I'll include options where a freelancer like me isn't the right answer.
+    </p>
+
+    <!-- Tier 1 -->
+    <div class="reveal">
+      <div class="reason-num">01</div>
+      <h2>DIY website builders — $0 to $50/month</h2>
+      <p>
+        Wix, Squarespace, and GoDaddy Website Builder let you drag and drop a website together yourself. The monthly fee covers hosting, and you can be live in a weekend.
+      </p>
+
+      <div class="tier-card">
+        <div class="tier-price">$0–$600/yr</div>
+        <div class="tier-label">Wix / Squarespace / GoDaddy</div>
+        <p>Free plans with builder-branded domain; paid plans from ~$17–$45/month. No upfront cost, but the platform owns your site — move hosts and you rebuild from scratch.</p>
+      </div>
+
+      <p>
+        <strong>When this makes sense:</strong> You're testing a new side project, you're a sole trader with minimal web needs, or you want something live fast while you validate demand. The trade-off is real: these platforms load significantly more code than a custom-built site, which hurts page speed and search rankings. They're also opinionated — your site will look like a Squarespace site.
+      </p>
+      <div class="fix-box">
+        <p><strong>Honest verdict:</strong> For an established Calgary business that wants to win clients from Google, a page builder is unlikely to get you there. For a "just get something online" situation, it's a reasonable starting point.</p>
+      </div>
+    </div>
+
+    <!-- Tier 2 -->
+    <div class="reveal">
+      <div class="reason-num">02</div>
+      <h2>WordPress with a premium theme — $500 to $2,000</h2>
+      <p>
+        Hiring someone on Fiverr or Upwork, or a local junior freelancer, to set up a WordPress site with a premium theme typically costs in this range. The result is a functional site, often built quickly.
+      </p>
+
+      <div class="tier-card">
+        <div class="tier-price">$500–$2,000</div>
+        <div class="tier-label">WordPress + premium theme</div>
+        <p>One-time build cost, plus ongoing hosting ($10–$30/month) and occasional maintenance. You own the site, but it's built on a template shared by thousands of other businesses.</p>
+      </div>
+
+      <p>
+        <strong>When this makes sense:</strong> You need a basic online presence — hours, location, contact form, maybe a blog. You're not expecting the website itself to generate a significant volume of leads. Your budget is tight and you need something now.
+      </p>
+      <p>
+        <strong>The risk:</strong> WordPress sites require ongoing maintenance — plugin updates, security patches, occasional breakage. Many Calgary business owners find themselves paying for support they didn't budget for, or ignoring the maintenance until something breaks.
+      </p>
+      <div class="fix-box">
+        <p><strong>Honest verdict:</strong> This is the most common entry point for small Calgary businesses, and it's a perfectly reasonable one. Just understand you're buying a foundation — not a client-generation machine.</p>
+      </div>
+    </div>
+
+    <!-- Tier 3 -->
+    <div class="reveal">
+      <div class="reason-num">03</div>
+      <h2>Freelance developer — $1,500 to $8,000</h2>
+      <p>
+        A freelance web developer builds your site from scratch — or uses a modern framework — tailored to your specific business goals. This is where custom design, real performance, and conversion-focused thinking come in.
+      </p>
+
+      <div class="tier-card">
+        <div class="tier-price">$1,500–$8,000</div>
+        <div class="tier-label">Custom freelance build</div>
+        <p>One-time project fee. Price varies with scope: a conversion-focused landing page sits at the lower end; a full multi-page site with booking, bilingual content, and custom features at the higher end.</p>
+      </div>
+
+      <p>
+        A good freelancer writes clean code, not a page builder export. That means faster load times, better Google rankings, and a site that can be extended cleanly as your business grows. You also work directly with the person who built it — no account managers, no handoffs.
+      </p>
+      <p>
+        The range is wide because scope varies dramatically. A single-service landing page designed to capture leads from Google Ads is a very different project from a five-service site with online booking, a client portal, and bilingual content.
+      </p>
+      <div class="fix-box">
+        <p><strong>Honest verdict:</strong> This is the sweet spot for most Calgary businesses that take their online presence seriously. You get a site built around your goals, not around a template. The ROI calculation is usually straightforward: if the site brings in one extra client per month, it pays for itself quickly.</p>
+      </div>
+    </div>
+
+    <!-- Tier 4 -->
+    <div class="reveal">
+      <div class="reason-num">04</div>
+      <h2>Agency — $5,000 to $20,000+</h2>
+      <p>
+        A full-service agency brings a team: project manager, designer, developer, copywriter, sometimes an SEO specialist. The process is structured, the deliverables are documented, and the output is polished.
+      </p>
+
+      <div class="tier-card">
+        <div class="tier-price">$5,000–$20,000+</div>
+        <div class="tier-label">Full-service web agency</div>
+        <p>Includes strategy, design, copywriting, development, and often ongoing SEO or maintenance retainers. Timeline is typically 6–12 weeks. You're paying for a team and a process, not just a developer.</p>
+      </div>
+
+      <p>
+        <strong>When this makes sense:</strong> You're running a larger operation — multiple locations, a significant marketing budget, a complex site with integrations, or a rebrand that touches every piece of your customer experience. At this level, the agency's process and accountability structures are genuinely valuable.
+      </p>
+      <p>
+        For most Calgary small businesses — a cleaning company, a real estate agent, a trades contractor, a salon — agency pricing is simply overkill. You're paying for capacity you won't use.
+      </p>
+      <div class="fix-box">
+        <p><strong>Honest verdict:</strong> Only consider an agency if your business genuinely has the complexity, the budget, and the internal capacity to manage the relationship. For most local service businesses, you'll get better results from a focused freelancer at a fraction of the cost.</p>
+      </div>
+    </div>
+
+    <!-- Hidden costs -->
+    <div class="reveal">
+      <h2>The costs people forget to ask about</h2>
+      <p>
+        Whatever tier you choose, these expenses exist outside the build cost:
+      </p>
+      <ul>
+        <li><strong>Domain name</strong> — typically $15–$25/year from a registrar like Namecheap or Google Domains.</li>
+        <li><strong>Hosting</strong> — ranges from $5/month (basic shared hosting) to $30+/month (managed hosting with better performance). A custom-built site can often be hosted on platforms like Netlify or Vercel for free or very cheaply.</li>
+        <li><strong>SSL certificate</strong> — free with most modern hosts (Let's Encrypt). If someone quotes you extra for this, ask why.</li>
+        <li><strong>Ongoing maintenance</strong> — WordPress sites need regular updates. Custom-coded static sites typically need nothing until you want changes. Factor this in when comparing total cost of ownership.</li>
+        <li><strong>Copywriting</strong> — words matter more than design for conversions. Many builds don't include copywriting. Budget for it, or invest time writing your own with guidance.</li>
+      </ul>
+    </div>
+
+    <!-- The real question -->
+    <div class="reveal">
+      <h2>The question that actually matters</h2>
+      <p>
+        Most business owners focus on minimising the upfront cost. That's understandable — but it's the wrong frame.
+      </p>
+      <p>
+        The right question is: <em>what is one new client worth to my business?</em>
+      </p>
+      <p>
+        If a single new client is worth $300 — a one-time cleaning job — a $3,000 website needs to bring in ten clients to break even. That might take years if the site isn't built to convert.
+      </p>
+      <p>
+        If a single new client is worth $5,000 — a renovation project, a real estate sale, an ongoing service contract — the same $3,000 website pays for itself in weeks if it generates even one lead.
+      </p>
+      <p>
+        Think about your average client value, then ask: how many clients does this site need to bring me for the investment to make sense? Usually, the answer is "not many" — and that reframes the whole conversation.
+      </p>
+    </div>
+
+    <!-- Closing -->
+    <div class="reveal">
+      <h2>Where does that leave you?</h2>
+      <p>
+        If you're a Calgary small business owner trying to decide what to spend on a website, here's the short version:
+      </p>
+      <ul>
+        <li>Testing an idea or on a very tight budget? Start with a page builder. Accept the limitations.</li>
+        <li>Need a solid, maintained presence without a big investment? WordPress with a good theme and a local developer is reasonable.</li>
+        <li>Want a site that genuinely wins clients and loads fast? A custom freelance build at $1,500–$5,000 is usually the most cost-effective path.</li>
+        <li>Running a complex multi-location or high-revenue operation? An agency may be worth the premium.</li>
+      </ul>
+      <p>
+        If you're not sure which tier makes sense for your business right now, I'm happy to give you a straight answer on a free 20-minute call — no obligation, no pitch.
+      </p>
+    </div>
+
+  </div>
+</section>
+</article>
+
+
+<!-- ════════════════════════════════════════════
+     END CTA
+════════════════════════════════════════════ -->
+<section class="py-16 px-6 bg-white border-t border-[rgba(0,0,0,0.07)]">
+  <div class="max-w-2xl mx-auto reveal">
+    <p class="text-xs font-medium tracking-widest uppercase text-[#38BDF8] mb-4">Not sure what you need?</p>
+    <h2 class="serif text-[clamp(1.75rem,4vw,2.5rem)] leading-tight text-[#111] mb-4">
+      Get a straight answer for your specific situation.
+    </h2>
+    <p class="text-[15px] text-[#666] leading-relaxed mb-8 max-w-lg">
+      Book a free 20-minute call. Tell me about your business and I'll tell you exactly what I'd recommend — and what it would cost — without any obligation.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-3">
+      <a href="../index.html#contact" class="inline-flex items-center gap-2 bg-[#38BDF8] hover:bg-[#0EA5E9] text-[#0a0a0a] font-semibold text-sm px-7 py-3.5 rounded-full transition-all">
+        Book a free call →
+      </a>
+      <a href="../insights.html" class="inline-flex items-center gap-2 border border-[rgba(0,0,0,0.15)] text-[#555] hover:border-[#38BDF8] hover:text-[#38BDF8] font-medium text-sm px-7 py-3.5 rounded-full transition-all">
+        ← Back to Insights
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+<footer class="border-t border-[rgba(0,0,0,0.07)] py-10 px-6">
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-5">
+    <div class="flex items-center gap-3">
+      <img src="../images/icon.webp" alt="Jason Lai" class="h-6 w-auto opacity-60" />
+      <span class="text-xs text-[#aaa]">© 2026 Jason Lai · jasonlai.work · Calgary, Alberta, Canada</span>
+    </div>
+    <div class="flex items-center gap-6 text-xs text-[#aaa]">
+      <a href="../index.html#services" class="hover:text-[#38BDF8] transition-colors">Services</a>
+      <a href="../index.html#work"     class="hover:text-[#38BDF8] transition-colors">Work</a>
+      <a href="../insights.html"       class="hover:text-[#38BDF8] transition-colors">Insights</a>
+      <a href="mailto:info@jasonlai.work" class="hover:text-[#38BDF8] transition-colors">info@jasonlai.work</a>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ════════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════ -->
+<script>
+  const nav = document.getElementById('site-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  let mobileOpen = false;
+  function toggleMobileNav() {
+    mobileOpen = !mobileOpen;
+    document.getElementById('mobile-nav').classList.toggle('open', mobileOpen);
+    document.getElementById('icon-open').classList.toggle('hidden', mobileOpen);
+    document.getElementById('icon-close').classList.toggle('hidden', !mobileOpen);
+  }
+  function closeMobileNav() {
+    mobileOpen = false;
+    document.getElementById('mobile-nav').classList.remove('open');
+    document.getElementById('icon-open').classList.remove('hidden');
+    document.getElementById('icon-close').classList.add('hidden');
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
