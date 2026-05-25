@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+  <!-- Core pages -->
   <url>
     <loc>https://jasonlai.work/</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
 
+  <!-- Sales / landing pages -->
   <url>
     <loc>https://jasonlai.work/probook-sales.html</loc>
     <lastmod>2026-05-19</lastmod>
@@ -22,39 +24,76 @@
     <priority>0.9</priority>
   </url>
 
+  <!-- Insights blog -->
+  <url>
+    <loc>https://jasonlai.work/insights.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://jasonlai.work/insights/calgary-business-website-not-getting-calls.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://jasonlai.work/insights/online-booking-vs-phone-calls-calgary.html</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://jasonlai.work/insights/how-much-does-a-website-cost-calgary.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://jasonlai.work/insights/bilingual-websites-calgary-chinese-community.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Project case studies -->
   <url>
     <loc>https://jasonlai.work/project-business.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://jasonlai.work/project-hero.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://jasonlai.work/project-langimon.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://jasonlai.work/project-probook.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://jasonlai.work/project-travel.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
 
 </urlset>
