@@ -261,6 +261,308 @@
 
     /* ── Page footer ── */
     footer { background: #F8F6F2; }
+
+    /* ════════════════════════════════════════════
+       PREMIUM HERO
+    ════════════════════════════════════════════ */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #F8F6F2;
+      overflow: hidden;
+      color: #111111;
+      padding: 0;
+    }
+    /* ── Photo grid background ── */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .hero-bg-track {
+      position: absolute;
+      /* Oversized so rotation never exposes the hero background */
+      inset: -100%;
+      transform: rotate(-17deg);
+      animation: heroGridPan 30s linear infinite;
+      will-change: transform;
+    }
+    .hero-bg-grid {
+      display: grid;
+      /* 20 cols × 12 rows; JS fills cells with background-image */
+      grid-template-columns: repeat(20, 240px);
+      gap: 12px;
+      width: max-content;
+    }
+    .hero-grid-cell {
+      width: 240px;
+      height: 170px;
+      border-radius: 4px;
+      background-size: cover;
+      background-position: center;
+      background-color: #e0ddd8;  /* fallback while images load */
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      /* Warm white at 72 % — photos visible but text remains readable */
+      background: rgba(248, 246, 242, 0.72);
+    }
+    /*
+      Seamless-loop math:
+        cell unit  = 240 + 12 = 252 px wide, 170 + 12 = 182 px tall
+        base tile  = 5 cols × 2 rows  →  1260 × 364 px
+        grid built = 20 cols × 12 rows  (4 × 6 full tiles)
+        translate  = −1260 px X, +364 px Y  (one exact tile period)
+      After one cycle the grid is visually identical → no jump cut.
+      Screen direction (−17 ° rotation applied):  ≈ left −1098 px, down +716 px = bottom-left ✓
+    */
+    @keyframes heroGridPan {
+      0%   { transform: rotate(-17deg) translate(0,       0); }
+      100% { transform: rotate(-17deg) translate(-1260px, 364px); }
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 10;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 110px 60px 106px;
+      width: 100%;
+    }
+    /* Eyebrow */
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 60px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+    .hero-eyebrow.visible { opacity: 1; transform: none; }
+    .hero-eyebrow-line {
+      width: 36px; height: 1px;
+      background: rgba(17,17,17,0.12);
+      flex-shrink: 0;
+    }
+    .hero-eyebrow-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(17,17,17,0.42);
+    }
+    /* Headline clip reveal */
+    .hero-h1 { margin-bottom: 52px; }
+    .hero-clip-wrap {
+      display: block;
+      overflow: hidden;
+      padding-bottom: 0.05em;
+    }
+    .hero-clip-inner {
+      display: block;
+      transform: translateY(108%);
+      transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hero-clip-inner.revealed { transform: translateY(0); }
+    .hero-h1-label .hero-clip-inner {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1rem, 2.2vw, 1.5rem);
+      font-weight: 300;
+      color: rgba(17,17,17,0.38);
+      letter-spacing: -0.01em;
+      padding-bottom: 0.35em;
+    }
+    .hero-h1-main .hero-clip-inner {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(3.8rem, 9.5vw, 8.5rem);
+      color: #111111;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+    }
+    .hero-h1-accent {
+      color: #38BDF8;
+      font-style: italic;
+      font-family: inherit;
+    }
+    /* Sub text */
+    .hero-sub {
+      max-width: 500px;
+      margin-bottom: 48px;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+    .hero-sub.visible { opacity: 1; transform: none; }
+    .hero-sub p {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      color: rgba(17,17,17,0.52);
+      line-height: 1.85;
+      font-weight: 300;
+    }
+    /* CTAs */
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 56px;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .hero-actions.visible { opacity: 1; transform: none; }
+    .hero-cta-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #38BDF8;
+      color: #080808;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 14px 30px;
+      text-decoration: none;
+      transition: background 0.28s ease, transform 0.28s ease, box-shadow 0.28s ease;
+    }
+    .hero-cta-primary:hover {
+      background: #0EA5E9;
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(56,189,248,0.28);
+    }
+    .hero-cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(17,17,17,0.42);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(17,17,17,0.12);
+      padding: 4px 0;
+      transition: color 0.25s ease, border-color 0.25s ease;
+    }
+    .hero-cta-secondary:hover {
+      color: rgba(17,17,17,0.8);
+      border-color: rgba(17,17,17,0.3);
+    }
+    /* Trust strip */
+    .hero-trust {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 32px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(17,17,17,0.07);
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    .hero-trust.visible { opacity: 1; }
+    .hero-trust-item {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10.5px;
+      color: rgba(17,17,17,0.3);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    /* Scroll indicator */
+    .hero-scroll-indicator {
+      position: absolute;
+      right: 48px; bottom: 80px;
+      z-index: 15;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-scroll-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 7.5px;
+      letter-spacing: 0.24em;
+      color: rgba(17,17,17,0.2);
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+    }
+    .hero-scroll-line {
+      width: 1px; height: 56px;
+      background: rgba(17,17,17,0.07);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-scroll-line::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 100%;
+      background: rgba(17,17,17,0.35);
+      transform: translateY(-100%);
+      animation: heroScrollLine 2.4s ease-in-out infinite;
+    }
+    @keyframes heroScrollLine {
+      0%   { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+    /* Marquee strip */
+    .hero-marquee {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 12;
+      overflow: hidden;
+      height: 46px;
+      border-top: 1px solid rgba(17,17,17,0.06);
+      display: flex;
+      align-items: center;
+    }
+    .hero-marquee-track {
+      display: flex;
+      align-items: center;
+      animation: heroMarquee 30s linear infinite;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .hero-marquee-track span {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(17,17,17,0.15);
+      padding: 0 30px;
+    }
+    .hero-marquee-dot {
+      color: #38BDF8 !important;
+      opacity: 0.4 !important;
+      padding: 0 2px !important;
+      letter-spacing: 0 !important;
+      font-size: 8px !important;
+    }
+    @keyframes heroMarquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    /* Nav transparent over light hero */
+    #site-nav.at-hero:not(.scrolled) {
+      background: transparent !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+    /* Mobile */
+    @media (max-width: 767px) {
+      .hero-inner { padding: 90px 24px 100px; }
+      .hero-scroll-indicator { display: none; }
+      .hero-h1-main .hero-clip-inner {
+        font-size: clamp(3rem, 13vw, 5rem);
+      }
+      .hero-actions { flex-direction: column; align-items: flex-start; gap: 12px; }
+    }
   </style>
 </head>
 
@@ -317,71 +619,104 @@
 
 
 <!-- ════════════════════════════════════════════
-     HERO
+     HERO — Premium animated
 ════════════════════════════════════════════ -->
-<section id="hero" class="min-h-screen flex flex-col justify-center px-6 pt-16 pb-20">
-  <div class="max-w-6xl mx-auto w-full">
+<section id="hero">
+  <!-- Tilted, continuously-panning photo grid background -->
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-bg-track">
+      <div class="hero-bg-grid" id="hero-bg-grid"></div>
+    </div>
+    <div class="hero-overlay"></div>
+  </div>
 
-    <!-- Eyebrow -->
-    <div class="reveal flex items-center gap-3 mb-10">
-      <span class="w-1.5 h-1.5 rounded-full bg-[#38BDF8] animate-pulse shrink-0"></span>
-      <span class="text-xs font-medium tracking-widest uppercase text-[#888]">
-        <span lang="en">Freelance Web Developer &nbsp;·&nbsp; Calgary, AB</span>
-        <span lang="zh">自由接案網頁開發者 &nbsp;·&nbsp; 卡加利</span>
+  <!-- Content block (mouse parallax target) -->
+  <div class="hero-inner" id="hero-inner">
+
+    <!-- Eyebrow: role + location -->
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line" aria-hidden="true"></div>
+      <span class="hero-eyebrow-text" lang="en">Freelance Web Developer &nbsp;·&nbsp; Calgary, AB</span>
+      <span class="hero-eyebrow-text" lang="zh">自由接案網頁開發者 &nbsp;·&nbsp; 卡加利</span>
+    </div>
+
+    <!-- Headline with line-mask reveal -->
+    <h1 class="hero-h1">
+      <span class="hero-clip-wrap hero-h1-label">
+        <span class="hero-clip-inner">
+          <span class="block" lang="en">Does your website</span>
+          <span class="block" lang="zh">你的網站</span>
+        </span>
       </span>
-    </div>
-
-    <!--
-      Headline: contrast between a lightweight "label" line (sans)
-      and the large serif-italic "impact" lines below it.
-      Mimics u-d-l.jp's typographic tension — refined but assertive.
-    -->
-    <div class="reveal reveal-d1 mb-8">
-      <h1 class="leading-none tracking-tight">
-        <span class="block font-normal text-[clamp(1.1rem,3vw,1.75rem)] text-[#999] mb-3" style="font-family:'Poppins',sans-serif" lang="en">Does your website</span>
-        <span class="block font-normal text-[clamp(1.1rem,3vw,1.75rem)] text-[#999] mb-3" style="font-family:'Poppins',sans-serif" lang="zh">你的網站</span>
-
-        <span class="block font-bold text-[clamp(3rem,8.5vw,6.5rem)] text-[#111] leading-[0.95]" style="font-family:'Poppins',sans-serif" lang="en">
-          actually bring<br>you clients?
+      <span class="hero-clip-wrap hero-h1-main">
+        <span class="hero-clip-inner">
+          <span class="block" lang="en">actually bring</span>
+          <span class="block" lang="zh">真的為你</span>
         </span>
-        <span class="block font-bold text-[clamp(3rem,8.5vw,6.5rem)] text-[#111] leading-[0.95]" style="font-family:'Poppins',sans-serif" lang="zh">
-          真的為你<br>帶來客戶嗎？
+      </span>
+      <span class="hero-clip-wrap hero-h1-main">
+        <span class="hero-clip-inner">
+          <span class="block" lang="en">you <em class="hero-h1-accent">clients?</em></span>
+          <span class="block" lang="zh">帶來 <em class="hero-h1-accent">客戶嗎？</em></span>
         </span>
-      </h1>
-    </div>
+      </span>
+    </h1>
 
-    <!-- Sub -->
-    <div class="reveal reveal-d2 max-w-lg mb-10">
-      <p class="text-[15px] text-[#666] leading-relaxed" lang="en">
-        As a freelance web developer based in Calgary, Alberta, I design and build landing pages, booking systems, and custom websites for local businesses — every project engineered around one goal: turning visitors into paying customers.
-      </p>
-      <p class="text-[15px] text-[#666] leading-relaxed" lang="zh">
-        作為卡加利（Alberta）的自由網頁開發者，我為本地商家設計並打造登陸頁面、預約系統和客製化網站——每個項目都以同一個目標為核心：將訪客轉化為付費客戶。
-      </p>
+    <!-- Sub text -->
+    <div class="hero-sub">
+      <p lang="en">Conversion-focused landing pages, booking systems &amp; custom web apps — engineered to turn Calgary visitors into paying customers.</p>
+      <p lang="zh">以轉化為核心的登陸頁面、預約系統和客製化網頁——專為卡加利商家將訪客轉化為付費客戶。</p>
     </div>
 
     <!-- CTAs -->
-    <div class="reveal reveal-d3 flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-16">
-      <a href="#contact" class="inline-flex items-center gap-2 bg-[#38BDF8] hover:bg-[#0EA5E9] text-[#0a0a0a] font-semibold text-sm px-7 py-3.5 rounded-full transition-all">
-        <span lang="en">Get a free quote →</span>
-        <span lang="zh">免費諮詢 →</span>
+    <div class="hero-actions">
+      <a href="#contact" class="hero-cta-primary">
+        <span lang="en">Get a free quote</span>
+        <span lang="zh">免費諮詢</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </a>
-      <a href="#work" class="inline-flex items-center gap-2 border border-[rgba(0,0,0,0.18)] text-[#111] hover:border-[#38BDF8] hover:text-[#38BDF8] font-medium text-sm px-7 py-3.5 rounded-full transition-all">
-        <span lang="en">See my work ↓</span>
-        <span lang="zh">查看作品 ↓</span>
+      <a href="#work" class="hero-cta-secondary">
+        <span lang="en">See my work</span>
+        <span lang="zh">查看作品</span>
       </a>
     </div>
 
-    <!-- Trust micro-strip -->
-    <div class="reveal reveal-d4 pt-8 border-t border-[rgba(0,0,0,0.07)]">
-      <div class="flex flex-wrap gap-x-6 gap-y-2">
-        <span class="text-xs text-[#888] font-medium" lang="en">✓ Delivered in 3–7 days</span>
-        <span class="text-xs text-[#888] font-medium" lang="zh">✓ 3–7 天內完成</span>
-        <span class="text-xs text-[#888] font-medium" lang="en">✓ Design approved before you pay a cent</span>
-        <span class="text-xs text-[#888] font-medium" lang="zh">✓ 設計確認後先付款</span>
-        <span class="text-xs text-[#888] font-medium" lang="en">✓ No monthly fees — you own it outright</span>
-        <span class="text-xs text-[#888] font-medium" lang="zh">✓ 無月費，網站完全屬於你</span>
-      </div>
+    <!-- Trust strip -->
+    <div class="hero-trust">
+      <span class="hero-trust-item" lang="en">✦ 3–7 day delivery</span>
+      <span class="hero-trust-item" lang="zh">✦ 3–7 天完成</span>
+      <span class="hero-trust-item" lang="en">✦ Design approved before you pay</span>
+      <span class="hero-trust-item" lang="zh">✦ 設計確認後才付款</span>
+      <span class="hero-trust-item" lang="en">✦ You own it outright — no monthly fees</span>
+      <span class="hero-trust-item" lang="zh">✦ 無月費，網站完全屬於你</span>
+    </div>
+  </div>
+
+  <!-- Vertical scroll indicator -->
+  <div class="hero-scroll-indicator" aria-hidden="true">
+    <div class="hero-scroll-line"></div>
+    <span class="hero-scroll-label">Scroll</span>
+  </div>
+
+  <!-- Marquee strip -->
+  <div class="hero-marquee" aria-hidden="true">
+    <div class="hero-marquee-track">
+      <span>Landing Pages</span><span class="hero-marquee-dot">✦</span>
+      <span>Booking Systems</span><span class="hero-marquee-dot">✦</span>
+      <span>Custom PWAs</span><span class="hero-marquee-dot">✦</span>
+      <span>Calgary Web Dev</span><span class="hero-marquee-dot">✦</span>
+      <span>3–7 Day Delivery</span><span class="hero-marquee-dot">✦</span>
+      <span>Bilingual EN · 中文</span><span class="hero-marquee-dot">✦</span>
+      <span>Conversion Focused</span><span class="hero-marquee-dot">✦</span>
+      <span>Landing Pages</span><span class="hero-marquee-dot">✦</span>
+      <span>Booking Systems</span><span class="hero-marquee-dot">✦</span>
+      <span>Custom PWAs</span><span class="hero-marquee-dot">✦</span>
+      <span>Calgary Web Dev</span><span class="hero-marquee-dot">✦</span>
+      <span>3–7 Day Delivery</span><span class="hero-marquee-dot">✦</span>
+      <span>Bilingual EN · 中文</span><span class="hero-marquee-dot">✦</span>
+      <span>Conversion Focused</span><span class="hero-marquee-dot">✦</span>
     </div>
   </div>
 </section>
@@ -1035,11 +1370,14 @@
     document.documentElement.classList.add('lang-zh');
   }
 
-  /* ── Nav frost on scroll ── */
+  /* ── Nav: frost on scroll + dark-hero mode ── */
   const nav = document.getElementById('site-nav');
-  window.addEventListener('scroll', () => {
+  function updateNav() {
     nav.classList.toggle('scrolled', window.scrollY > 20);
-  }, { passive: true });
+    nav.classList.toggle('at-hero', window.scrollY < window.innerHeight * 0.8);
+  }
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
 
   /* ── Mobile nav ── */
   let mobileOpen = false;
@@ -1056,7 +1394,7 @@
     document.getElementById('icon-close').classList.add('hidden');
   }
 
-  /* ── Scroll reveal via IntersectionObserver ── */
+  /* ── Scroll reveal (non-hero sections) ── */
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -1065,8 +1403,110 @@
       }
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* ════════════════════════════════════════════
+     HERO: Photo grid background builder
+     ─────────────────────────────────────────
+     Grid  : 20 cols × 12 rows = 240 cells
+     Tile  : 5 cols × 2 rows   = one seamless repeat unit
+     Loop  : CSS @keyframes translate by exactly one tile period
+             → no JS RAF, no jump cut, GPU-composited
+  ════════════════════════════════════════════ */
+  (function () {
+    var grid = document.getElementById('hero-bg-grid');
+    if (!grid) return;
+
+    /*
+      ── REPLACE these 10 URLs with your own portfolio / project images ──
+      Tip: keep images roughly 240 × 170 px or wider for best quality.
+      Any aspect ratio works — they're cropped via background-size:cover.
+    */
+    var IMAGES = [
+      'https://picsum.photos/seed/jl01/480/340',
+      'https://picsum.photos/seed/jl02/480/340',
+      'https://picsum.photos/seed/jl03/480/340',
+      'https://picsum.photos/seed/jl04/480/340',
+      'https://picsum.photos/seed/jl05/480/340',
+      'https://picsum.photos/seed/jl06/480/340',
+      'https://picsum.photos/seed/jl07/480/340',
+      'https://picsum.photos/seed/jl08/480/340',
+      'https://picsum.photos/seed/jl09/480/340',
+      'https://picsum.photos/seed/jl10/480/340',
+    ];
+
+    /*
+      Base tile pattern: 5 cols × 2 rows → 10 unique image slots.
+      Grid is 4 × 6 tiles = 20 cols × 12 rows.
+      At (col, row): image index = (row % 2) * 5 + (col % 5)
+      This guarantees the pattern repeats with period_X = 5 and period_Y = 2,
+      matching the CSS @keyframes translate values exactly.
+    */
+    var COLS = 20, ROWS = 12;
+    var frag = document.createDocumentFragment();
+
+    for (var r = 0; r < ROWS; r++) {
+      for (var c = 0; c < COLS; c++) {
+        var cell = document.createElement('div');
+        cell.className = 'hero-grid-cell';
+        var idx = (r % 2) * 5 + (c % 5);
+        cell.style.backgroundImage = 'url(' + IMAGES[idx] + ')';
+        frag.appendChild(cell);
+      }
+    }
+    grid.appendChild(frag);
+  })();
+
+  /* ════════════════════════════════════════════
+     HERO: Staggered entrance animation
+  ════════════════════════════════════════════ */
+  (function () {
+    var eyebrow = document.querySelector('.hero-eyebrow');
+    var lines   = document.querySelectorAll('.hero-clip-inner');
+    var sub     = document.querySelector('.hero-sub');
+    var actions = document.querySelector('.hero-actions');
+    var trust   = document.querySelector('.hero-trust');
+
+    function vis(el, delay) {
+      if (!el) return;
+      setTimeout(function () { el.classList.add('visible'); }, delay);
+    }
+
+    vis(eyebrow, 180);
+    for (var i = 0; i < lines.length; i++) {
+      (function (line, idx) {
+        setTimeout(function () { line.classList.add('revealed'); }, 520 + idx * 210);
+      })(lines[i], i);
+    }
+    vis(sub,     1150);
+    vis(actions, 1400);
+    vis(trust,   1680);
+  })();
+
+  /* ════════════════════════════════════════════
+     HERO: Mouse parallax (desktop only)
+  ════════════════════════════════════════════ */
+  (function () {
+    if (window.innerWidth < 768) return;
+    var inner = document.getElementById('hero-inner');
+    if (!inner) return;
+
+    var tx = 0, ty = 0, cx = 0, cy = 0;
+
+    window.addEventListener('mousemove', function (e) {
+      tx = (e.clientX / window.innerWidth  - 0.5) * 2;
+      ty = (e.clientY / window.innerHeight - 0.5) * 2;
+    }, { passive: true });
+
+    function tick() {
+      cx += (tx - cx) * 0.055;
+      cy += (ty - cy) * 0.055;
+      inner.style.transform =
+        'translate(' + (cx * 13).toFixed(2) + 'px,' + (cy * 8).toFixed(2) + 'px)';
+      requestAnimationFrame(tick);
+    }
+    tick();
+  })();
 </script>
 </body>
 </html>
