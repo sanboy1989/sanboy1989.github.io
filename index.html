@@ -285,46 +285,63 @@
     }
     .hero-bg-track {
       position: absolute;
-      /* Oversized so rotation never exposes the hero background */
-      inset: -100%;
-      transform: rotate(-17deg);
-      animation: heroGridPan 30s linear infinite;
-      will-change: transform;
+      /*
+        inset: -40% → track = 180vw × 180vh.
+        Each of 6 flex cols = 30vw. After 35° rotation:
+        apparent width = 30 × cos(35°) ≈ 24.6vw → 4 cols visible in 100vw.
+      */
+      inset: -40%;
+      transform: rotate(15deg);
+      overflow: hidden;
     }
     .hero-bg-grid {
-      display: grid;
-      /* 20 cols × 12 rows; JS fills cells with background-image */
-      grid-template-columns: repeat(20, 240px);
-      gap: 12px;
-      width: max-content;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      gap: 8px;
+    }
+    /* Each of the 4 scrolling columns */
+    .hero-col {
+      flex: 1;
+      overflow: hidden;
+    }
+    .hero-col-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .hero-col-inner.col-up {
+      animation: colScrollUp 60s linear infinite;
+    }
+    .hero-col-inner.col-down {
+      animation: colScrollDown 60s linear infinite;
+    }
+    @keyframes colScrollUp {
+      0%   { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+    @keyframes colScrollDown {
+      0%   { transform: translateY(-50%); }
+      100% { transform: translateY(0); }
     }
     .hero-grid-cell {
-      width: 240px;
-      height: 170px;
-      border-radius: 4px;
+      width: 100%;
+      height: 250px;
+      flex-shrink: 0;
+      border-radius: 6px;
       background-size: cover;
       background-position: center;
-      background-color: #e0ddd8;  /* fallback while images load */
+      background-color: #e0ddd8;
     }
     .hero-overlay {
       position: absolute;
       inset: 0;
-      /* Warm white at 72 % — photos visible but text remains readable */
-      background: rgba(248, 246, 242, 0.72);
+      background: rgba(248, 246, 242, 0.65);
     }
     /*
-      Seamless-loop math:
-        cell unit  = 240 + 12 = 252 px wide, 170 + 12 = 182 px tall
-        base tile  = 5 cols × 2 rows  →  1260 × 364 px
-        grid built = 20 cols × 12 rows  (4 × 6 full tiles)
-        translate  = −1260 px X, +364 px Y  (one exact tile period)
-      After one cycle the grid is visually identical → no jump cut.
-      Screen direction (−17 ° rotation applied):  ≈ left −1098 px, down +716 px = bottom-left ✓
+      35° rotated track; cols 1 & 3 scroll up, cols 2 & 4 scroll down.
+      Each col-inner has 2× cells (half + duplicate) → seamless -50% loop.
     */
-    @keyframes heroGridPan {
-      0%   { transform: rotate(-17deg) translate(0,       0); }
-      100% { transform: rotate(-17deg) translate(-1260px, 364px); }
-    }
     .hero-inner {
       position: relative;
       z-index: 10;
@@ -1417,44 +1434,54 @@
     var grid = document.getElementById('hero-bg-grid');
     if (!grid) return;
 
-    /*
-      ── REPLACE these 10 URLs with your own portfolio / project images ──
-      Tip: keep images roughly 240 × 170 px or wider for best quality.
-      Any aspect ratio works — they're cropped via background-size:cover.
-    */
+    /* ── REPLACE these 16 URLs with your own project / lifestyle images ── */
     var IMAGES = [
-      'https://picsum.photos/seed/jl01/480/340',
-      'https://picsum.photos/seed/jl02/480/340',
-      'https://picsum.photos/seed/jl03/480/340',
-      'https://picsum.photos/seed/jl04/480/340',
-      'https://picsum.photos/seed/jl05/480/340',
-      'https://picsum.photos/seed/jl06/480/340',
-      'https://picsum.photos/seed/jl07/480/340',
-      'https://picsum.photos/seed/jl08/480/340',
-      'https://picsum.photos/seed/jl09/480/340',
-      'https://picsum.photos/seed/jl10/480/340',
+      'https://picsum.photos/seed/jl01/800/600',
+      'https://picsum.photos/seed/jl02/800/600',
+      'https://picsum.photos/seed/jl03/800/600',
+      'https://picsum.photos/seed/jl04/800/600',
+      'https://picsum.photos/seed/jl05/800/600',
+      'https://picsum.photos/seed/jl06/800/600',
+      'https://picsum.photos/seed/jl07/800/600',
+      'https://picsum.photos/seed/jl08/800/600',
+      'https://picsum.photos/seed/jl09/800/600',
+      'https://picsum.photos/seed/jl10/800/600',
+      'https://picsum.photos/seed/jl11/800/600',
+      'https://picsum.photos/seed/jl12/800/600',
+      'https://picsum.photos/seed/jl13/800/600',
+      'https://picsum.photos/seed/jl14/800/600',
+      'https://picsum.photos/seed/jl15/800/600',
+      'https://picsum.photos/seed/jl16/800/600',
     ];
 
     /*
-      Base tile pattern: 5 cols × 2 rows → 10 unique image slots.
-      Grid is 4 × 6 tiles = 20 cols × 12 rows.
-      At (col, row): image index = (row % 2) * 5 + (col % 5)
-      This guarantees the pattern repeats with period_X = 5 and period_Y = 2,
-      matching the CSS @keyframes translate values exactly.
+      4 columns: cols 0 & 2 → up, cols 1 & 3 → down.
+      Each col-inner has HALF × 2 cells; animation runs -50% → seamless.
+      HALF = 20 covers up to 4K screens (20 × 258px = 5160px per half).
+      Each column cycles through 4 unique images from its own image slice.
     */
-    var COLS = 20, ROWS = 12;
-    var frag = document.createDocumentFragment();
+    var HALF = 24;  /* 24 cells per half covers up to ~4K tall screens */
+    var DIRECTIONS = ['col-up', 'col-down', 'col-up', 'col-down', 'col-up', 'col-down'];
 
-    for (var r = 0; r < ROWS; r++) {
-      for (var c = 0; c < COLS; c++) {
+    for (var col = 0; col < 6; col++) {
+      var colDiv = document.createElement('div');
+      colDiv.className = 'hero-col';
+
+      var inner = document.createElement('div');
+      inner.className = 'hero-col-inner ' + DIRECTIONS[col];
+
+      for (var i = 0; i < HALF * 2; i++) {
         var cell = document.createElement('div');
         cell.className = 'hero-grid-cell';
-        var idx = (r % 2) * 5 + (c % 5);
-        cell.style.backgroundImage = 'url(' + IMAGES[idx] + ')';
-        frag.appendChild(cell);
+        /* Each column uses a slice of 4 images, cycling within that slice */
+        var imgIdx = (col * 4 + (i % 4)) % IMAGES.length;
+        cell.style.backgroundImage = 'url(' + IMAGES[imgIdx] + ')';
+        inner.appendChild(cell);
       }
+
+      colDiv.appendChild(inner);
+      grid.appendChild(colDiv);
     }
-    grid.appendChild(frag);
   })();
 
   /* ════════════════════════════════════════════
